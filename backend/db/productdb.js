@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const subcategorymodel = require('../db/subcategorydb')
-const brandmodel = require('../db/branddb')
-const messurementmodel = require('../db/messurementdb')
 const productSchema = new mongoose.Schema({
     pname: {
         type: String,
@@ -15,20 +13,17 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    mid: {
-        // type: mongoose.Schema.Types.ObjectId,
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'messurementmodel' }],
-        required: [true, "messurement is required"]
-        // required: true
+    mname: {//messurement unit
+        type: String,
+        required: true
     },
     qty: {
         type: String,
         required: true
     },
-    bid: {
-        //type: mongoose.Schema.Types.ObjectId,
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'brandmodel' }],
-        required: [true, "brand is required"]
+    bname: {//brand name
+        type: String,
+        required: true
     },
     pimg: {
         type: String,

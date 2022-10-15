@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
-const cartmodel = require('../db/categorydb')
 const productmodel = require('../db/productdb')
-const rgmodel = require('../db/registrationdb')
-const messuremodel = require('../db/messurementdb')
+const mastercartmodel = require('../db/mastercart')
 
 const cartSchema = new mongoose.Schema({
-    Rid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
-        required: [true, "Category is required"]
+    Mcid: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'mastercartmodel' }],
+        required: [true, "master cart id is required"]
     },
     Pid: {
         //type: mongoose.Schema.Types.ObjectId,
@@ -18,8 +16,8 @@ const cartSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    mid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'messuremodel' }],
+    mname: {
+        type: String,
         required: true
     },
 });

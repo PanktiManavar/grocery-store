@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const ordermodel = require('../db/orderdb')
 const productmodel = require('../db/productdb')
-const messuremodel = require('../db/messurementdb')
 
 const orderitemSchema = new mongoose.Schema({
     oid: {
@@ -16,10 +15,10 @@ const orderitemSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    mid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'messurementmodel' }],
-        required: [true, "messurement is required"]
+    mname: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = registartion = mongoose.model('tbl_category', orderitemSchema);
+module.exports = registartion = mongoose.model('tbl_orderitem', orderitemSchema);

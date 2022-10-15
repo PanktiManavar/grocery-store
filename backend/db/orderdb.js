@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const rgmodel = require('../db/registrationdb')
 const coupanmodel = require('../db/coupancodedb')
-const orderstatusmodel = require('../db/orderstatusdb')
+const pincodemodel = require('../db/pincodedb');
 
 const feedbackSchema = new mongoose.Schema({
     Rid: {
@@ -25,8 +25,8 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     pinid: {
-        type: Number,
-        required: true
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'pincodemodel' }],
+        required: [true, "Pincode is required"]
     },
     rid: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
@@ -43,9 +43,9 @@ const feedbackSchema = new mongoose.Schema({
     payment_id: {
         type: Number
     },
-    osid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
-        required: [true, "order status is required"]
+    ostatus: {
+        type: String,
+        required: true
     },
     cancel_at: {
         type: date
@@ -62,4 +62,4 @@ const feedbackSchema = new mongoose.Schema({
 
 });
 
-module.exports = registartion = mongoose.model('tbl_feedback', feedbackSchema);
+module.exports = registartion = mongoose.model('tbl_order', feedbackSchema);
