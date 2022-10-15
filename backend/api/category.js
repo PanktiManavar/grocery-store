@@ -56,15 +56,26 @@ module.exports = {
     },
     deletecategory: async (req, resp) => {
         try {
-            const result = await categorymodel.findByIdAndDelete();
-            if (result) {
-                //console.log(result);
-                resp.send({ result: result });
+            const resultp = await categorymodel.findById(req.params.id);
+
+            if (resultp.status == "Active") {
+                const updateinfo = await categorymodel.findByIdAndUpdate(req.params.id, { $set: { status: "Deactive" } }, { new: true });
+                if (updateinfo) {
+                    resp.send("Update status in deactive")
+                }
+                else {
+                    resp.send("Status does not update")
+                }
+            } else if (resultp.status == "Deactive") {
+                const updateinfo = await categorymodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
+                if (updateinfo) {
+                    // resp.send(updateinfo)
+                    resp.send("Update status in Active")
+                }
+                else {
+                    resp.send("Status does not update")
+                }
             }
-            else {
-                resp.send("Not found");
-                return;
-            } z
         }
         catch (err) {
             console.log(err.message);

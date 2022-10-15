@@ -51,13 +51,6 @@ router.post('/', [
             await emailfind.save();
 
             resp.send('user Registered!!!');
-            // jwt token
-            const payload = {
-                emailfind: {
-                    id: emailfind.id
-                }
-            }
-            jwt.sign(payload,);
 
         } catch (err) {
             console.error(err.message);

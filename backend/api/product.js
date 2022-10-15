@@ -49,9 +49,9 @@ router.post('/insertproduct', upload.single("pimg"), async (req, resp) => {
         pname: req.body.pname,
         descripation: req.body.descripation,
         price: req.body.price,
-        mid: req.body.mid,
+        mname: req.body.mname,
         qty: req.body.qty,
-        bid: req.body.bid,
+        bname: req.body.bname,
         pimg: path,
         subid: req.body.subid,
     }
@@ -62,12 +62,6 @@ router.post('/insertproduct', upload.single("pimg"), async (req, resp) => {
 
     let result = await product.save();
     resp.send(result);
-
-    // product = new productmodel(req.body);
-
-
-    // await product.save();
-    // resp.send('Product Inserted!!!');
 
 });
 
@@ -80,5 +74,67 @@ router.get("/getproduct", async (req, resp, next) => {
     }
 });
 
+router.get("/getidbyproduct/:id", async (req, resp, next) => {
+    try {
+        const result = await productmodel.findById(req.params.id);
+        if (result) {
+            console.log(result);
+            resp.send({ result: result });
+        }
+        else {
+            resp.send("Not found");
+            return;
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+});
+
+router.put("/updateProduct/:id", async (req, resp, next) => {
+    try {
+        const id = req.params.id;
+        const update = req.body;
+        const options = { new: true };
+        const result = await productmodel.findByIdAndUpdate(id, update, options);
+        if (result) {
+            //resp.send("Data updated");
+            resp.send({ result: result });
+        }
+        else {
+            resp.send("User Product is not updated");
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+});
+router.patch("/deleteProduct/:id", async (req, resp, next) => {
+    try {
+        const resultp = await productmodel.findById(req.params.id);
+
+        if (resultp.status == "Active") {
+            const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Deactive" } }, { new: true });
+            if (updateinfo) {
+                resp.send("Update status in deactive")
+            }
+            else {
+                resp.send("Status does not update")
+            }
+        } else if (resultp.status == "Deactive") {
+            const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
+            if (updateinfo) {
+                // resp.send(updateinfo)
+                resp.send("Update status in Active")
+            }
+            else {
+                resp.send("Status does not update")
+            }
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+});
 
 module.exports = router;

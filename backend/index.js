@@ -10,8 +10,6 @@ const categoryrouter = require('./router/category_router');
 const pincoderouter = require('./router/pincode_router');
 const subcategoryrouter = require('./router/subcategory_router');
 const login = require('./router/login_router');
-const messurement = require('./router/messurement_router');
-const brand = require('./router/brand_router');
 const product = require('./api/product');
 const register = require('./router/register_router')
 
@@ -28,8 +26,6 @@ app.use('/', login);
 app.use('/', categoryrouter);
 app.use('/', pincoderouter);
 app.use('/', subcategoryrouter);
-app.use('/', messurement);
-app.use('/', brand);
 app.use('/', product);
 app.use('/', register);
 
@@ -37,9 +33,4 @@ app.use('/', register);
 const img = require('./api/imgdemo');
 app.use('/', img);
 
-// app.post("/se", async (req, resp) => {
-//     // let user = new User(req.body);
-//     // let result = await user.save();
-//     resp.send(req.body);
-// });
 app.listen(8000);

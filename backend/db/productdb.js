@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    mname: {//messurement unit
+    mname: {
         type: String,
         required: true
     },
@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     },
     bname: {//brand name
         type: String,
-        required: true
+        //  required: true
     },
     pimg: {
         type: String,
