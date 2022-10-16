@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const Usermodel = require('../db/User');
 
 router.post('/', async (req, resp) => {
-    return console.log(req.body);
+    // return console.log(req.body);
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
     //     return resp.status(400).json({ errors: errors.array() });
@@ -45,9 +45,25 @@ router.post('/', async (req, resp) => {
 
 });
 
-// router.post('/', (req, resp) => {
-//     console.log(req.body);
-//     resp.send('user router');
-// })
+router.put('/user/update', async (req, resp) => {
+    try {
+        const userid = req.body.id
+        const password = req.body.password;
+        const data = await Usermodel.findOne({ _id: userid });
+        if (data) {
+            const salt = await bcrypt.genSalt(10);
+            newpass = await bcrypt.hash(password, salt);
+            const userdata = await Usermodel.findByIdAndUpdate({ _id: userid }, { $set: { password: newpass } });
+        }
+
+        resp.send("Your Password has been  updated");
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+    // console.log(req.body);
+    // resp.send('user router');
+})
+
 
 module.exports = router;

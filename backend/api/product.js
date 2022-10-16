@@ -6,6 +6,8 @@ const multer = require("multer");
 const { parse } = require("path");
 const Path = require("path");
 
+
+
 const { check, validationResult } = require('express-validator');
 
 const storage = multer.diskStorage({
@@ -130,6 +132,22 @@ router.patch("/deleteProduct/:id", async (req, resp, next) => {
             else {
                 resp.send("Status does not update")
             }
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+});
+
+router.get("/searchproduct", async (req, resp) => {
+    try {
+        var search = req.body.search;
+        var product_data = await productmodel.find({ "pname": { $regex: ".*" + search + ".*", $options: "i" } })
+        if (product_data) {
+            resp.status(200).send({ success: true, msg: "Product Detais", data: product_data });
+        }
+        else {
+            resp.status(200).send({ success: true, msg: "Product Not found" });
         }
     }
     catch (err) {

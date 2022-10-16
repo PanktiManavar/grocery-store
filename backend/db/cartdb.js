@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const productmodel = require('../db/productdb')
-const mastercartmodel = require('../db/mastercart')
+const rgmodel = require('../db/registrationdb')
 
 const cartSchema = new mongoose.Schema({
-    Mcid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'mastercartmodel' }],
-        required: [true, "master cart id is required"]
+    Rid: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
+        required: [true, "user id is required"]
     },
     Pid: {
         //type: mongoose.Schema.Types.ObjectId,
