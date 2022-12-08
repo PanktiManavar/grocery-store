@@ -40,52 +40,65 @@ import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 //for Customer
 import CustHome from './Customer/CustHome';
 
+import AllNav from './Navbar/AllNav';
+import AdminComponent from './component/AdminComponent';
+import CustomerComponent from './component/CustomerComponent';
+
 function App() {
   return (
     <div className="App">
       <NavBar />
       <BrowserRouter>
+        <AllNav />
         <Routes>
           {/* for viewers */}
-          <Route path="/Home" element={<Home></Home>} />
-          <Route path="/Product" element={<Product></Product>} />
-          <Route path="/About" element={<About></About>} />
-          <Route path="/Contact" element={<Contact></Contact>} />
           <Route path="/Login" element={<Login></Login>} />
           <Route path="/Signin" element={<Signin></Signin>} />
-          <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
-          <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
-          <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
-          <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
-          <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
-          <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
-          <Route path='/CheckOutForm' element={<CheckOutForm />} />
+          <Route element={<CustomerComponent />}>
+            <Route path="/Home" element={<Home></Home>} />
+            <Route path="/Product" element={<Product></Product>} />
+            <Route path="/About" element={<About></About>} />
+            <Route path="/Contact" element={<Contact></Contact>} />
+            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+            <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
+            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
+            <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
+            <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
+            <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
+
+            <Route path='/CheckOutForm' element={<CheckOutForm />} />
+          </Route>
+
           {/* for admin */}
-          <Route path="/AdminHome/Home" element={<AdminHome></AdminHome>} />
-          <Route path="/AdminAbout" element={<AdminAbout></AdminAbout>} />
-          <Route path="/AdminProduct" element={<AdminProduct></AdminProduct>} />
-          <Route path="/AddProduct" element={<AddProduct></AddProduct>} />
-          <Route path="/AddCategory" element={<AddCategory></AddCategory>} />
-          <Route path="/AddDeliveryBoy" element={<AddDeliveryBoy></AddDeliveryBoy>} />
-          <Route path="/AddSubCategory" element={<AddSubCategory></AddSubCategory>} />
-          <Route path="/AddPincode" element={<AddPincode />} />
-          <Route path="/SelectPincode" element={<SelectPincode></SelectPincode>} />
-          <Route path="/SelectCategory" element={<SelectCategory />} />
-          <Route path="/UpdatePincode/:id" element={<UpdatePincode />} />
-          <Route path='/UpdateCategory/:id' element={<UpdateCategory />} />
-          <Route path="/SelectSubCategory" element={<SelectSubCategory />} />
-          <Route path="/UpdateSubCategory/:id" element={<UpdateSubCategory />} />
-          <Route path="/SelectProduct" element={<SelectProduct />} />
-          <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
-          <Route path="/SelectDeliverBoy" element={<SelectDeliverBoy />} />
-          <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
+          <Route element={<AdminComponent />}>
+            <Route path="/AdminHome" element={<AdminHome />} />
+            <Route path="/AdminAbout" element={<AdminAbout></AdminAbout>} />
+            <Route path="/AdminProduct" element={<AdminProduct></AdminProduct>} />
+            <Route path="/AddProduct" element={<AddProduct></AddProduct>} />
+            <Route path="/AddCategory" element={<AddCategory></AddCategory>} />
+            <Route path="/AddDeliveryBoy" element={<AddDeliveryBoy></AddDeliveryBoy>} />
+            <Route path="/AddSubCategory" element={<AddSubCategory></AddSubCategory>} />
+            <Route path="/AddPincode" element={<AddPincode />} />
+            <Route path="/SelectPincode" element={<SelectPincode></SelectPincode>} />
+            <Route path="/SelectCategory" element={<SelectCategory />} />
+            <Route path="/UpdatePincode/:id" element={<UpdatePincode />} />
+            <Route path='/UpdateCategory/:id' element={<UpdateCategory />} />
+            <Route path="/SelectSubCategory" element={<SelectSubCategory />} />
+            <Route path="/UpdateSubCategory/:id" element={<UpdateSubCategory />} />
+            <Route path="/SelectProduct" element={<SelectProduct />} />
+            <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
+            <Route path="/SelectDeliverBoy" element={<SelectDeliverBoy />} />
+            <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
+          </Route>
           {/* for customer */}
           <Route path="/CustHome" element={<CustHome></CustHome>} />
         </Routes>
+
       </BrowserRouter>
+
       <Footer />
 
-    </div>
+    </div >
   );
 };
 

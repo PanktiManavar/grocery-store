@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+// import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const CheckOutForm = () => {
 
-  const [Fname, setFname] = React.useState("");
-  const [Lname, setLname] = React.useState("");
-  const [Address, setAddress] = React.useState("");
-  const [TotalPrice, setTotalPrice] = React.useState("");
-  const [FinalPrice, setFinalPrice] = React.useState("");
+  // const [Fname, setFname] = React.useState("");
+  // const [Lname, setLname] = React.useState("");
+  // const [Address, setAddress] = React.useState("");
+  // const [TotalPrice, setTotalPrice] = React.useState("");
+  // const [FinalPrice, setFinalPrice] = React.useState("");
 
   return (
     <>
@@ -38,6 +38,15 @@ const CheckOutForm = () => {
                     <input type="email" class="form-control" placeholder='Email' />
                   </div>
                 </div>
+              </div>
+              <div className='form-group'>
+                <h4 className='h4-sty'>02. Shipping Details</h4></div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-outline">
+                    <input type="text-area" class="form-control" placeholder='Address' />
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <div class="form-outline">
                     <input type="text" class="form-control" placeholder='Pincode Number' />
@@ -45,27 +54,58 @@ const CheckOutForm = () => {
                 </div>
               </div>
               <div className='form-group'>
-                <h4>02. Shipping Details</h4></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="email" class="form-control" placeholder='Email' />
+                <h5 className='h4-sty'>Shipping Cost</h5>
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <div>
+                    <div className='p-3 card border-gray rounded-md '>
+                      <label className='cursor-pointer label flex items-center justify-between'>
+                        <div>
+                          <div>
+                            <h5>Fast Delivery</h5>
+                            <h6 className='p-sty'>Today Cost : Rs.110</h6>
+                          </div>
+                        </div>
+                        <div>
+                          <input type="radio" value="hhh"></input>
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" class="form-control" placeholder='Pincode Number' />
+                  <div>
+                    <div className='p-3 card border-gray rounded-md '>
+                      <label className='cursor-pointer label flex items-center justify-between'>
+                        <div>
+                          <h5>Late Delivery</h5>
+                          <h6 className='p-sty'>Cost : Rs.70</h6>
+                        </div>
+                        <div>
+                          <input type="radio" value="hhh"></input>
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
+              <div class="row">
+                <div class="col-md-8">
+                  <div className="form-group">
+                    <button className="btn btn-primary btn-block" >Payment Process</button>
+                  </div>
+                </div>
+              </div>
             </form>
-            <div className="image-holder"></div>
+            <div className="image-holder">
+
+
+            </div>
           </div>
         </div>
 
-      </FormContainer>
+      </FormContainer >
     </>
   );
 };
@@ -78,13 +118,29 @@ const FormContainer = styled.div`{
      padding:80px 0;
      margin-top:30px;
    }
-   
-
+  
+   .p-sty{
+    font:size:20px;
+   }
+    .h4-sty{
+      margin-top:12px;
+    }
+    .cursor-pointer {
+      cursor: pointer;
+    }
+    .justify-between {
+      justify-content: space-between;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .flex {
+      display: flex;
+    }
    .register-photo .image-holder {
      display:table-cell;
      width:350px;
      height:100px;
-     background:url(image/loginimg.jpg);
      background-size:cover;
    }
    

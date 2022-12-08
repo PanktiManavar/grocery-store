@@ -15,6 +15,7 @@ const AddProduct = () => {
   const [qty, setQty] = useState('');
   const [bname, setBname] = useState('');
   const [pimg, setPimg] = useState('');
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,6 +25,11 @@ const AddProduct = () => {
   }, [])
 
   const collectdata = async () => {
+
+    if (!pname || !descripation || !price || !qty || !mname || !pimg || !bname || !subid) {
+      setError(true);
+      return false;
+    }
     // return console.log(pimg);
     const formdata = new FormData();
     formdata.append('pname', pname);
@@ -89,14 +95,17 @@ const AddProduct = () => {
               <h2 className="text-center"><strong>Add</strong> New Product.</h2>
               <div className="form-group">
                 <input className="form-control" type="text" value={pname} onChange={(e) => setPname(e.target.value)} placeholder="Product Name" />
+                {error && !pname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
                 <textarea className="form-control" type="text" value={descripation} onChange={(e) => setDescipation(e.target.value)} placeholder="Discription" />
+                {error && !descripation && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
                 <input className="form-control" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price in Rupees" />
+                {error && !price && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
@@ -108,17 +117,22 @@ const AddProduct = () => {
                   <option value="Packet">Packet</option>
                 </select>
               </div>
+              {error && !mname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please Select this field!</span>}
+
 
               <div className="form-group">
                 <input className="form-control" type="number" value={qty} onChange={(e) => setQty(e.target.value)} placeholder="Quantity" />
+                {error && !qty && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
                 <input className="form-control" type="text" value={bname} onChange={(e) => setBname(e.target.value)} placeholder="Brand Name" />
+                {error && !bname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
                 <input className="form-control" type="file" onChange={filehandale} />
+                {error && !pimg && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               {/* category dropdown  */}

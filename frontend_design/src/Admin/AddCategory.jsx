@@ -5,60 +5,71 @@ import { useNavigate } from 'react-router-dom';
 
 const AddCategory = () => {
 
-    const [cname, setCname] = React.useState('');
+  const [cname, setCname] = React.useState('');
+  const [error, setError] = useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const addCategory = async () => {
-        console.warn(cname);
-        // const userId = JSON.parse(localStorage.getItem('user'))._id;
-        let result = await fetch('api/categoryinsert', {
-            method: 'post',
-            body: JSON.stringify({ cname }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        result = await result.json();
-        if (result) {
-            alert("Category inserted");
-            navigate('/AddSubCategory');
-        }
-        else {
-            alert("Category not inserted");
-        }
-        console.warn(result);
+
+  const addCategory = async () => {
+
+
+    if (!cname) {
+      setError(true);
+      return false;
     }
 
-
-
-    return (
-        <>
-            <FormContainer>
-                <div className="register-photo">
-                    <div className="form-container">
-                        {/* <div className="image-holder"></div> */}
-                        <form >
-                            <h2 className="text-center"><strong>Add</strong> New Category.</h2>
-                            <div className="form-group">
-                                <input className="form-control" type="text" value={cname} onChange={(e) => setCname(e.target.value)} placeholder="Category" />
-                            </div>
-
-                            <div className="form-group">
-                                <button className="btn btn-primary btn-block" onClick={addCategory}>Add Category</button>
-                            </div>
-                            {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
-                        </form>
-                    </div>
-                </div>
-
+    console.warn(cname);
+    // const userId = JSON.parse(localStorage.getItem('user'))._id;
+    let result = await fetch('api/categoryinsert', {
+      method: 'post',
+      body: JSON.stringify({ cname }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    result = await result.json();
+    if (result) {
+      alert("Category inserted");
+      navigate('/AddSubCategory');
+    }
+    else {
+      alert("Category not inserted");
+    }
+    console.warn(result);
+  }
 
 
 
+  return (
+    <>
+      <FormContainer>
+        <div className="register-photo">
+          <div className="form-container">
+            {/* <div className="image-holder"></div> */}
+            <form >
+              <h2 className="text-center"><strong>Add</strong> New Category.</h2>
+              <div className="form-group">
+                <input className="form-control" type="text" value={cname} onChange={(e) => setCname(e.target.value)} placeholder="Category" />
+                {error && !cname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out category field!</span>}
 
-            </FormContainer>
-        </>
-    );
+              </div>
+
+              <div className="form-group">
+                <button className="btn btn-primary btn-block" onClick={addCategory}>Add Category</button>
+              </div>
+              {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+      </FormContainer>
+    </>
+  );
 };
 
 export default AddCategory;

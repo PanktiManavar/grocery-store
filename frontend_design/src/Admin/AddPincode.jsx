@@ -5,9 +5,15 @@ import styled from "styled-components";
 const AddPincode = () => {
 
   const [pcode, setPcode] = React.useState('');
+  const [error, setError] = React.useState(false);
   const navigate = useNavigate();
 
   const addPincode = async () => {
+
+    if (!pcode) {
+      setError(true);
+      return false;
+    }
 
     console.warn(pcode);
     let result = await fetch('api/pincodeinsert', {
@@ -38,8 +44,8 @@ const AddPincode = () => {
             <form>
               <h2 className="text-center"><strong>Add</strong> New Pincode.</h2>
               <div className="form-group">
-                <input className="form-control" type="text" value={pcode} onChange={(e) => setPcode(e.target.value)} placeholder="Pincode" />
-              </div>
+                <input className="form-control" type="number" value={pcode} onChange={(e) => setPcode(e.target.value)} placeholder="Pincode" />
+                {error && !pcode && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <button className="btn btn-primary btn-block" onClick={addPincode}>Add Pincode</button>

@@ -44,6 +44,29 @@ const Product = () => {
     setLoading(false);
   }
 
+  const Addcart = async (product) => {
+    return console.log("hello");
+    //   let result = await fetch('api/cartinsert', {
+    //     method: 'post',
+    //     body: JSON.stringify({ pcode }),
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   });
+    //   result = await result.json();
+    //   if (result) {
+    //     alert("Pincode inserted");
+    //     navigate('/SelectPincode');
+
+    //   }
+    //   else {
+    //     alert("Pincode not inserted");
+    //   }
+    //   console.warn(result);
+    // }
+
+  }
+
   const Loading = () => {
     return (
       <>
@@ -93,7 +116,7 @@ const Product = () => {
                   <>
                     <div className="box">
                       <div className="icons">
-                        <Link to="#"><FaShoppingCart></FaShoppingCart></Link>
+                        <Link to=""><FaShoppingCart></FaShoppingCart></Link>
                         <Link to="#"><FaHeart></FaHeart></Link>
                         <Link to={`/Product/${product._id}`}> <FaEye></FaEye></Link>
                       </div>
@@ -103,7 +126,9 @@ const Product = () => {
                       </div>
                       <div className="content">
                         <h3>{product.pname}</h3>
-                        <div className="price">Rs.{product.price}</div>
+
+                        <div className="price">Rs.{product.price} | Mess. : {product.mname}</div>
+
                       </div>
                     </div>
 

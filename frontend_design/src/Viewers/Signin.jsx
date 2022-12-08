@@ -9,10 +9,17 @@ const Signin = () => {
   const [Email, setEmail] = React.useState("");
   const [Password, setPassword] = React.useState("");
   const [MobileNo, setMobileNo] = React.useState("");
+  const [error, setError] = React.useState(false);
   const UserType = "customer"
   const navigate = useNavigate();
 
   const collectData = async (e) => {
+
+    if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType) {
+      setError(true);
+      return false;
+    }
+
     console.warn(Fname, Lname, Email, Password, MobileNo,UserType);
     let result = await fetch('api/registration', {
       method: 'post',
@@ -54,18 +61,27 @@ const Signin = () => {
               <h2 className="text-center"><strong>Create</strong> an account.</h2>
               <div className="form-group">
                 <input className="form-control" type="text" value={Fname} onChange={(e) => setFName(e.target.value)} placeholder="First Name" />
+                {error && !Fname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out First Name field!</span>}
               </div>
               <div className="form-group">
                 <input className="form-control" type="text" value={Lname} onChange={(e) => setLName(e.target.value)} placeholder="Last Name" />
+                {error && !Lname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Last Name field!</span>}
+
               </div>
               <div className="form-group">
                 <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Email field!</span>}
+
               </div>
               <div className="form-group">
                 <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Password field!</span>}
+
               </div>
               <div className="form-group">
                 <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Mobile Number" />
+                {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Mobile Number field!</span>}
+
               </div>
               {/* <div className="form-group"> */}
               <button className="btn btn-primary btn-block" onClick={collectData}>Signin</button>

@@ -10,10 +10,17 @@ const AddDeliverBoy = () => {
   const [Address, setAddress] = React.useState("");
   const [Password, setPassword] = React.useState("");
   const [MobileNo, setMobileNo] = React.useState("");
+  const [error, setError] = React.useState(false);
   const UserType = "deliveryboy"
   // const navigate = useNavigate();
 
   const collectData = async (e) => {
+
+    if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType) {
+      setError(true);
+      return false;
+    }
+
     console.warn(Fname, Lname, Email, Address, Password, MobileNo, UserType);
     let result = await fetch('api/registration', {
       method: 'post',
@@ -55,27 +62,27 @@ const AddDeliverBoy = () => {
               <h2 className="text-center"><strong>Add</strong> Delivery Boy.</h2>
               <div className="form-group">
                 <input className="form-control" type="text" value={Fname} onChange={(e) => setFName(e.target.value)} placeholder="Delivery Boy First Name" />
-              </div>
+                {error && !Fname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <input className="form-control" type="text" value={Lname} onChange={(e) => setLName(e.target.value)} placeholder="Delivery Boy Last Name" />
-              </div>
+                {error && !Lname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <textarea className="form-control" type="text" value={Address} onChange={(e) => setAddress(e.target.value)} placeholder="Delivery Boy Address" />
-              </div>
+                {error && !Address && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Delivery Boy Email" />
-              </div>
+                {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Delivery Boy Password" />
-              </div>
+                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Delivery Boy Mobile Number" />
-              </div>
+                {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
                 <button className="btn btn-primary btn-block" onClick={collectData}>Add Deliver Boy</button>

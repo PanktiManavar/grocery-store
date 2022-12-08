@@ -8,6 +8,7 @@ const AddSubCategory = () => {
   const [cid, setCategoryid] = useState('');
   const [sname, setSubCategoryname] = useState('');
   const [category, setCategory] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +16,11 @@ const AddSubCategory = () => {
   }, [])
 
   const collectdata = async () => {
+
+    if (!cid || !sname) {
+      setError(true);
+      return false;
+    }
 
     let result = await fetch("api/subcategoryinsert", {
       method: "post",
@@ -63,6 +69,8 @@ const AddSubCategory = () => {
               </div>
               <div className="form-group">
                 <input className="form-control" type="text" value={sname} onChange={(e) => setSubCategoryname(e.target.value)} placeholder="Sub Category" />
+                {error && !sname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
+
               </div>
 
               <div className="form-group">
