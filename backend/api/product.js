@@ -2,11 +2,9 @@ const express = require('express');
 const router = express.Router();
 const productmodel = require('../db/productdb');
 const jwt = require('jsonwebtoken');
-const multer = require("multer");
 const { parse } = require("path");
 const Path = require("path");
-
-
+const multer = require("multer");
 
 const { check, validationResult } = require('express-validator');
 
@@ -15,7 +13,7 @@ const storage = multer.diskStorage({
         cb(null, "./img");
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
+        cb(null, Date.now() + "_" + file.originalname);
     }
 });
 const fileFilter = (req, file, callback) => {
@@ -37,122 +35,122 @@ var upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     filesize: 1048576
-});
-
-router.post('/insertproduct', upload.single("pimg"), async (req, resp) => {
+}).single("pimg");
 
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return resp.status(400).json({ errors: errors.array() });
-    }
-    const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
-    var model = {
-        pname: req.body.pname,
-        descripation: req.body.descripation,
-        price: req.body.price,
-        mname: req.body.mname,
-        qty: req.body.qty,
-        bname: req.body.bname,
-        pimg: path,
-        subid: req.body.subid,
-    }
+module.exports = {
+    insertproduct: async (req, resp) => {
+        upload(req, resp, function (err) {
 
-    let product = new productmodel(model);
-    // return console.log("hello");
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return resp.status(400).json({ errors: errors.array() });
+            }
+            const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
+            var model = {
+                pname: req.body.pname,
+                descripation: req.body.descripation,
+                price: req.body.price,
+                mname: req.body.mname,
+                qty: req.body.qty,
+                pimg: path,
+                subid: req.body.subid,
+            }
 
+            const product = new productmodel(model);
+            // return resp.send(product);
 
-    let result = await product.save();
-    resp.send(result);
+            const result = product.save();
+            resp.send(result);
+        });
 
-});
+    },
 
-router.get("/getproduct", async (req, resp, next) => {
-    let products = await productmodel.find();
-    if (products.length > 0) {
-        resp.send(products)
-    } else {
-        resp.send({ result: "no products found" })
-    }
-});
-
-router.get("/getidbyproduct/:id", async (req, resp, next) => {
-    try {
-        const result = await productmodel.findById(req.params.id);
-        if (result) {
-            console.log(result);
-            resp.send({ result: result });
+    selectproduct: async (req, resp, next) => {
+        let products = await productmodel.find().populate("subid", "sname");
+        if (products.length > 0) {
+            resp.send(products)
+        } else {
+            resp.send({ result: "no products found" })
         }
-        else {
-            resp.send("Not found");
-            return;
-        }
-    }
-    catch (err) {
-        console.log(err.message);
-    }
-});
-
-router.put("/updateProduct/:id", async (req, resp, next) => {
-    try {
-        const id = req.params.id;
-        const update = req.body;
-        const options = { new: true };
-        const result = await productmodel.findByIdAndUpdate(id, update, options);
-        if (result) {
-            //resp.send("Data updated");
-            resp.send({ result: result });
-        }
-        else {
-            resp.send("User Product is not updated");
-        }
-    }
-    catch (err) {
-        console.log(err.message);
-    }
-});
-router.patch("/deleteProduct/:id", async (req, resp, next) => {
-    try {
-        const resultp = await productmodel.findById(req.params.id);
-
-        if (resultp.status == "Active") {
-            const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Deactive" } }, { new: true });
-            if (updateinfo) {
-                resp.send("Update status in deactive")
+    },
+    selectProductbCategoryID: async (req, resp) => {
+        try {
+            const result = await productmodel.find({ status: "Active", subid: req.params.id }).populate("subid", "sname");
+            if (result) {
+                // console.log(result);
+                resp.send({ result: result });
             }
             else {
-                resp.send("Status does not update")
+                resp.send(JSON.stringify('Not record found'));
+                return;
             }
-        } else if (resultp.status == "Deactive") {
-            const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
-            if (updateinfo) {
-                // resp.send(updateinfo)
-                resp.send("Update status in Active")
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    selectproductById: async (req, resp, next) => {
+        try {
+            const result = await productmodel.findById(req.params.id).populate("subid", "sname");
+            if (result) {
+                console.log(result);
+                resp.send({ result: result });
             }
             else {
-                resp.send("Status does not update")
+                resp.send("Not found");
+                return;
             }
         }
-    }
-    catch (err) {
-        console.log(err.message);
-    }
-});
-
-router.get("/searchproduct", async (req, resp) => {
-    try {
-        var search = req.body.search;
-        var product_data = await productmodel.find({ "pname": { $regex: ".*" + search + ".*", $options: "i" } })
-        if (product_data) {
-            resp.status(200).send({ success: true, msg: "Product Detais", data: product_data });
+        catch (err) {
+            console.log(err.message);
         }
-        else {
-            resp.status(200).send({ success: true, msg: "Product Not found" });
+    },
+
+    deleteproduct: async (req, resp) => {
+        try {
+            const resultp = await productmodel.findById(req.params.id);
+
+            if (resultp.status == "Active") {
+                const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Deactive" } }, { new: true });
+                if (updateinfo) {
+                    resp.send("Update status in deactive")
+                }
+                else {
+                    resp.send("Status does not update")
+                }
+            } else if (resultp.status == "Deactive") {
+                const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
+                if (updateinfo) {
+                    // resp.send(updateinfo)
+                    resp.send("Update status in Active")
+                }
+                else {
+                    resp.send("Status does not update")
+                }
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    updateproduct: async (req, resp, next) => {
+        try {
+            const id = req.params.id;
+            const update = req.body;
+            const options = { new: true };
+            const result = await productmodel.findByIdAndUpdate(id, update, options);
+            if (result) {
+                //resp.send("Data updated");
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("User Product is not updated");
+            }
+        }
+        catch (err) {
+            console.log(err.message);
         }
     }
-    catch (err) {
-        console.log(err.message);
-    }
-});
-
-module.exports = router;
+};

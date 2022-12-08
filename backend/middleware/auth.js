@@ -1,19 +1,30 @@
-const jwt = require('jsonwebtoken')
-const config = require('../db/default');
+const jwt = require("jsonwebtoken");
+const config = require("../db/default");
+const users = require('../db/registrationdb');
 
-const verifyToken = async (req, resp, next) => {
-    const token = req.body.token || req.query.token || req.headers["Authorization"];
+module.exports = {
+    isAuthenticatedUser: async (req, res, next) => {
+        const { token } = req.cookies;
 
-    if (!token) {
-        resp.status(200).send({ sucsess: false, msg: "A token is required for authentication." });
+        if (!token) {
+            // return next(new ErrorHander("Please Login to access this resource", 401));
+            res.status(200).send({ sucsess: false, msg: "A token is required for authentication. Please Login to access this resource" });
+        }
+
+        const decodedData = jwt.verify(token, config.jwtSecret);
+
+        req.users = await users.findById(decodedData.id);
+
+        next();
+    },
+    authorizeRoles: (...UserType) => {
+        return (req, res, next) => {
+            if (!UserType.includes(req.users.UserType)) {
+                return next(
+                    res.status(200).send({ sucsess: false, msg: `Role: ${req.users.UserType} is not allowed to access this resouce` })
+                );
+            }
+            next();
+        };
     }
-    try {
-        const descode = jwt.verify(token, config.jwtSecret);
-        req.user = descode;
-    } catch (error) {
-        resp.status(400).send("Invalid Token");
-    }
-    return next();
-}
-
-module.exports = verifyToken;
+};

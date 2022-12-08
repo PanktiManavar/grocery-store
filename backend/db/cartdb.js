@@ -4,17 +4,18 @@ const rgmodel = require('../db/registrationdb')
 
 const cartSchema = new mongoose.Schema({
     Rid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
         required: [true, "user id is required"]
     },
     Pid: {
         //type: mongoose.Schema.Types.ObjectId,
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'productmodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_product' }],
         required: [true, "Category is required"]
     },
     qty: {
         type: Number,
-        required: true
+        default: 1
+        // required: true
     },
     mname: {
         type: String,

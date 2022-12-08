@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const subcategorymodel = require('../db/subcategorydb')
+
 const productSchema = new mongoose.Schema({
     pname: {
         type: String,
@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
     },
     subid: {
         //type: mongoose.Schema.Types.ObjectId,
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subcategorymodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_subcategory' }],
         required: [true, "Sub-Category is required"]
     },
     status: {

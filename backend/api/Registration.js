@@ -17,10 +17,10 @@ router.post('/', [
         minSymbols: 1
     }),
     check('MobileNo', 'Please Enter a 10 digit number').notEmpty().isLength({ min: 10, max: 10 }),
-    check('Gender', 'Please Select a Gender').notEmpty().isLength({ max: 1 }),
-    check('Address', 'Please Enter Address min 20 letter').notEmpty().isLength({ min: 20 }),
-    check('Pincode', 'Please Enter valid Pincode ').notEmpty().isLength({ min: 6, max: 6 }),
-    check('UserType', 'Select user').notEmpty()
+    // check('Gender', 'Please Select a Gender').notEmpty().isLength({ max: 1 }),
+    // check('Address', 'Please Enter Address min 20 letter').notEmpty().isLength({ min: 20 }),
+    // check('Pincode', 'Please Enter valid Pincode ').notEmpty().isLength({ min: 6, max: 6 }),
+    // check('UserType', 'Select user').notEmpty()
 ],
     async (req, resp) => {
         const errors = validationResult(req);
@@ -28,7 +28,7 @@ router.post('/', [
             return resp.status(400).json({ errors: errors.array() });
         }
 
-        const { Fname, Lname, Email, Password, MobileNo, Gender, Address, Pincode, UserType, Status } = req.body;
+        const { Fname, Lname, Email, Password, MobileNo, Address, Pincode, UserType, Status } = req.body;
 
         try {
             //check user are exits or not
@@ -41,7 +41,7 @@ router.post('/', [
 
             //upar je let variabale ma name che e lakhava nu
             emailfind = new Rg({
-                Fname, Lname, Email, Password, MobileNo, Gender, Address, Pincode, UserType, Status
+                Fname, Lname, Email, Password, MobileNo, Address, Pincode, UserType, Status
             });
 
             //password encrypat
@@ -49,7 +49,8 @@ router.post('/', [
             emailfind.Password = await bcrypt.hash(Password, salt);
             await emailfind.save();
 
-            resp.send('user Registered!!!');
+            resp.status(200).json({ error: [{ msg: 'user register' }] });
+
 
         } catch (err) {
             console.error(err.message);

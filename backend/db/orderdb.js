@@ -5,7 +5,7 @@ const pincodemodel = require('../db/pincodedb');
 
 const feedbackSchema = new mongoose.Schema({
     Rid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
         required: [true, "User is required"]
     },
     Address: {
@@ -17,7 +17,7 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     ccid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'coupanmodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_coupancode' }],
         // required: [true, "coupancode is required"]
     },
     finalprice: {
@@ -25,12 +25,12 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     pinid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'pincodemodel' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_pincode' }],
         required: [true, "Pincode is required"]
     },
     rid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rgmodel' }],
-        required: [true, "delivery boy is required"]
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
+        // required: [true, "delivery boy is required"]
     },
     payment_status: {
         type: String,
@@ -48,7 +48,7 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     cancel_at: {
-        type: date
+        type: Date
     },
     cancel_by: {
         type: String

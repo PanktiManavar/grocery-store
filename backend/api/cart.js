@@ -9,15 +9,35 @@ module.exports = {
             const cart = new cartmodel({
                 Rid: req.body.Rid,
                 Pid: req.body.Pid,
-                qty: req.body.qty,
                 mname: req.body.mname
             });
-            const cartData = await cart.save();
-            if (cartData) {
-                res.status(200).send({ success: true, msg: "cart product details", data: cartData });
+
+            rids = await cartmodel.findOne({ Rid: req.body.Rid });
+            pids = await cartmodel.findOne({ Pid: req.body.Pid });
+
+
+            if (rids && pids) {
+                cart.qty += 1;
+
+                const updateinfo = await cartmodel.findByIdAndUpdate({ _id: rids._id }, { $set: { qty: cart.qty } }, { new: true });
+                if (updateinfo) {
+                    res.send("Update cart ")
+                }
+                else {
+                    res.send("Cart does not update")
+                }
+
+                //  return console.log(cart.qty, id)
             }
             else {
-                res.send("data not save");
+                //  console.log("else part ma aave che")
+                const cartData = await cart.save();
+                if (cartData) {
+                    res.status(200).send({ success: true, msg: "cart product details", data: cartData });
+                }
+                else {
+                    res.send("data not save");
+                }
             }
         } catch (error) {
             res.status(400).send({ success: false, msg: error.message });
@@ -51,7 +71,7 @@ module.exports = {
             else {
                 resp.send("Not found");
                 return;
-            } z
+            }
         }
         catch (err) {
             console.log(err.message);
@@ -59,7 +79,8 @@ module.exports = {
     },
     selectcartById: async (req, resp) => {
         try {
-            const result = await cartmodel.findById(req.params.id);
+            // return console.log(req.params.Rid);
+            const result = await cartmodel.find({ Rid: req.params.id });
             if (result) {
                 console.log(result);
                 resp.send({ result: result });
@@ -91,8 +112,9 @@ module.exports = {
     },
     lastrecord: async (req, resp) => {
         try {
-            const post = await cartmodel.find().sort({ _id: -1 }).limit(1);
-            resp.send(post);
+            const posts = await cartmodel.findOne().sort({ _id: -1 }).limit(1);
+            resp.send(posts._id);
+            // console.log(posts._id);
         }
         catch (err) {
             console.log(err.message);

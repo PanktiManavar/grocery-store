@@ -25,16 +25,16 @@ const Registrationschema = new mongoose.Schema({
     },
     Gender: {
         type: String,
-        required: true,
+        // required: true,
         //enam: ["m", "f"]
     },
     Address: {
         type: String,
-        required: true
+        // required: true
     },
     Pincode: {
         type: Number,
-        required: true
+        // required: true
     },
     UserType: {
         type: String,

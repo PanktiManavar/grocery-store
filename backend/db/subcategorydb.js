@@ -9,7 +9,7 @@ const subcategorySchema = new mongoose.Schema({
     },
     cid: {
         // type: mongoose.Schema.Types.ObjectId,
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'categorySchema' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_category' }],
         required: [true, "Category is required"]
     },
     status: {

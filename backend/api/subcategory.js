@@ -20,21 +20,18 @@ module.exports = {
                 return resp.send(JSON.stringify('Sub-Category Register Successsfully'));
             }
         }
-        // }
-        // else {
-        //     return resp.send(JSON.stringify('Category id is not valid'));
-        // }
+
     },
     selectsubcategoryById: async (req, resp) => {
         try {
             // var id = "632aa96f3443edea84f0bd9d"
-            const result = await subcategorymodel.findById(req.params.id);
+            const result = await subcategorymodel.findById({ _id: req.params.id }).populate("cid", "cname");;
             if (result) {
-                console.log(result);
+                // console.log(result);
                 resp.send({ result: result });
             }
             else {
-                resp.send("Not found");
+                resp.send(JSON.stringify('Not record found'));
                 return;
             }
         }
@@ -42,10 +39,26 @@ module.exports = {
             console.log(err.message);
         }
     },
+    selectSubcategoryByCategoryID: async (req, resp) => {
+        try {
+            const result = await subcategorymodel.find({ status: "Active", cid: req.params.id });
+            if (result) {
+                // console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send(JSON.stringify('Not record found'));
+                return;
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
     selectsubcategory: async (req, resp) => {
         try {
             // var id = "632aa96f3443edea84f0bd9d"
-            const result = await subcategorymodel.find();
+            const result = await subcategorymodel.find().populate("cid", "cname");
+
             if (result) {
                 //console.log(result);
                 resp.send({ result: result });
@@ -96,6 +109,21 @@ module.exports = {
             else {
                 resp.send("Not found");
                 return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    serchproduct: async (req, resp) => {
+        try {
+            var search = req.body.search;
+            var product_data = await subcategorymodel.find({ "sname": { $regex: ".*" + search + ".*", $options: "i" } })
+            if (product_data) {
+                resp.status(200).send({ success: true, msg: " Details", data: product_data });
+            }
+            else {
+                resp.status(200).send({ success: true, msg: "Not found" });
             }
         }
         catch (err) {

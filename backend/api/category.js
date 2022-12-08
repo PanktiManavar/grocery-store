@@ -97,4 +97,19 @@ module.exports = {
             console.log(err.message);
         }
     },
+    serchproduct: async (req, resp) => {
+        try {
+            var search = req.body.search;
+            var product_data = await categorymodel.find({ "cname": { $regex: ".*" + search + ".*", $options: "i" } })
+            if (product_data) {
+                resp.status(200).send({ success: true, msg: " Details", data: product_data });
+            }
+            else {
+                resp.status(200).send({ success: true, msg: "Not found" });
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
 };

@@ -6,8 +6,8 @@ const registerapi = require('../api/register');
 
 router.get('/api/registerselectbyid/:id', registerapi.selectRegisterById);
 router.get('/api/registerselect', registerapi.selectregister);
-router.patch('/api/registerupdate/:id', registerapi.updateregister);
-router.patch('/api/registerdelete/:id', registerapi.deleteregister);
+router.put('/api/registerupdate/:id', registerapi.updateregister);
+router.put('/api/registerdelete/:id', registerapi.deleteregister);
 router.put('/api/updatepassword', registerapi.updatepassword);
 
 module.exports = router;
