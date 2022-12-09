@@ -8,8 +8,8 @@ const AddPincode = () => {
   const [error, setError] = React.useState(false);
   const navigate = useNavigate();
 
-  const addPincode = async () => {
-
+  const addPincode = async (e) => {
+    e.preventDefault();
     if (!pcode) {
       setError(true);
       return false;

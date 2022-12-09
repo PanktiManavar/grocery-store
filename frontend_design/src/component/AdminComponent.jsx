@@ -6,7 +6,7 @@ import AdminNav from '../Navbar/AdminNav';
 const AdminComponent = () => {
     //console.log("private");
     const auth = sessionStorage.getItem('role');
-    console.warn(auth);
+    console.log("adcom" + auth);
     return auth ? <><AdminNav /><Outlet /></> : <Navigate to="/Login" />
 }
 

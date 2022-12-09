@@ -2,7 +2,7 @@ import React from 'react';
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 const Home = () => {
-    return(
+    return (
         <>
             <div>
                 <section className="home">
@@ -13,42 +13,14 @@ const Home = () => {
                             <div className="content">
                                 <span>Fresh and Organic</span>
                                 <h3>upto 50% off</h3>
-                                <a href="/Login" class="btns">Shop Now</a>                            
+                                <a href="/Product" class="btns">Shop Now</a>
                             </div>
                             <div className="image">
                                 <img src="image/home-img-1.png" alt="banner" />
                             </div>
                         </div>
 
-                        <div className="slide">
-                            <div className="content">
-                                <span>Fresh and Organic</span>
-                                <h3>upto 50% off</h3>
-                                <a href="/Login" class="btns">Shop Now</a>
-                            </div>
-                            <div className="image">
-                                <img src="image/home-img-2.png" alt="banner" />
-                            </div>
-                        </div>
-
-                        <div className="slide">
-                            <div className="content">
-                                <span>Fresh and Organic</span>
-                                <h3>upto 50% off</h3>
-                                <a href="/Login" class="btns">Shop Now</a>
-                            </div>
-                            <div className="image">
-                                <img src="image/home-img-3.png" alt="banner" />
-                            </div>
-                        </div>
-                        
-
                     </div>
-
-                    <div id="next-slide" onclick="next()"><FaAngleRight></FaAngleRight></div>
-                    <div id="prev-slide" onclick="next()"><FaAngleLeft></FaAngleLeft></div>
-
-
                 </section>
 
                 <section className="banner-container">
@@ -58,7 +30,7 @@ const Home = () => {
                         <div className="content">
                             <span>Limited Sales</span>
                             <h3>upto 50% off</h3>
-                            <a href="/Login" class="btns">Shop Now</a>
+                            <a href="/Product" class="btns">Shop Now</a>
                         </div>
                     </div>
 
@@ -67,7 +39,7 @@ const Home = () => {
                         <div className="content">
                             <span>Limited Sales</span>
                             <h3>upto 50% off</h3>
-                            <a href="/Login" class="btns">Shop Now</a>
+                            <a href="/Product" class="btns">Shop Now</a>
                         </div>
                     </div>
 
@@ -76,7 +48,7 @@ const Home = () => {
                         <div className="content">
                             <span>Limited Sales</span>
                             <h3>upto 50% off</h3>
-                            <a href="/Login" class="btns">Shop Now</a>
+                            <a href="/Product" class="btns">Shop Now</a>
                         </div>
                     </div>
 

@@ -14,7 +14,7 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const collectData = async (e) => {
-
+    e.preventDefault();
     if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType) {
       setError(true);
       return false;
@@ -42,7 +42,7 @@ const Signin = () => {
       localStorage.setItem("user", JSON.stringify(result));
       console.warn(result);
       alert("Welcome");
-      navigate('/Home');
+      navigate('/Login');
     }
     else {
       alert("User could not be registered");
@@ -83,11 +83,9 @@ const Signin = () => {
                 {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Mobile Number field!</span>}
 
               </div>
-              {/* <div className="form-group"> */}
               <button className="btn btn-primary btn-block" onClick={collectData}>Signin</button>
-              {/* <button className="btn btn-primary btn-block" type="submit" onClick={collectData}>Sign Up</button> */}
-              {/* </div> */}
-              {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
+              
+              <a href="/Login" className="already">You have already account? Login here.</a>
             </form>
           </div>
         </div>

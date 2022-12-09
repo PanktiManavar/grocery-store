@@ -28,7 +28,8 @@ const UpdateCategory = () => {
     )
   }
 
-  const updateCategory = async () => {
+  const updateCategory = async (e) => {
+    e.preventDefault();
     // console.warn(pcode);
     let result = await fetch(`/api/categoryupdate/${params.id}`, {
       method: 'put',
@@ -38,10 +39,11 @@ const UpdateCategory = () => {
       }
     });
     result = await result.json();
-    console.warn(result);
-    alert("Category updated");
-
-    navigate('/SelectPincode');
+    // console.warn(result);
+    if (result) {
+      alert("Category updated");
+      navigate('/SelectCategory');
+    }
   }
 
   const ShowProduct = () => {

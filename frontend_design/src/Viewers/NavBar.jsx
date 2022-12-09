@@ -28,7 +28,7 @@ const NavBar = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div className="navbar-nav">
+                            <div className="navbar-nav ">
                                 {
                                     user ?
                                         <>

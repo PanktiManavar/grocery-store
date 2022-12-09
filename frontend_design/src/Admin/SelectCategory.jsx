@@ -66,7 +66,6 @@ const SelectCategory = () => {
                         </td>
                         <td>
                           <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateCategory/" + item._id}>Update Category</Link></button></td>
-
                       </tr>
                     )
                   }

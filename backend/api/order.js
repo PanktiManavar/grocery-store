@@ -57,5 +57,52 @@ module.exports = {
         catch (err) {
             console.log(err.message);
         }
-    }
+    },
+    vieworder: async (req, resp) => {
+        try {
+            const result = await ordermodel.find().populate("Rid", "Fname").populate("pinid", "pcode");
+            if (result) {
+                //console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    deleteorder: async (req, resp) => {
+        try {
+            const id = req.params.id;
+            const update = new Date();
+            const options = { new: true };
+            const orderstatus = await ordermodel.findById({ _id: id });
+            if (orderstatus) {
+
+                // return console.log(!orderstatus.ostatus === "ordered");
+                if (orderstatus.ostatus != "delivered") {
+                    if (orderstatus.ostatus != "cancel") {
+                        const result = await ordermodel.findByIdAndUpdate(id, { cancel_at: update, cancel_by: "customer", ostatus: "cancel", refund_status: "pedding" }, options);
+                        if (result) {
+                            //resp.send("Data updated");
+                            resp.send({ result: result }, "Your Order is canceled");
+                        }
+                        else {
+                            resp.send("Your Order is not canceled");
+                        }
+                    } else {
+                        resp.send("Your Order is already canceled");
+                    }
+                } else {
+                    resp.send("you can't cancle your order");
+                }
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
 };

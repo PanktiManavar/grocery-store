@@ -28,7 +28,8 @@ const UpdatePincode = () => {
     )
   }
 
-  const updatePincode = async () => {
+  const updatePincode = async (e) => {
+    e.preventDefault();
     console.warn(pcode);
     let result = await fetch(`/api/pincodeupdate/${params.id}`, {
       method: 'put',
@@ -39,9 +40,10 @@ const UpdatePincode = () => {
     });
     result = await result.json();
     console.warn(result);
-    alert("pincode updated");
-
-    navigate('/SelectPincode');
+    if (result) {
+      alert("pincode updated");
+      navigate('/SelectPincode');
+    }
   }
 
   const ShowProduct = () => {

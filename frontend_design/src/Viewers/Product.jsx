@@ -84,18 +84,19 @@ const Product = () => {
 
             <div className="box-container ">
               {category.map((item, index) =>
-                <div className="pl-4">
-                  <div className="">
-                    <div className="">
-                      <h3 className='sty-h3'>{item.cname}</h3>
-                    </div>
-                  </div>
-                </div>
+                // <div className="pl-4">
+                //   <div className="">
+                //     <div className="">
+                //       <h3 className='sty-h3'>{item.cname}</h3>
+                //     </div>
+                //   </div>
+                // </div>
+                <a href="#" className="box">
+                  <img src="image/cat-1.png" alt="" />
+                  <h3>{item.cname}</h3>
+                </a>
+
               )}
-              {/* <Link to="/ViewProductsCereal" className="box">
-              <img src="image/cat-5.png" alt="" />
-              <h3>Cereal Crops</h3>
-            </Link> */}
             </div>
 
           </section>
@@ -122,7 +123,8 @@ const Product = () => {
                       </div>
                       <div className="image">
                         {/* <img src={product.pimg === '' ? '' : URL.createObjectURL(product.pimg)} /> */}
-                        <img src={product.img} alt={product.img} />
+                        {/* <img src={product.img} alt={product.img} /> */}
+                        <img src={`http://localhost:8000/${product.pimg}`} alt="aree yaarrrr" />
                       </div>
                       <div className="content">
                         <h3>{product.pname}</h3>

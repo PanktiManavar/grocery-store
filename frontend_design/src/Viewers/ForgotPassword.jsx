@@ -1,89 +1,80 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
-const AddCategory = () => {
-
-  const [cname, setCname] = React.useState('');
-  const [error, setError] = useState(false);
-
+const ForgotPassword = () => {
+  const [Email, setEmail] = React.useState('');
+  const [Password, setPassword] = React.useState('');
+  const [error, setError] = React.useState(false);
   const navigate = useNavigate();
 
-
-  const addCategory = async (e) => {
+  const UpdatePassword = async (e) => {
     e.preventDefault();
-    if (!cname) {
+    if (!Email || !Password) {
       setError(true);
       return false;
     }
 
-    console.warn(cname);
-    // const userId = JSON.parse(localStorage.getItem('user'))._id;
-    let result = await fetch('api/categoryinsert', {
-      method: 'post',
-      body: JSON.stringify({ cname }),
+    console.warn(Email, Password);
+    let result = await fetch('api/updatepassword', {
+      method: 'put',
+      body: JSON.stringify({ Email, Password }),
       headers: {
         "Content-Type": "application/json"
       }
     });
     result = await result.json();
     if (result) {
-      alert("Category inserted");
-      navigate('/SelectCategory');
+      alert("Password Update successFully");
+      navigate('/Login');
+
     }
     else {
-      alert("Category not inserted");
+      alert("Password not Updateted !!");
     }
     console.warn(result);
   }
-
-
-
   return (
     <>
       <FormContainer>
         <div className="register-photo">
           <div className="form-container">
-            {/* <div className="image-holder"></div> */}
-            <form >
-              <h2 className="text-center"><strong>Add</strong> New Category.</h2>
-              <div className="form-group">
-                <input className="form-control" type="text" value={cname} onChange={(e) => setCname(e.target.value)} placeholder="Category" />
-                {error && !cname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out category field!</span>}
-
-              </div>
+            <div className="image-holder"></div>
+            <form>
+              <h2 className="text-center"><strong>Change</strong> Password.</h2>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block" onClick={addCategory}>Add Category</button>
+                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Email field!</span>}
               </div>
-              {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
+              <div className="form-group">
+                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Password field!</span>}
+              </div>
+              <div className="form-group">
+                {/* <button className="btn btn-primary btn-block">Change Password</button> */}
+                <button className="btn btn-primary btn-block" onClick={UpdatePassword}>Change Password</button>
+              </div>
             </form>
           </div>
         </div>
-
-
-
-
-
       </FormContainer>
     </>
   );
 };
 
-export default AddCategory;
+export default ForgotPassword;
 
 const FormContainer = styled.div`{
     .register-photo {
      background:#f1f7fc;
      padding:80px 0;
-     margin-top:30px;
    }
    
    .register-photo .image-holder {
      display:table-cell;
-     width:auto;
-     background:url(image/loginimg.jpg);
+     width:150px;
+     background:url(image/rglg.jpg);
      background-size:cover;
    }
    
@@ -125,8 +116,8 @@ const FormContainer = styled.div`{
      color:inherit;
      text-indent:6px;
      height:40px;
-     margin-top:8px;
-     font-size:14px;
+     margin-top:10px;
+     font-size:12px;
    }
    
    .register-photo form .form-check {

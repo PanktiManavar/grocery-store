@@ -11,7 +11,7 @@ const AdminNav = () => {
             <header>
                 {auth ?
                     <nav className="navbar">
-                        <a href="/Admin/AdminHome">DashBord</a>
+                        <a href="/AdminHome">DashBord</a>
                         {/* <a href="/Product">Manage Product</a> */}
                         <Dropdown>
                             <Dropdown.Toggle variant="none" href >

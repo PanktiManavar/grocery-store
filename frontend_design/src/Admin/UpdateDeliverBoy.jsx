@@ -8,10 +8,7 @@ const UpdateDeliverBoy = () => {
   const [lname, setLname] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
   const [mobileno, setMobileNo] = React.useState('');
-  const [usertype, setUserType] = React.useState('');
-  const [status, setStatus] = React.useState('');
   const params = useParams();
   const navigate = useNavigate();
 
@@ -23,31 +20,31 @@ const UpdateDeliverBoy = () => {
     console.log(params._id);
     let result = await fetch(`/api/registerselectbyid/${params.id}`);
     result = await result.json();
-    return console.log(result);
+    // return console.log(result);
     setFname(result.fname);
     setLname(result.lname);
     setAddress(result.address);
     setEmail(result.email);
-    setPassword(result.password);
     setMobileNo(result.mobileno);
-    setUserType(result.usertype);
-    setStatus(result.status);
   }
 
-  const updateDeliveryboy = async () => {
-    console.warn(fname, lname, address, email, password, mobileno, usertype, status);
+  const updateDeliveryboy = async (e) => {
+    e.preventDefault();
+    console.warn(fname, lname, address, email, mobileno);
     let result = await fetch(`/${params.id}`, {
       method: "put",
-      body: JSON.stringify({ fname, lname, address, email, password, mobileno, usertype, status }),
+      body: JSON.stringify({ fname, lname, address, email, mobileno }),
       headers: {
         'Content-Type': "application/json"
       }
     });
     result = await result.json();
     console.warn(result);
-    navigate('/SelectDeliverBoy');
+    if (result) {
+      alert("Update Delivery Boy")
+      navigate('/SelectDeliverBoy');
+    }
   }
-
   return (
     <>
       <FormContainer>
@@ -74,15 +71,7 @@ const UpdateDeliverBoy = () => {
               </div>
 
               <div className="form-group">
-                <input className="form-control" type="password" value={[password]} onChange={(e) => setPassword(e.target.value)} placeholder="Delivery Boy Password" />
-              </div>
-
-              <div className="form-group">
                 <input className="form-control" type="tel" value={mobileno} onChange={(e) => setMobileNo(e.target.value)} placeholder="Delivery Boy Mobile Number" />
-              </div>
-
-              <div className="form-group">
-                <input className="form-control" type="text" value={usertype} onChange={(e) => setUserType(e.target.value)} placeholder="UserType" />
               </div>
 
               <div className="form-group">

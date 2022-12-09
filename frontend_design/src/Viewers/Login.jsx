@@ -10,9 +10,9 @@ const Login = () => {
   const [error, setError] = React.useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
     // console.warn("email,password", email, password);
-
+    e.preventDefault();
     if (!Email || !Password) {
       setError(true);
       return false;
@@ -28,7 +28,7 @@ const Login = () => {
     result = await result.json();
     // return console.log(result.response.data.Email);
 
-    if (result.response.data.Email) {
+    if (result.response.data.Email === Email) {
 
       if (result.response.data.Status === "Active") {
 
@@ -43,7 +43,7 @@ const Login = () => {
         }
         else if (result.response.data.UserType === "customer") {
 
-          sessionStorage.setItem("user", JSON.stringify(result.response.data));
+          sessionStorage.setItem("userid", JSON.stringify(result.response.data._id));
           sessionStorage.setItem("role", JSON.stringify("customer"));
           sessionStorage.setItem("Email", JSON.stringify(result.response.data.Email));
 
@@ -65,8 +65,8 @@ const Login = () => {
     }
     else {
 
-      alert("Please enter correct details/user not found");
-      navigate("/Signin")
+      alert("Please enter correct details user not found");
+      navigate("/Login")
     }
   }
 
@@ -93,7 +93,7 @@ const Login = () => {
               {/* <button className="btn btn-primary btn-block" type="submit" onClick={collectData}>Sign Up</button> */}
               {/* </div> */}
               <a href="/Signin" className="already">You don't have an account? Signup here.</a>
-              <span className="already"><Link to="/Signin" >Forgot Password</Link></span>
+              <span className="already"><Link to="/ForgotPassword" >Forgot Password</Link></span>
             </form>
           </div>
         </div>

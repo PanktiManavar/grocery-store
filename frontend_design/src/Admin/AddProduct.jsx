@@ -24,8 +24,8 @@ const AddProduct = () => {
     getcategoryname();
   }, [])
 
-  const collectdata = async () => {
-
+  const collectdata = async (e) => {
+    e.preventDefault();
     if (!pname || !descripation || !price || !qty || !mname || !pimg || !bname || !subid) {
       setError(true);
       return false;
@@ -52,14 +52,14 @@ const AddProduct = () => {
       formdata, config
     );
     result = await result.json();
+    if (result) {
+      alert("Product inserted");
+      navigate('/SelectProduct');
 
-    // let result = await fetch("api/productinsert", {
-    //   method: "post",
-    //   body: formdata,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   }
-    // });
+    }
+    else {
+      alert("Product not inserted");
+    }
   }
 
   const filehandale = (e) => {

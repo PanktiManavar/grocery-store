@@ -34,7 +34,8 @@ const UpdateProduct = () => {
     setSubid(result.result.subid[0].sname);
   }
 
-  const updateProduct = async () => {
+  const updateProduct = async (e) => {
+    e.preventDefault();
     console.warn(pname, descripation, price, mname, qty, bname, pimg, subid, status);
     let result = await fetch(`api/productupdate/${params.id}`, {
       method: "put",
@@ -44,8 +45,11 @@ const UpdateProduct = () => {
       }
     });
     result = await result.json();
-    console.warn(result);
-    navigate('/SelectProduct');
+    if (result) {
+      console.warn(result);
+      alert("product Update successfully");
+      navigate('/SelectProduct');
+    }
   }
 
   return (

@@ -21,6 +21,8 @@ const coman = require('./router/comman_router');
 //connect database
 connectdb();
 
+app.use("/img", express.static("img"));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const registermodel = require('../db/registrationdb');
+var bcrypt = require('bcryptjs');
 
 module.exports = {
     selectRegisterById: async (req, resp) => {
@@ -105,16 +106,20 @@ module.exports = {
     },
     updatepassword: async (req, resp) => {
         try {
-            const userid = req.body.id
+            const userEmail = req.body.Email;
             const Password = req.body.Password;
-            const data = await registermodel.findOne({ _id: userid });
+            const data = await registermodel.findOne({ Email: userEmail });
             if (data) {
                 const salt = await bcrypt.genSalt(10);
                 newpass = await bcrypt.hash(Password, salt);
-                const userdata = await registermodel.findByIdAndUpdate({ _id: userid }, { $set: { Password: newpass } });
+                const userdata = await registermodel.updateOne({ Email: userEmail }, { $set: { Password: newpass } });
+                if (userdata) {
+                    resp.send("Your Password has been  updated");
+                }
+                else {
+                    resp.send("Some problem to updated Password");
+                }
             }
-
-            resp.send("Your Password has been  updated");
         }
         catch (err) {
             console.log(err.message);

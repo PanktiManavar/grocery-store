@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AddDeliverBoy = () => {
 
@@ -12,10 +12,10 @@ const AddDeliverBoy = () => {
   const [MobileNo, setMobileNo] = React.useState("");
   const [error, setError] = React.useState(false);
   const UserType = "deliveryboy"
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const collectData = async (e) => {
-
+    e.preventDefault();
     if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType) {
       setError(true);
       return false;
@@ -44,7 +44,7 @@ const AddDeliverBoy = () => {
       localStorage.setItem("user", JSON.stringify(result));
       console.warn(result);
       alert("Welcome");
-      // navigate('/Home/AdminHome');
+      navigate('/SelectDeliverBoy');
     }
     else {
       alert("User could not be registered");

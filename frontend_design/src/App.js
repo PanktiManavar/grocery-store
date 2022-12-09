@@ -18,10 +18,9 @@ import ViewProductsSpices from './Viewers/ViewProductsSpices';
 import ViewProductsDairy from './Viewers/ViewProductsDairy';
 import ViewCategoryProduct from './Viewers/ViewCategoryProduct';
 import CheckOutForm from './Viewers/CheckOutForm';
+import ForgotPassword from './Viewers/ForgotPassword';
 // for admin
 import AdminHome from './Admin/AdminHome';
-import AdminAbout from './Admin/AdminAbout';
-import AdminProduct from './Admin/AdminProduct';
 import AddProduct from './Admin/AddProduct';
 import AddCategory from './Admin/AddCategory'
 import AddDeliveryBoy from './Admin/AddDeliverBoy'
@@ -39,10 +38,12 @@ import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 //for Customer
 import CustHome from './Customer/CustHome';
-
+import AddToCart from './Viewers/AddToCart';
+//component
 import AllNav from './Navbar/AllNav';
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
+
 
 function App() {
   return (
@@ -52,28 +53,19 @@ function App() {
         <AllNav />
         <Routes>
           {/* for viewers */}
-          <Route path="/Login" element={<Login></Login>} />
-          <Route path="/Signin" element={<Signin></Signin>} />
+          <Route path='/AddToCart' element={<AddToCart />} />
           <Route element={<CustomerComponent />}>
-            <Route path="/Home" element={<Home></Home>} />
-            <Route path="/Product" element={<Product></Product>} />
-            <Route path="/About" element={<About></About>} />
-            <Route path="/Contact" element={<Contact></Contact>} />
-            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
             <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
             <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
             <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
-
             <Route path='/CheckOutForm' element={<CheckOutForm />} />
           </Route>
 
           {/* for admin */}
           <Route element={<AdminComponent />}>
             <Route path="/AdminHome" element={<AdminHome />} />
-            <Route path="/AdminAbout" element={<AdminAbout></AdminAbout>} />
-            <Route path="/AdminProduct" element={<AdminProduct></AdminProduct>} />
             <Route path="/AddProduct" element={<AddProduct></AddProduct>} />
             <Route path="/AddCategory" element={<AddCategory></AddCategory>} />
             <Route path="/AddDeliveryBoy" element={<AddDeliveryBoy></AddDeliveryBoy>} />
@@ -92,6 +84,15 @@ function App() {
           </Route>
           {/* for customer */}
           <Route path="/CustHome" element={<CustHome></CustHome>} />
+
+          <Route path="/Login" element={<Login></Login>} />
+          <Route path="/Signin" element={<Signin></Signin>} />
+          <Route path='/ForgotPassword' element={<ForgotPassword />} />
+          <Route path="/Home" element={<Home></Home>} />
+          <Route path="/Product" element={<Product></Product>} />
+          <Route path="/About" element={<About></About>} />
+          <Route path="/Contact" element={<Contact></Contact>} />
+          <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
         </Routes>
 
       </BrowserRouter>

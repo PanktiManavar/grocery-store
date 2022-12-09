@@ -15,8 +15,8 @@ const AddSubCategory = () => {
     getcategoryname();
   }, [])
 
-  const collectdata = async () => {
-
+  const collectdata = async (e) => {
+    e.preventDefault();
     if (!cid || !sname) {
       setError(true);
       return false;
@@ -33,9 +33,14 @@ const AddSubCategory = () => {
       }
     });
     result = await result.json();
-    // return console.log("hello" + result);
+    if (result) {
+      alert("Sub Category inserted");
+      navigate('/SelectSubCategory');
 
-    navigate("/AddProduct")
+    }
+    else {
+      alert("Sub Category not inserted");
+    }
   }
 
   //Get Categoryname
