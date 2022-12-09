@@ -52,6 +52,7 @@ module.exports = {
                 descripation: req.body.descripation,
                 price: req.body.price,
                 mname: req.body.mname,
+                bname: req.body.bname,
                 qty: req.body.qty,
                 pimg: path,
                 subid: req.body.subid,

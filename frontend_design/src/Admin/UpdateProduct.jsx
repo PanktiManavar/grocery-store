@@ -12,16 +12,35 @@ const UpdateProduct = () => {
   const [bname, setBname] = React.useState('');
   const [pimg, setPimg] = React.useState('');
   const [subid, setSubid] = React.useState('');
-  const [status, setStatus] = React.useState('');
+  const [category, setCategory] = useState("");
+  const [subcatname, setSubCategory] = useState('');
   const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     getProductDetails();
+    getcategoryname();
   }, []);
 
+  //Get Categoryname
+  const getcategoryname = async () => {
+    let result = await fetch("/api/categoryselect");
+    result = await result.json();
+    setCategory(result.result);
+  }
+
+  const getsubcategorynamecateagoryid = async (categoryid) => {
+    let result = await fetch(`/api/subcategoryByCategoryid/${categoryid}`);
+    result = await result.json();
+    setSubCategory(result.result);
+    // return console.log(result.result);
+  }
+  const onchangeHandel = (e) => {
+    getsubcategorynamecateagoryid(e.target.value);
+  };
+
   const getProductDetails = async () => {
-    console.warn(params.id);
+    // console.warn(params.id);
     let result = await fetch(`/api/productselectbyid/${params.id}`);
     result = await result.json();
     // return console.log(result.result.subid[0].sname);
@@ -36,10 +55,10 @@ const UpdateProduct = () => {
 
   const updateProduct = async (e) => {
     e.preventDefault();
-    console.warn(pname, descripation, price, mname, qty, bname, pimg, subid, status);
-    let result = await fetch(`api/productupdate/${params.id}`, {
+    // console.warn(pname, descripation, price, mname, qty, bname, pimg, subid);
+    let result = await fetch(`/api/productupdate/${params.id}`, {
       method: "put",
-      body: JSON.stringify({ pname, descripation, price, mname, qty, bname, pimg, subid, status }),
+      body: JSON.stringify({ pname, descripation, price, mname, qty, bname, subid }),
       headers: {
         'Content-Type': "application/json"
       }
@@ -55,15 +74,16 @@ const UpdateProduct = () => {
   return (
     <>
       <FormContainer>
+
         <div className="register-photo">
           <div className="form-container">
             {/* <div className="image-holder"></div> */}
-            <form>
-              <h2 className="text-center"><strong>Update</strong> Category.</h2>
+            <form >
+              <h2 className="text-center"><strong>Update</strong> Product.</h2>
               <div className="form-group">
-                <input className="form-control" type="text" value={pname} onChange={(e) => setPname(e.target.value)} placeholder="Category" />
-              </div>
 
+                <input className="form-control" type="text" value={pname} onChange={(e) => setPname(e.target.value)} placeholder="Product Name" />
+              </div>
               <div className="form-group">
                 <textarea className="form-control" type="text" value={descripation} onChange={(e) => setDescription(e.target.value)} placeholder="Discription" />
               </div>
@@ -73,7 +93,12 @@ const UpdateProduct = () => {
               </div>
 
               <div className="form-group">
-                <input className="form-control" type="text" value={mname} onChange={(e) => setMname(e.target.value)} placeholder="Measurement" />
+                <select className="form-control" name="measurement" value={mname} onChange={(e) => setMname(e.target.value)}>
+                  <option>Choose Measurement</option>
+                  <option value="Kg">Kg</option>
+                  <option value="Liter">Liter</option>
+                  <option value="Packet">Packet</option>
+                </select>
               </div>
 
               <div className="form-group">
@@ -85,15 +110,36 @@ const UpdateProduct = () => {
               </div>
 
               <div className="form-group">
-                <input className="form-control" type="text" value={subid} onChange={(e) => setSubid(e.target.value)} placeholder="Sub Category" />
+                <select className="form-control" onChange={(e) => { onchangeHandel(e) }}>
+                  <option value={0}>----Select Category----</option>
+                  {
+                    category.length > 0 ? category.map((item, index) => (
+                      <option key={item._id} value={item._id}>{item.cname}</option>
+                    ))
+                      : <option value={0}>No Records Founds!</option>
+                  }
+                </select>
               </div>
 
               <div className="form-group">
+                <select className="form-control" onChange={(e) => { setSubid(e.target.value) }}>
+                  <option value={0}>----Select Sub Category----</option>
+                  {
+                    subcatname.length > 0 ? subcatname.map((item, index) => (
+                      <option key={item._id} value={item._id}>{item.sname}</option>
+                    ))
+                      : <option value={0}>No Records Founds!</option>
+                  }
+                </select>
+              </div>
+              <div className="form-group">
                 <button className="btn btn-primary btn-block" onClick={updateProduct}>Update Product</button>
               </div>
+              {/* <a href="/Signin" className="already">You don't have an account? Signup here.</a> */}
             </form>
           </div>
         </div>
+
       </FormContainer>
     </>
   );

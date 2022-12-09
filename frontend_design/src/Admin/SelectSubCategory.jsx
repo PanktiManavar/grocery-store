@@ -68,7 +68,7 @@ const SelectSubCategory = () => {
                           <button className="btn btn-primary btn-block" onClick={() => deletesubCategory(item._id)}>{item.status}</button>
                         </td>
                         <td>
-                          <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update Category</Link></button></td>
+                          <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update</Link></button></td>
 
                       </tr>
                     )

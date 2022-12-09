@@ -9,10 +9,10 @@ const CustomerNav = () => {
             <header>
                 {auth ?
                     <nav className="navbar">
-                        <a href="/Home">Home</a>
-                        <a href="/Product">Product</a>
-                        <a href="/About">About</a>
-                        <a href="/Contact">Contact</a>
+                        <a href="/Homee">Home</a>
+                        <a href="/Productt">Product</a>
+                        <a href="/Aboutt">About</a>
+                        <a href="/Contactt">Contact</a>
                         <div className='cust-nav'>
                             <a href='#'>Cart</a>
                             <a href='#'>My Account</a>

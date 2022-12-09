@@ -55,6 +55,10 @@ function App() {
           {/* for viewers */}
           <Route path='/AddToCart' element={<AddToCart />} />
           <Route element={<CustomerComponent />}>
+            <Route path="/Homee" element={<Home></Home>} />
+            <Route path="/Productt" element={<Product></Product>} />
+            <Route path="/Aboutt" element={<About></About>} />
+            <Route path="/Contactt" element={<Contact></Contact>} />
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
             <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />

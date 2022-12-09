@@ -13,9 +13,18 @@ const UpdateSubCategory = () => {
 
   useEffect(() => {
     getSubCategoryDetails();
+    getcategoryname();
     // getcategoryname();
   }, [])
 
+  //Get Categoryname
+  const getcategoryname = async () => {
+    let result = await fetch("/api/categoryselect");
+    result = await result.json();
+    //console.info(result.data);
+    // return console.log(result.result);
+    setCategory(result.result);
+  }
 
   const getSubCategoryDetails = async () => {
     let result = await fetch(`/api/subcategoryselectbyid/${params.id}`);
@@ -25,6 +34,24 @@ const UpdateSubCategory = () => {
     setCategoryid(result.result.cid.cname);
 
   }
+
+  const UpdateSubCategory = async (e) => {
+    e.preventDefault();
+    // console.warn(pcode);
+    let result = await fetch(`/api/subcategoryupdate/${params.id}`, {
+      method: 'put',
+      body: JSON.stringify({ cid, sname }),
+      headers: {
+        'Content-Type': "application/json"
+      }
+    });
+    result = await result.json();
+    console.warn(result);
+    if (result) {
+      alert("Sub category updated");
+      navigate('/SelectSubCategory');
+    }
+  }
   return (
     <>
       <FormContainer>
@@ -32,10 +59,10 @@ const UpdateSubCategory = () => {
           <div className="form-container">
             <form>
               <h2 className="text-center"><strong>Update</strong> Sub Category.</h2>
-              <div className="form-group">
-                <input className="form-control" type="text" value={cid} onChange={(e) => setCategoryid(e.target.value)} placeholder="Category" />
-              </div>
               {/* <div className="form-group">
+                <input className="form-control" type="text" value={cid} onChange={(e) => setCategoryid(e.target.value)} placeholder="Category" />
+              </div> */}
+              <div className="form-group">
                 <select className="form-control" onChange={(e) => setCategoryid(e.target.value)}>
                   <option value={0}>----Select Category----</option>
                   {
@@ -45,13 +72,13 @@ const UpdateSubCategory = () => {
                       : <option value={0}>No Records Founds!</option>
                   }
                 </select>
-              </div> */}
+              </div>
               <div className="form-group">
-                <input className="form-control" type="text" value={sname} onChange={(e) => setSname(e.target.value)} placeholder="Category" />
+                <input className="form-control" type="text" value={sname} onChange={(e) => setSname(e.target.value)} placeholder="Sub Category" />
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block" >Update Category</button>
+                <button className="btn btn-primary btn-block" onClick={UpdateSubCategory} >Update Category</button>
               </div>
             </form>
           </div>
