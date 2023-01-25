@@ -13,13 +13,13 @@ const CustomerNav = () => {
                         <a href="/Productt">Product</a>
                         <a href="/Aboutt">About</a>
                         <a href="/Contactt">Contact</a>
-                        <div className='cust-nav'>
+                        <div className='cust-nav nav-right'>
                             <a href='#'>Cart</a>
                             <a href='#'>My Account</a>
                         </div>
                     </nav>
                     :
-                    <nav className='nav-ul nav-right'>
+                    <nav className='nav-ul nav-right nav-right'>
                         <li><Link to="/Signin">SignUp</Link></li>
                         <li><Link to="/Login">Login</Link></li>
 

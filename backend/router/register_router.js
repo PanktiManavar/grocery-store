@@ -9,5 +9,8 @@ router.get('/api/registerselect', registerapi.selectregister);
 router.put('/api/registerupdate/:id', registerapi.updateregister);
 router.put('/api/registerdelete/:id', registerapi.deleteregister);
 router.put('/api/updatepassword', registerapi.updatepassword);
+router.get('/api/deliveryboylist', registerapi.selectdeliveryboy);
+router.get('/api/customerlist', registerapi.selectCustomer);
+router.get('/api/optsend', registerapi.otpsend);
 
 module.exports = router;

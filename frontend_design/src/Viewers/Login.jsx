@@ -26,17 +26,16 @@ const Login = () => {
       }
     });
     result = await result.json();
-    // return console.log(result.response.data.Email);
+    // return console.log(result.response.data._id);
 
     if (result.response.data.Email === Email) {
 
       if (result.response.data.Status === "Active") {
 
         if (result.response.data.UserType === "Admin") {
-
-          sessionStorage.setItem("user", JSON.stringify(result.response.data));
           sessionStorage.setItem("role", JSON.stringify("Admin"));
           sessionStorage.setItem("Email", JSON.stringify(result.response.data.Email));
+          sessionStorage.setItem("userid", JSON.stringify(result.response.data._id));
 
           alert(" Welcome Admin");
           navigate("/AdminHome");
@@ -49,7 +48,7 @@ const Login = () => {
 
           alert("Welcome User");
           // navigate('/Home')
-          navigate('/Home')
+          navigate('/Homee')
         }
         else if (result.response.data.UserType === "deliveryboy") {
 

@@ -19,6 +19,7 @@ import ViewProductsDairy from './Viewers/ViewProductsDairy';
 import ViewCategoryProduct from './Viewers/ViewCategoryProduct';
 import CheckOutForm from './Viewers/CheckOutForm';
 import ForgotPassword from './Viewers/ForgotPassword';
+import Changepassword from './Viewers/Changepassword'
 // for admin
 import AdminHome from './Admin/AdminHome';
 import AddProduct from './Admin/AddProduct';
@@ -53,18 +54,20 @@ function App() {
         <AllNav />
         <Routes>
           {/* for viewers */}
-          <Route path='/AddToCart' element={<AddToCart />} />
+
           <Route element={<CustomerComponent />}>
             <Route path="/Homee" element={<Home></Home>} />
             <Route path="/Productt" element={<Product></Product>} />
             <Route path="/Aboutt" element={<About></About>} />
             <Route path="/Contactt" element={<Contact></Contact>} />
+            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
             <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
             <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
             <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
             <Route path='/CheckOutForm' element={<CheckOutForm />} />
+            <Route path='/AddToCart' element={<AddToCart />} />
           </Route>
 
           {/* for admin */}
@@ -92,6 +95,7 @@ function App() {
           <Route path="/Login" element={<Login></Login>} />
           <Route path="/Signin" element={<Signin></Signin>} />
           <Route path='/ForgotPassword' element={<ForgotPassword />} />
+          <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
           <Route path="/Home" element={<Home></Home>} />
           <Route path="/Product" element={<Product></Product>} />
           <Route path="/About" element={<About></About>} />

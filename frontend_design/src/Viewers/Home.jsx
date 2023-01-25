@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 const Home = () => {
     return (

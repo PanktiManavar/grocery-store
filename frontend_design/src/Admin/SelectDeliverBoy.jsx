@@ -11,7 +11,7 @@ const SelectDeliverBoy = () => {
   }, [])
 
   const getDeliveryBoy = async () => {
-    let result = await fetch('api/registerselect');
+    let result = await fetch('api/deliveryboylist');
     result = await result.json();
     // return console.log(result.result);
     setDeliveryboy(result.result);
@@ -36,7 +36,7 @@ const SelectDeliverBoy = () => {
           <div className="form-container">
             {/* <div className="image-holder"></div> */}
             <form >
-              <h2 className="text-center"><strong>Sub Category</strong> List.</h2>
+              <h2 className="text-center"><strong>Delivery Boy</strong> List.</h2>
 
               <div className="form-group">
                 <table className='styled-table'>
@@ -58,7 +58,7 @@ const SelectDeliverBoy = () => {
                       <tr key={item._id}>
                         <td>{index + 1}</td>
                         <td>{item.Fname}</td>
-                        <td>{item.lname}</td>
+                        <td>{item.Lname}</td>
                         <td>{item.Address}</td>
                         <td>{item.Email}</td>
                         <td>{item.MobileNo}</td>

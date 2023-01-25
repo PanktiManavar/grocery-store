@@ -1,6 +1,4 @@
 import React from 'react';
-import { FaShoppingCart } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -33,6 +31,7 @@ const NavBar = () => {
                                     user ?
                                         <>
                                             <a href='/Login' className="nav-link" onClick={logout}>Logout</a>
+                                            <a href='/Changepassword' className='nav-link'>Change password</a>
                                         </>
                                         :
                                         <>

@@ -51,7 +51,7 @@ const AddProduct = () => {
       "api/productinsert",
       formdata, config
     );
-    result = await result.json();
+    // let results = await result.json();
     if (result) {
       alert("Product inserted");
       navigate('/SelectProduct');
