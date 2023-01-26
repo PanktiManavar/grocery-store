@@ -1,88 +1,101 @@
-import React from "react";
+import React from 'react'
 import styled from "styled-components";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const ForgotPassword = () => {
-
-  const [Password, setPassword] = React.useState('');
-  const [ConPassword, setConPassword] = React.useState('');
+const Sendmail = () => {
+  const [Email, setEmail] = React.useState('');
+  const [Otp, setOtp] = React.useState('');
   const [error, setError] = React.useState(false);
-  const param = useParams();
   const navigate = useNavigate();
 
-  // Email = param.id;
-  const UpdatePassword = async (e) => {
+  const OTPsend = async (e) => {
     e.preventDefault();
-    if (!Password || !ConPassword) {
+    if (!Email) {
       setError(true);
       return false;
     }
-
-    if (Password == ConPassword) {
-      // return alert("hellllo i am enter ");
-      let result = await fetch(`/forgotpassword/${param.id}`, {
-        method: 'put',
-        body: JSON.stringify({ Password }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      result = await result.json();
-
-      if (result.error) {
-        alert(result.error);
+    let result = await fetch('api/optsend', {
+      method: 'post',
+      body: JSON.stringify({ Email }),
+      headers: {
+        "Content-Type": "application/json"
       }
-      else {
-        if (result) {
-          alert("Password are update successfully ")
-          navigate("/Login");
-        }
-        else {
-          alert("Please try again, some problem to update password ");
-        }
-      }
+    });
+    result = await result.json();
+
+    if (result.error) {
+      alert(result.error)
     }
     else {
-      alert("Enter valid Password ")
+      if (result) {
+        sessionStorage.setItem("otp", JSON.stringify(result.data));
+        sessionStorage.setItem("uid", JSON.stringify(result.userid));
+      }
+      else {
+        alert("Resend Otp")
+      }
     }
-
+    console.warn(result);
   }
+
+  const passmatch = async (e) => {
+    e.preventDefault();
+    if (!Otp) {
+      setError(true);
+      return false;
+    }
+    var otp = sessionStorage.getItem("otp");
+    var uid = sessionStorage.getItem("uid");
+    if (otp === Otp) {
+      navigate("/ForgotPassword/" + uid)
+    }
+    else {
+      alert("Enter Valid Otp")
+    }
+  }
+
+
   return (
     <>
       <FormContainer>
         <div className="register-photo">
           <div className="form-container">
-            {/* <div className="image-holder"></div> */}
+            <div className="image-holder"></div>
             <form>
-              <h2 className="text-center"><strong>Change</strong> Password.</h2>
-
+              <h2 className="text-center"><strong>Verify</strong> Account.</h2>
 
               <div className="form-group">
-                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Password field!</span>}
+                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Email field!</span>}
               </div>
               <div className="form-group">
-                <input className="form-control" type="password" value={ConPassword} onChange={(e) => setConPassword(e.target.value)} placeholder="Conform Password" />
-                {error && !ConPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Conform Password field!</span>}
+                <button className="btn btn-success btn-block btn-m" onClick={OTPsend}>SEND OTP</button>
               </div>
               <div className="form-group">
-                {/* <button className="btn btn-primary btn-block">Change Password</button> */}
-                <button className="btn btn-primary btn-block" onClick={UpdatePassword}>Change Password</button>
+                <input className="form-control" type="Number" value={Otp} onChange={(e) => setOtp(e.target.value)} placeholder="OTP" />
+                {error && !Otp && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Enter OTP !</span>}
+              </div>
+              <div className="form-group">
+                <button className="btn btn-primary btn-block" onClick={passmatch}>Verify Otp</button>
               </div>
             </form>
           </div>
         </div>
       </FormContainer>
     </>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default Sendmail;
 
 const FormContainer = styled.div`{
     .register-photo {
      background:#f1f7fc;
      padding:80px 0;
+   }
+
+   .btn-m{
+    margin-top:5px;
    }
    
    .register-photo .image-holder {

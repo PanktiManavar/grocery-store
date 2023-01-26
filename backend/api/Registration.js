@@ -53,7 +53,7 @@ router.post('/', [
 
 
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
             resp.status(500).send('server error');
         }
 

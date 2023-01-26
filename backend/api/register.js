@@ -123,9 +123,10 @@ module.exports = {
     otpsend: async (req, res, next) => {
         const User = await registermodel.findOne({ Email: req.body.Email });
         if (!User) {
-            return res.send("There is no user with that email");
+            res.send({ error: "There is no user with that email" });
         }
 
+        var userid = User._id
         var OTP = Math.floor((Math.random() * 1000000) + 1);
         var mailoption = {
             from: 'palakmanavar@gmail.com',
@@ -149,24 +150,26 @@ module.exports = {
                 return console.log(e)
             }
             else {
-                return console.log("email send  sucessfully")
+                res.send({ data: OTP, userid })
+                // sessionStorage.getItem("otp")
             }
         })
     },
 
+    //this api for change password
     updatepassword: async (req, resp) => {
         try {
-            const userEmail = req.body.Email;
-            const OldPassword = req.body.OldPassword;
+            const userid = req.params.id;
             const Password = req.body.Password;
 
-            const data = await registermodel.findOne({ Email: userEmail });
+            const data = await registermodel.findById(req.params.id);
             if (data) {
                 const validpassword = await bcrypt.compare(req.body.OldPassword, data.Password);
                 if (validpassword) {
                     const salt = await bcrypt.genSalt(10);
                     newpass = await bcrypt.hash(Password, salt);
-                    const userdata = await registermodel.updateOne({ Email: userEmail }, { $set: { Password: newpass } });
+                    // return console.log(newpass);
+                    const userdata = await registermodel.findByIdAndUpdate(req.params.id, { $set: { Password: newpass } }, { new: true });
                     if (userdata) {
                         resp.send({ respons: userdata });
                     }
@@ -176,6 +179,32 @@ module.exports = {
                 }
                 else {
                     resp.send("Enter valid Password");
+                }
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    forgotpassword: async (req, resp) => {
+        try {
+            const uid = req.params.id;
+            const Password = req.body.Password;
+            const options = { new: true };
+
+            const data = await registermodel.findById(req.params.id);
+            if (data) {
+                const salt = await bcrypt.genSalt(10);
+                newpass = await bcrypt.hash(Password, salt);
+                // return console.log(newpasss);
+                const result = await registermodel.findByIdAndUpdate(uid, { $set: { Password: newpass } }, options);
+                if (result) {
+                    //resp.send("Data updated");
+                    resp.send({ result: result });
+                }
+                else {
+                    resp.send({ error: "Password are not Update Please try again !!!" });
                 }
             }
         }

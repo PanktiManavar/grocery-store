@@ -19,7 +19,8 @@ import ViewProductsDairy from './Viewers/ViewProductsDairy';
 import ViewCategoryProduct from './Viewers/ViewCategoryProduct';
 import CheckOutForm from './Viewers/CheckOutForm';
 import ForgotPassword from './Viewers/ForgotPassword';
-import Changepassword from './Viewers/Changepassword'
+import Changepassword from './Viewers/Changepassword';
+import Sendmail from './Viewers/Sendmail';
 // for admin
 import AdminHome from './Admin/AdminHome';
 import AddProduct from './Admin/AddProduct';
@@ -68,6 +69,7 @@ function App() {
             <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
             <Route path='/CheckOutForm' element={<CheckOutForm />} />
             <Route path='/AddToCart' element={<AddToCart />} />
+            <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
           </Route>
 
           {/* for admin */}
@@ -88,14 +90,15 @@ function App() {
             <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
             <Route path="/SelectDeliverBoy" element={<SelectDeliverBoy />} />
             <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
+
           </Route>
           {/* for customer */}
           <Route path="/CustHome" element={<CustHome></CustHome>} />
 
           <Route path="/Login" element={<Login></Login>} />
           <Route path="/Signin" element={<Signin></Signin>} />
-          <Route path='/ForgotPassword' element={<ForgotPassword />} />
-          <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
+          <Route path='/ForgotPassword/:id' element={<ForgotPassword />} />
+          <Route path='/sendmail' element={<Sendmail />} />
           <Route path="/Home" element={<Home></Home>} />
           <Route path="/Product" element={<Product></Product>} />
           <Route path="/About" element={<About></About>} />

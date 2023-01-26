@@ -1,74 +1,85 @@
 import React from 'react'
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Changepassword = () => {
-    const [Email, setEmail] = React.useState('');
-    const [Password, setPassword] = React.useState('');
-    const [OldPassword, setOldPassword] = React.useState('');
-    const [error, setError] = React.useState(false);
-    const navigate = useNavigate();
 
-    const UpdatePassword = async (e) => {
-        e.preventDefault();
+  const [Password, setPassword] = React.useState('');
+  const [OldPassword, setOldPassword] = React.useState('');
+  const [error, setError] = React.useState(false);
+  const navigate = useNavigate();
 
-        if (!Email || !Password || !OldPassword) {
-            setError(true);
-            return false;
-        }
-
-        // console.warn(Email, OldPassword, Password);
-        let result = await fetch(`api/updatepassword`, {
-            method: 'put',
-            body: JSON.stringify({ Email, OldPassword, Password }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        result = await result.json();
-        // return console.log(result);
-
-        if (result) {
-            alert("Password Update successFully");
-            navigate('/Homee');
-
-        }
-        else {
-            alert("Password not Updateted !!");
-        }
-        console.warn(result);
+  const UpdatePassword = async (e) => {
+    e.preventDefault();
+    const userid = sessionStorage.getItem("userid");
+    if (!Password || !OldPassword) {
+      setError(true);
+      return false;
     }
-    return (
-        <>
-            <FormContainer>
-                <div className="register-photo">
-                    <div className="form-container">
-                        <div className="image-holder"></div>
-                        <form>
-                            <h2 className="text-center"><strong>Change</strong> Password.</h2>
 
-                            <div className="form-group">
-                                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                                {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Email field!</span>}
-                            </div>
-                            <div className="form-group">
-                                <input className="form-control" type="password" value={OldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder="Old Password" />
-                                {error && !OldPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Old-Password field!</span>}
-                            </div>
-                            <div className="form-group">
-                                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
-                                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out New-Password field!</span>}
-                            </div>
-                            <div className="form-group">
-                                {/* <button className="btn btn-primary btn-block">Change Password</button> */}
-                                <button className="btn btn-primary btn-block" onClick={UpdatePassword}>Change Password</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </FormContainer>
-        </>
-    )
+    const formdata = new FormData();
+    formdata.append('OldPassword', OldPassword);
+    formdata.append("Password", Password);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    const result = await axios.put(
+      `api/updatepassword/${userid}`,
+      formdata, config
+    );
+    return console.warn(result);
+
+    // return console.warn(`/api/updatepassword/ ${user}`);
+    // let result = await fetch(`/api/updatepassword/${user}`, {
+    //   method: 'put',
+    //   body: JSON.stringify({ OldPassword, Password }),
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // });
+    // result = await result.json();
+
+
+    if (result) {
+      alert("Password Update successFully");
+      navigate('/Homee');
+
+    }
+    else {
+      alert("Password not Updateted !!");
+    }
+    console.warn(result);
+  }
+  return (
+    <>
+      <FormContainer>
+        <div className="register-photo">
+          <div className="form-container">
+            <div className="image-holder"></div>
+            <form>
+              <h2 className="text-center"><strong>Change</strong> Password.</h2>
+              <div className="form-group">
+                <input className="form-control" type="password" value={OldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder="Old Password" />
+                {error && !OldPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Old-Password field!</span>}
+              </div>
+              <div className="form-group">
+                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
+                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out New-Password field!</span>}
+              </div>
+              <div className="form-group">
+                {/* <button className="btn btn-primary btn-block">Change Password</button> */}
+                <button className="btn btn-primary btn-block" onClick={UpdatePassword}>Change Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </FormContainer>
+    </>
+  )
 }
 
 export default Changepassword;

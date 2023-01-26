@@ -92,7 +92,7 @@ const Login = () => {
               {/* <button className="btn btn-primary btn-block" type="submit" onClick={collectData}>Sign Up</button> */}
               {/* </div> */}
               <a href="/Signin" className="already">You don't have an account? Signup here.</a>
-              <span className="already"><Link to="/ForgotPassword" >Forgot Password</Link></span>
+              <span className="already"><Link to="/sendmail" >Forgot Password</Link></span>
             </form>
           </div>
         </div>
