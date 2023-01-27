@@ -7,52 +7,47 @@ const Changepassword = () => {
 
   const [Password, setPassword] = React.useState('');
   const [OldPassword, setOldPassword] = React.useState('');
+  const [ConPassword, setConPassword] = React.useState('');
   const [error, setError] = React.useState(false);
   const navigate = useNavigate();
 
+  const userid = sessionStorage.getItem("userid").replace(/['"]+/g, '');
+
   const UpdatePassword = async (e) => {
     e.preventDefault();
-    const userid = sessionStorage.getItem("userid");
-    if (!Password || !OldPassword) {
+
+    // return alert(`/api/updatepassword/ ${userid}`);
+    if (!Password || !OldPassword || !ConPassword) {
       setError(true);
       return false;
     }
 
-    const formdata = new FormData();
-    formdata.append('OldPassword', OldPassword);
-    formdata.append("Password", Password);
+    if (Password === ConPassword) {
+      let result = await fetch(`/api/updatepassword/${userid}`, {
+        method: 'put',
+        body: JSON.stringify({ OldPassword, Password }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      result = await result.json();
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+      if (result.error) {
+        alert(result.error);
+      } else {
+        if (result) {
+          alert("Password Update successFully");
+          navigate('/Homee');
+
+        }
+        else {
+          alert("Password not Updateted !!");
+        }
       }
-    };
-    const result = await axios.put(
-      `api/updatepassword/${userid}`,
-      formdata, config
-    );
-    return console.warn(result);
-
-    // return console.warn(`/api/updatepassword/ ${user}`);
-    // let result = await fetch(`/api/updatepassword/${user}`, {
-    //   method: 'put',
-    //   body: JSON.stringify({ OldPassword, Password }),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // });
-    // result = await result.json();
-
-
-    if (result) {
-      alert("Password Update successFully");
-      navigate('/Homee');
-
     }
     else {
-      alert("Password not Updateted !!");
+      alert("New Password and Confirm Password are enter same!!");
     }
-    console.warn(result);
   }
   return (
     <>
@@ -69,6 +64,10 @@ const Changepassword = () => {
               <div className="form-group">
                 <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
                 {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out New-Password field!</span>}
+              </div>
+              <div className="form-group">
+                <input className="form-control" type="password" value={ConPassword} onChange={(e) => setConPassword(e.target.value)} placeholder="New Password" />
+                {error && !ConPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Confirm-Password field!</span>}
               </div>
               <div className="form-group">
                 {/* <button className="btn btn-primary btn-block">Change Password</button> */}

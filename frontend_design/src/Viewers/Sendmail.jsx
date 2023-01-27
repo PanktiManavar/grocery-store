@@ -28,7 +28,7 @@ const Sendmail = () => {
     }
     else {
       if (result) {
-        sessionStorage.setItem("otp", JSON.stringify(result.data));
+        sessionStorage.setItem("otp", JSON.stringify(result.OTP));
         sessionStorage.setItem("uid", JSON.stringify(result.userid));
       }
       else {
@@ -45,9 +45,9 @@ const Sendmail = () => {
       return false;
     }
     var otp = sessionStorage.getItem("otp");
-    var uid = sessionStorage.getItem("uid");
+    // var uid = sessionStorage.getItem("uid");
     if (otp === Otp) {
-      navigate("/ForgotPassword/" + uid)
+      navigate('/ForgotPassword');
     }
     else {
       alert("Enter Valid Otp")

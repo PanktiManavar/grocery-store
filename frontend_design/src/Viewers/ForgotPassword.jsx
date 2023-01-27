@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
 
   const [Password, setPassword] = React.useState('');
   const [ConPassword, setConPassword] = React.useState('');
   const [error, setError] = React.useState(false);
-  const param = useParams();
   const navigate = useNavigate();
+
+  var uid = sessionStorage.getItem("uid").replace(/['"]+/g, '');
 
   // Email = param.id;
   const UpdatePassword = async (e) => {
@@ -18,9 +19,10 @@ const ForgotPassword = () => {
       return false;
     }
 
-    if (Password == ConPassword) {
+    if (Password === ConPassword) {
       // return alert("hellllo i am enter ");
-      let result = await fetch(`/forgotpassword/${param.id}`, {
+
+      let result = await fetch(`forgotpassword/${uid}`, {
         method: 'put',
         body: JSON.stringify({ Password }),
         headers: {

@@ -123,13 +123,13 @@ module.exports = {
     otpsend: async (req, res, next) => {
         const User = await registermodel.findOne({ Email: req.body.Email });
         if (!User) {
-            res.send({ error: "There is no user with that email" });
+            res.send({ error: "There is no user with this email" });
         }
 
         var userid = User._id
         var OTP = Math.floor((Math.random() * 1000000) + 1);
         var mailoption = {
-            from: 'palakmanavar@gmail.com',
+            from: 'krishnakpatel3121@gmail.com',
             to: `${req.body.Email}`,
             subject: 'Account verfication for register',
             text: `Your OTP is ${OTP}`
@@ -137,8 +137,8 @@ module.exports = {
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'palakmanavar@gmail.com',
-                pass: 'cqrvuokhkdfvizdy'
+                user: 'krishnakpatel3121@gmail.com',
+                pass: 'fhgbexpsfhklyyjh'
             },
             port: 465,
             host: 'smtp.gmail.com'
@@ -150,7 +150,7 @@ module.exports = {
                 return console.log(e)
             }
             else {
-                res.send({ data: OTP, userid })
+                res.send({ OTP, userid })
                 // sessionStorage.getItem("otp")
             }
         })
@@ -178,7 +178,7 @@ module.exports = {
                     }
                 }
                 else {
-                    resp.send("Enter valid Password");
+                    resp.send({ error: "Enter valid exits Password" });
                 }
             }
         }
@@ -193,20 +193,17 @@ module.exports = {
             const Password = req.body.Password;
             const options = { new: true };
 
-            const data = await registermodel.findById(req.params.id);
-            if (data) {
-                const salt = await bcrypt.genSalt(10);
-                newpass = await bcrypt.hash(Password, salt);
-                // return console.log(newpasss);
-                const result = await registermodel.findByIdAndUpdate(uid, { $set: { Password: newpass } }, options);
-                if (result) {
-                    //resp.send("Data updated");
-                    resp.send({ result: result });
-                }
-                else {
-                    resp.send({ error: "Password are not Update Please try again !!!" });
-                }
+            const salt = await bcrypt.genSalt(10);
+            newpass = await bcrypt.hash(Password, salt);
+            // return console.log(newpasss);
+            const result = await registermodel.findByIdAndUpdate(uid, { $set: { Password: newpass } }, options);
+            if (result) {
+                resp.send({ result: result });
             }
+            else {
+                resp.send({ error: "Password are not Update Please try again !!!" });
+            }
+            // }
         }
         catch (err) {
             console.log(err.message);

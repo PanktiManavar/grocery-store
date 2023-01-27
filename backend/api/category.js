@@ -25,7 +25,7 @@ module.exports = {
             // var id = "632aa96f3443edea84f0bd9d"
             const result = await categorymodel.findById(req.params.id);
             if (result) {
-                console.log(result);
+                // console.log(result);
                 resp.send({ result: result });
             }
             else {

@@ -45,14 +45,13 @@ import AddToCart from './Viewers/AddToCart';
 import AllNav from './Navbar/AllNav';
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
-
+import AllcComponent from './component/AllcComponent';
 
 function App() {
   return (
     <div className="App">
       <NavBar />
       <BrowserRouter>
-        <AllNav />
         <Routes>
           {/* for viewers */}
 
@@ -93,17 +92,19 @@ function App() {
 
           </Route>
           {/* for customer */}
-          <Route path="/CustHome" element={<CustHome></CustHome>} />
+          <Route element={<AllcComponent />}>
+            <Route path="/CustHome" element={<CustHome></CustHome>} />
 
-          <Route path="/Login" element={<Login></Login>} />
-          <Route path="/Signin" element={<Signin></Signin>} />
-          <Route path='/ForgotPassword/:id' element={<ForgotPassword />} />
-          <Route path='/sendmail' element={<Sendmail />} />
-          <Route path="/Home" element={<Home></Home>} />
-          <Route path="/Product" element={<Product></Product>} />
-          <Route path="/About" element={<About></About>} />
-          <Route path="/Contact" element={<Contact></Contact>} />
-          <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+            <Route path="/Login" element={<Login></Login>} />
+            <Route path="/Signin" element={<Signin></Signin>} />
+            <Route path='/ForgotPassword' element={<ForgotPassword />} />
+            <Route path='/sendmail' element={<Sendmail />} />
+            <Route path="/Home" element={<Home></Home>} />
+            <Route path="/Product" element={<Product></Product>} />
+            <Route path="/About" element={<About></About>} />
+            <Route path="/Contact" element={<Contact></Contact>} />
+            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+          </Route>
         </Routes>
 
       </BrowserRouter>
