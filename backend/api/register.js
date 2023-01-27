@@ -120,6 +120,7 @@ module.exports = {
         }
     },
 
+    //this otp is for user all ready register or forgot password
     otpsend: async (req, res, next) => {
         const User = await registermodel.findOne({ Email: req.body.Email });
         if (!User) {
@@ -131,8 +132,8 @@ module.exports = {
         var mailoption = {
             from: 'krishnakpatel3121@gmail.com',
             to: `${req.body.Email}`,
-            subject: 'Account verfication for register',
-            text: `Your OTP is ${OTP}`
+            subject: 'Account verfication for Forgot Password ',
+            text: `To change Your Password for Online Grocery store, Your OTP IS : ${OTP}`
         }
         var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -146,12 +147,42 @@ module.exports = {
 
         transporter.sendMail(mailoption, (e, info) => {
             if (e) {
-                //return console.log("email not send sucessfully")
                 return console.log(e)
             }
             else {
                 res.send({ OTP, userid })
-                // sessionStorage.getItem("otp")
+            }
+        })
+    },
+
+    otpsendregister: async (req, res, next) => {
+        const User = await registermodel.findOne({ Email: req.body.Email });
+        if (User) {
+            res.send({ error: "User are already exits Please enter Another id for Registration" });
+        }
+        var OTP = Math.floor((Math.random() * 1000000) + 1);
+        var mailoption = {
+            from: 'krishnakpatel3121@gmail.com',
+            to: `${req.body.Email}`,
+            subject: 'Account verfication for Registration',
+            text: `You have Register to Online Grocery store, Your OTP IS : ${OTP}`
+        }
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'krishnakpatel3121@gmail.com',
+                pass: 'fhgbexpsfhklyyjh'
+            },
+            port: 465,
+            host: 'smtp.gmail.com'
+        });
+
+        transporter.sendMail(mailoption, (e, info) => {
+            if (e) {
+                return console.log(e)
+            }
+            else {
+                res.send({ OTP })
             }
         })
     },

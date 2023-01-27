@@ -13,6 +13,6 @@ router.get('/api/deliveryboylist', registerapi.selectdeliveryboy);
 router.get('/api/customerlist', registerapi.selectCustomer);
 router.post('/api/optsend', registerapi.otpsend);
 router.put('/forgotpassword/:id', registerapi.forgotpassword);
-
+router.post('/api/optsendRgister', registerapi.otpsendregister);
 
 module.exports = router;

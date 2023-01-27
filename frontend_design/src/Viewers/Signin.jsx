@@ -9,44 +9,73 @@ const Signin = () => {
   const [Email, setEmail] = React.useState("");
   const [Password, setPassword] = React.useState("");
   const [MobileNo, setMobileNo] = React.useState("");
+  const [Otp, setOtp] = React.useState('');
   const [error, setError] = React.useState(false);
   const UserType = "customer"
   const navigate = useNavigate();
 
-  const collectData = async (e) => {
+
+  const OTPsend = async (e) => {
     e.preventDefault();
-    if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType) {
+    if (!Email) {
       setError(true);
       return false;
     }
-
-    console.warn(Fname, Lname, Email, Password, MobileNo,UserType);
-    let result = await fetch('api/registration', {
+    let result = await fetch('api/optsendRgister', {
       method: 'post',
-      body: JSON.stringify({
-        Fname,
-        Lname,
-        Email,
-        Password,
-        MobileNo,
-        UserType
-      }),
+      body: JSON.stringify({ Email }),
       headers: {
         "Content-Type": "application/json"
-      },
+      }
     });
     result = await result.json();
-    console.warn(result);
 
-    if (!result.Email) {
-      localStorage.setItem("user", JSON.stringify(result));
-      console.warn(result);
-      alert("Welcome");
-      navigate('/Login');
+    if (result.error) {
+      alert(result.error)
     }
     else {
-      alert("User could not be registered");
-      // navigate('/Home');
+      if (result) {
+        sessionStorage.setItem("otp", JSON.stringify(result.OTP));
+      }
+      else {
+        alert("Resend Otp")
+      }
+    }
+    console.warn(result);
+  }
+  var otps = sessionStorage.getItem("otp");
+
+  const collectData = async (e) => {
+    e.preventDefault();
+    if (!Fname || !Lname || !Email || !Password || !MobileNo || !UserType || !Otp) {
+      setError(true);
+      return false;
+    }
+    console.warn(Fname, Lname, Email, Password, MobileNo, UserType);
+
+    if (otps === Otp) {
+      let result = await fetch('api/registration', {
+        method: 'post',
+        body: JSON.stringify({
+          Fname, Lname, Email, Password, MobileNo, UserType
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
+      result = await result.json();
+      console.warn(result);
+
+      if (!result.Email) {
+        localStorage.setItem("user", JSON.stringify(result));
+        console.warn(result);
+        alert("Welcome");
+        navigate('/Login');
+      }
+      else {
+        alert("User could not be registered");
+        // navigate('/Home');
+      }
     }
   }
 
@@ -81,10 +110,16 @@ const Signin = () => {
               <div className="form-group">
                 <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Mobile Number" />
                 {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Mobile Number field!</span>}
-
+              </div>
+              <div className="form-group">
+                <button className="btn btn-success btn-block btn-m" onClick={OTPsend}>SEND OTP</button>
+              </div>
+              <div className="form-group">
+                <input className="form-control" type="Number" value={Otp} onChange={(e) => setOtp(e.target.value)} placeholder="OTP" />
+                {error && !Otp && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Enter OTP !</span>}
               </div>
               <button className="btn btn-primary btn-block" onClick={collectData}>Signin</button>
-              
+
               <a href="/Login" className="already">You have already account? Login here.</a>
             </form>
           </div>
@@ -99,229 +134,92 @@ export default Signin;
 
 const FormContainer = styled.div`{
   .register-photo {
-   background:#f1f7fc;
-   padding:80px 0;
- }
- 
- .register-photo .image-holder {
-   display:table-cell;
-   height:100px;
-   width:250px;
-   background:url(image/rglg.jpg);
-   background-size:cover;
- }
- 
- .register-photo .form-container {
-   display:table;
-   max-width:900px;
-   width:90%;
-   margin: 25px 50px 75px 250px;
-   box-shadow:1px 1px 5px rgba(0,0,0,0.1);
- }
- 
- .register-photo form {
-   display:table-cell;
-   width:400px;
-   background-color:#ffffff;
-   padding:40px 60px;
-   color:#505e6c;
- }
- 
- @media (max-width:991px) {
-   .register-photo form {
-     padding:40px;
+    background:#f1f7fc;
+    padding:80px 0;
+  }
+  .btn-m{
+    margin-top:5px;
    }
- }
- 
- .register-photo form h2 {
-   font-size:24px;
-   line-height:1.5;
-   margin-bottom:30px;
- }
- 
- .register-photo form .form-control {
-   background:#f7f9fc;
-   border:none;
-   border-bottom:1px solid #dfe7f1;
-   border-radius:0;
-   box-shadow:none;
-   outline:none;
-   color:inherit;
-   text-indent:6px;
-   height:40px;
-   margin-top:8px;
-   font-size:12px;
- }
- 
- .register-photo form .form-check {
-   font-size:13px;
-   line-height:20px;
- }
- 
- .register-photo form .btn-primary {
-   background:#f4476b;
-   border:none;
-   border-radius:4px;
-   padding:11px;
-   box-shadow:none;
-   margin-top:35px;
-   text-shadow:none;
-   outline:none !important;
- }
- 
- .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
-   background:#eb3b60;
- }
- 
- .register-photo form .btn-primary:active {
-   transform:translateY(1px);
- }
- 
- .register-photo form .already {
-   display:block;
-   text-align:center;
-   font-size:12px;
-   color:#6f7a85;
-   opacity:0.9;
-   text-decoration:none;
- }
- }
- `;
-
-//  import React from "react";
-//  import styled from "styled-components";
-//  import { useNavigate } from 'react-router-dom';
- 
-//  const Signin = () => {
- 
-//    const [Fname, setFName] = React.useState("");
-//    const [Lname, setLName] = React.useState("");
-//    const [Email, setEmail] = React.useState("");
-//    const [Password, setPassword] = React.useState("");
-//    const [MobileNo, setMobileNo] = React.useState("");
-//    // const [UserType, setUserType] = React.useState("");
-//    const navigate = useNavigate();
- 
-//    const collectData = async (e) => {
-//      console.warn(Fname, Lname, Email, Password, MobileNo);
-//      let result = await fetch('api/registration', {
-//        method: 'post',
-//        body: JSON.stringify({
-//          Fname,
-//          Lname,
-//          Email,
-//          Password,
-//          MobileNo,
-//          // UserType
-//        }),
-//        headers: {
-//          "Content-Type": "application/json"
-//        },
-//      });
-//      result = await result.json();
-//      console.warn(result);
- 
-//      if (!result.Email) {
-//        localStorage.setItem("user", JSON.stringify(result));
-//        console.warn(result);
-//        alert("Welcome");
-//        navigate('/Home')
-//      }
-//      else {
-//        alert("User could not be registered");
-//      }
-//    }
- 
-//    return (
-//      <>
-//        <FormContainer>
- 
-//          <div className="main_box">
-//            <div className="main_box--main">
-//              <div className="main_box--main--title">
-//                <h4>Signin To Shop Now...</h4>
-//                <p>Enter your details</p>
-//              </div>
-//              <div className="main_box--main--signUp">
-//                <input className="form-control" type="text" value={Fname} onChange={(e) => setFName(e.target.value)} placeholder="Enter your first name" />
-//                <input className="form-control" type="text" value={Lname} onChange={(e) => setLName(e.target.value)} placeholder="Enter your last name" />
-//                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" />
-//                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
-//                <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Enter your contact number" />
-//                {/* <input className="form-control" type="text" value={UserType} onChange={(e) => setUserType(e.target.value)} placeholder="customer" /> */}
-//                <button className="btn btn-success" onClick={collectData}>Signin</button>
- 
-//              </div>
-//            </div>
-//          </div>
-//        </FormContainer>
-//      </>
-//    );
-//  };
- 
-//  export default Signin;
- 
-//  const FormContainer = styled.div`{
-//          .main_box{
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         flex-direction: column;
-//         height: 100vh;
-//       }
-//       /* Main */
-//       .main_box--main{
-//         width: 500px;
-//         height: auto;
-//         position: relative;
-//         border-radius: 7.5px;
-//         box-shadow: 0px 0px 25px rgba(0,0,0,.35);
-//       }
-//       .main_box--main--title{
-//         width: 100%;
-//         height: 100px;
-//         background: rgb(250,250,250);
-//         padding: 20px;
-//         border-radius: 7.5px 7.5px 0px 0px  ;
-//       }
-//       .main_box--main--login{
-//         padding: 20px;
-//         width: 100%;
-//         height: 210px;
-//         background: rgb(200, 200, 200);
-//         box-shadow: inset 0px 5px 5px rgba(0,0,0,.15); 
-//         border-radius: 0px 0px 7.5px 7.5px;
-//         text-align: center;
-//       }
-//       .main_box--main--signUp{
-//         padding: 20px;
-//         width: 100%;
-//         height: 250px;
-//         background: rgb(200, 200, 200);
-//         box-shadow: inset 0px 5px 5px rgba(0,0,0,.15); 
-//         border-radius: 0px 0px 7.5px 7.5px;
-//       }
-//       .main_box--main--login input,
-//       .main_box--main--signUp input{
-//         margin: 10px 0px ;
-//         box-shadow: 0px 0px 10px rgba(0,0,0,.25);
-//       }
-//       .main_box--main--login button,
-//       .main_box--main--signUp button{
-//         margin: 10px 0px;
-//         box-shadow: 0px 0px 10px rgba(0,0,0,.25);
-//         padding: 7.5px;
-//         width: 100%;
-//         cursor: pointer;
-//       }
-//       .main_box--main--login span {
-//           color: black;
-//           text-transform: uppercase;
-//           a {
-//             color: #4e0eff;
-//             text-decoration: none;
-//             font-weight: bold;
-//           }
-//       }
-//      }
-//  `;
+  .register-photo .image-holder {
+    display:table-cell;
+    width:377px;
+    background:url(image/rglg.jpg);
+    background-size:cover;
+  }
+  
+  .register-photo .form-container {
+    display:table;
+    max-width:900px;
+    width:90%;
+    margin:0 auto;
+    box-shadow:1px 1px 5px rgba(0,0,0,0.1);
+  }
+  
+  .register-photo form {
+    display:table-cell;
+    width:400px;
+    background-color:#ffffff;
+    padding:40px 60px;
+    color:#505e6c;
+  }
+  
+  @media (max-width:991px) {
+    .register-photo form {
+      padding:40px;
+    }
+  }
+  
+  .register-photo form h2 {
+    font-size:24px;
+    line-height:1.5;
+    margin-bottom:30px;
+  }
+  
+  .register-photo form .form-control {
+    background:#f7f9fc;
+    border:none;
+    border-bottom:1px solid #dfe7f1;
+    border-radius:0;
+    box-shadow:none;
+    outline:none;
+    color:inherit;
+    text-indent:6px;
+    height:40px;
+    margin-top:10px;
+    font-size:12px;
+  }
+  
+  .register-photo form .form-check {
+    font-size:13px;
+    line-height:20px;
+  }
+  
+  .register-photo form .btn-primary {
+    background:#f4476b;
+    border:none;
+    border-radius:4px;
+    padding:11px;
+    box-shadow:none;
+    margin-top:35px;
+    text-shadow:none;
+    outline:none !important;
+  }
+  
+  .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
+    background:#eb3b60;
+  }
+  
+  .register-photo form .btn-primary:active {
+    transform:translateY(1px);
+  }
+  
+  .register-photo form .already {
+    display:block;
+    text-align:center;
+    font-size:12px;
+    color:#6f7a85;
+    opacity:0.9;
+    text-decoration:none;
+  }
+  }
+  `;

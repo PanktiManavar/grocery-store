@@ -47,6 +47,8 @@ router.post('/', [
             //password encrypat
             const salt = await bcrypt.genSalt(10);
             emailfind.Password = await bcrypt.hash(Password, salt);
+
+            
             await emailfind.save();
 
             resp.status(200).json({ error: [{ msg: 'user register' }] });

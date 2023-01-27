@@ -42,7 +42,6 @@ import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 import CustHome from './Customer/CustHome';
 import AddToCart from './Viewers/AddToCart';
 //component
-import AllNav from './Navbar/AllNav';
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
 import AllcComponent from './component/AllcComponent';

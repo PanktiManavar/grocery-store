@@ -100,7 +100,8 @@ const FormContainer = styled.div`{
    
    .register-photo .image-holder {
      display:table-cell;
-     width:150px;
+     width: 189px;
+    height: 367px;
      background:url(image/rglg.jpg);
      background-size:cover;
    }

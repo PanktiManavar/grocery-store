@@ -10,7 +10,6 @@ const AllNav = () => {
 
                     </nav> :
                     <nav className="navbar">
-                        <h2></h2>
                         <a href="/Home">Home</a>
                         <a href="/Product">Product</a>
                         <a href="/About">About</a>
