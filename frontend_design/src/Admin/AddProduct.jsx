@@ -115,6 +115,7 @@ const AddProduct = () => {
                   <option value="Kg">Kg</option>
                   <option value="Liter">Liter</option>
                   <option value="Packet">Packet</option>
+                  <option value="Pieces">Pieces</option>
                 </select>
               </div>
               {error && !mname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please Select this field!</span>}

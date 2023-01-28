@@ -49,9 +49,8 @@ import AllcComponent from './component/AllcComponent';
 function App() {
   return (
     <div className="App">
-
+      <NavBar />
       <BrowserRouter>
-        <NavBar />
         <Routes>
           {/* for viewers */}
 
@@ -60,7 +59,7 @@ function App() {
             <Route path="/Productt" element={<Product></Product>} />
             <Route path="/Aboutt" element={<About></About>} />
             <Route path="/Contactt" element={<Contact></Contact>} />
-            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
+            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
             <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
@@ -109,7 +108,7 @@ function App() {
 
       </BrowserRouter>
 
-      {/* <Footer /> */}
+      <Footer />
 
     </div >
   );
