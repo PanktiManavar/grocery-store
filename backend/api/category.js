@@ -9,9 +9,6 @@ module.exports = {
         checkexists_category = await categorymodel.findOne({ cname: req.body.cname });
 
         if (checkexists_category) {
-
-            console.log(JSON.stringify("Category Already exists!"));
-            //  resp.status(400).json({ error: [{ msg: 'user already exits' }] });
             return res.send(JSON.stringify("Category Already exists!"));
         } else {
             const result = await category.save();

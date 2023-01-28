@@ -4,41 +4,41 @@ import { FaEnvelope } from 'react-icons/fa';
 import { FaLocationArrow } from 'react-icons/fa';
 
 export default function Contact() {
-  return (
-    <>
-      <div>
-      <div className="heading">
-    <h1>Contact Us</h1>
-    <p> <a href="/Home">Home </a> Contact </p>
-</div>
+    return (
+        <>
+            <div>
+                <div className="heading">
+                    <h1>Contact Us</h1>
+                    <p> <a href="/Home">Home </a> Contact </p>
+                </div>
 
-<section className="contact">
+                <section className="contact">
 
-    <div className="icons-container">
+                    <div className="icons-container">
 
-        <div className="icons">
-            <i><FaPhone></FaPhone></i>
-            <h3>Our Number</h3>
-            <p>+123-456-7890</p>
-            <p>+111-222-3333</p>
-        </div>
+                        <div className="icons">
+                            <i><FaPhone></FaPhone></i>
+                            <h3>Our Number</h3>
+                            <p>+91 7802968166</p>
+                            <p>+91 9737431201</p>
+                        </div>
 
-        <div className="icons">
-            <i><FaEnvelope></FaEnvelope></i>
-            <h3>Our Email</h3>
-            <p>hellofreewebsitecode@gmail.com</p>
-            <p>hellofreewebsitecode@gmail.com</p>
-        </div>
+                        <div className="icons">
+                            <i><FaEnvelope></FaEnvelope></i>
+                            <h3>Our Email</h3>
+                            <p>panktimanavar01@gmail.com</p>
+                            <p>krishnapatel21@gmail.com</p>
+                        </div>
 
-        <div className="icons">
-            <i><FaLocationArrow></FaLocationArrow></i>
-            <h3>Our Address</h3>
-            <p>mumbai, india - 400104</p>
-        </div>
+                        <div className="icons">
+                            <i><FaLocationArrow></FaLocationArrow></i>
+                            <h3>Our Address</h3>
+                            <p>GUJARAT, india - 394185</p>
+                        </div>
 
-    </div>
+                    </div>
 
-    {/* <div className="row">
+                    {/* <div className="row">
 
         <form action="">
             <h3>Get In Touch</h3>
@@ -58,9 +58,9 @@ export default function Contact() {
 
     </div> */}
 
-</section>
+                </section>
 
-      </div>
-    </>
-  );
+            </div>
+        </>
+    );
 };

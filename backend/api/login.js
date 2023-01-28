@@ -37,7 +37,7 @@ module.exports = {
                         }
 
                     } else {
-                        res.send(JSON.stringify("Invalid Username or Password!"));
+                        res.send({ error: "Invalid Username or Password!" });
                     }
                 } else {
                     res.send(JSON.stringify("User not found"))

@@ -49,8 +49,9 @@ import AllcComponent from './component/AllcComponent';
 function App() {
   return (
     <div className="App">
-      <NavBar />
+
       <BrowserRouter>
+        <NavBar />
         <Routes>
           {/* for viewers */}
 
@@ -108,7 +109,7 @@ function App() {
 
       </BrowserRouter>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </div >
   );

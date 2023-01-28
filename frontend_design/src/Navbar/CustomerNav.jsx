@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaShoppingCart } from 'react-icons/fa'
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
 
 const CustomerNav = () => {
@@ -13,10 +13,17 @@ const CustomerNav = () => {
                         <a href="/Productt">Product</a>
                         <a href="/Aboutt">About</a>
                         <a href="/Contactt">Contact</a>
-                        <div className='cust-nav nav-right'>
-                            <a href='#'>Cart</a>
-                            <a href='#'>My Account</a>
-                        </div>
+
+                        <a href='#'>Cart</a>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="none" href >
+                                MyAccount
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="/Changepassword">Chnage Password</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+
                     </nav>
                     :
                     <nav className='nav-ul nav-right nav-right'>
@@ -26,7 +33,7 @@ const CustomerNav = () => {
                     </nav>
                 }
             </header>
-        </div>
+        </div >
 
 
 

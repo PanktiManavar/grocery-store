@@ -26,7 +26,11 @@ const Login = () => {
       }
     });
     result = await result.json();
-    // return console.log(result.response.data._id);
+    // return console.log(result);
+
+    if (result.error) {
+      alert(result.error)
+    }
 
     if (result.response.data.Email === Email) {
 
