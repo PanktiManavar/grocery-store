@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
+
 const Signin = () => {
 
   const [Fname, setFName] = React.useState("");
@@ -11,6 +12,12 @@ const Signin = () => {
   const [MobileNo, setMobileNo] = React.useState("");
   const [Otp, setOtp] = React.useState('');
   const [error, setError] = React.useState(false);
+  const [Fnameerror, setFnameError] = React.useState('');
+  const [Lnameerror, setLnameError] = React.useState('');
+  const [Emailerror, setEmailError] = React.useState("");
+  const [Passworderror, setPasswordError] = React.useState("");
+  const [MobileNoerror, setMobileNoError] = React.useState("");
+
   const UserType = "customer"
   const navigate = useNavigate();
 
@@ -51,6 +58,7 @@ const Signin = () => {
       setError(true);
       return false;
     }
+
     console.warn(Fname, Lname, Email, Password, MobileNo, UserType);
 
     if (otps === Otp) {
@@ -78,7 +86,64 @@ const Signin = () => {
       }
     }
   }
+  //Validate FirstName
+  const validFirstName = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(Fname)) {
+      setFnameError('Please Enter Valid Fitstname!');
+      return;
+    } else {
+      setFnameError('');
+    }
+  };
 
+  //Validate LastName
+  const validLastName = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(Lname)) {
+      setLnameError('Please Enter Valid Lastname!');
+      return;
+    } else {
+      setLnameError('');
+    }
+  };
+
+  //Validate MobileNo
+  const validMobileNo = (e) => {
+    var pattern = new RegExp(/^[789]\d{8}$/);
+    if (!pattern.test(MobileNo)) {
+      setMobileNoError('Only 10 numbers are allowed!');
+      return;
+    } else {
+      setMobileNoError('');
+    }
+  };
+
+  //Validate Password
+  const validPassword = (e) => {
+    var pattern = new RegExp(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/
+    );
+    if (!pattern.test(Password)) {
+      setPasswordError(
+        'Only 8 characters are allowed, include 1 number,1 uppercase and lowercase letter and 1 special character!'
+      );
+      return;
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  //Validate Email
+  const validEmail = (e) => {
+    var pattern = new RegExp(/^[\w#][\w\.\’+#](.[\w\\’#]+)\@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(.[a-zA-Z]{2,20})$/);
+    if (!pattern.test(Email)) {
+      setEmailError('Please enter valid Email!');
+      return;
+    } else {
+      setEmailError('');
+    }
+  };
   return (
     <>
       <FormContainer>
@@ -88,32 +153,46 @@ const Signin = () => {
             </div>
             <form >
               <h2 className="text-center"><strong>Create</strong> an account.</h2>
+
               <div className="form-group">
-                <input className="form-control" type="text" value={Fname} onChange={(e) => setFName(e.target.value)} placeholder="First Name" />
+                <input className="form-control" type="text" value={Fname} onChange={(e) => { setFName(e.target.value); validFirstName(); }} placeholder="First Name" required />
+                {/* print invalid input message */}
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Fnameerror}  </span>
                 {error && !Fname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out First Name field!</span>}
               </div>
+
               <div className="form-group">
-                <input className="form-control" type="text" value={Lname} onChange={(e) => setLName(e.target.value)} placeholder="Last Name" />
+                <input className="form-control" type="text" value={Lname} onChange={(e) => { setLName(e.target.value); validLastName(); }} placeholder="Last Name" />
+                {/* print invalid input message */}
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Lnameerror}  </span>
                 {error && !Lname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Last Name field!</span>}
-
               </div>
+
               <div className="form-group">
-                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                <input className="form-control" type="email" value={Email} onChange={(e) => { setEmail(e.target.value); validEmail(); }} placeholder="Email" />
+                {/* print invalid input message */}
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Emailerror}  </span>
                 {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Email field!</span>}
-
               </div>
+
               <div className="form-group">
-                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                <input className="form-control" type="password" value={Password} onChange={(e) => { setPassword(e.target.value); validPassword(); }} placeholder="Password" />
+                {/* print invalid input message */}
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Passworderror}  </span>
                 {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Password field!</span>}
-
               </div>
+
               <div className="form-group">
-                <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Mobile Number" />
+                <input className="form-control" type="tel" value={MobileNo} onChange={(e) => { setMobileNo(e.target.value); validMobileNo(); }} placeholder="Mobile Number" />
+                {/* print invalid input message */}
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {MobileNoerror}  </span>
                 {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Mobile Number field!</span>}
               </div>
+
               <div className="form-group">
                 <button className="btn btn-success btn-block btn-m" onClick={OTPsend}>SEND OTP</button>
               </div>
+
               <div className="form-group">
                 <input className="form-control" type="Number" value={Otp} onChange={(e) => setOtp(e.target.value)} placeholder="OTP" />
                 {error && !Otp && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Enter OTP !</span>}

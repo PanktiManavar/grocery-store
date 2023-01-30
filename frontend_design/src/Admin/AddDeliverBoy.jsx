@@ -11,6 +11,11 @@ const AddDeliverBoy = () => {
   const [Password, setPassword] = React.useState("");
   const [MobileNo, setMobileNo] = React.useState("");
   const [error, setError] = React.useState(false);
+  const [Fnameerror, setFnameError] = React.useState('');
+  const [Lnameerror, setLnameError] = React.useState('');
+  const [Emailerror, setEmailError] = React.useState("");
+  const [Passworderror, setPasswordError] = React.useState("");
+  const [MobileNoerror, setMobileNoError] = React.useState("");
   const UserType = "deliveryboy"
   const navigate = useNavigate();
 
@@ -50,7 +55,66 @@ const AddDeliverBoy = () => {
       alert("User could not be registered");
       // navigate('/Home');
     }
-  }
+  };
+
+  //Validate FirstName
+  const validFirstName = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(Fname)) {
+      setFnameError('Please Enter Valid Fitstname!');
+      return;
+    } else {
+      setFnameError('');
+    }
+  };
+
+  //Validate LastName
+  const validLastName = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(Lname)) {
+      setLnameError('Please Enter Valid Lastname!');
+      return;
+    } else {
+      setLnameError('');
+    }
+  };
+
+  //Validate MobileNo
+  const validMobileNo = (e) => {
+    var pattern = new RegExp(/^[789]\d{8}$/);
+    if (!pattern.test(MobileNo)) {
+      setMobileNoError('Only 10 numbers are allowed!');
+      return;
+    } else {
+      setMobileNoError('');
+    }
+  };
+
+  //Validate Password
+  const validPassword = (e) => {
+    var pattern = new RegExp(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/
+    );
+    if (!pattern.test(Password)) {
+      setPasswordError(
+        'Only 8 characters are allowed, include 1 number,1 uppercase and lowercase letter and 1 special character!'
+      );
+      return;
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  //Validate Email
+  const validEmail = (e) => {
+    var pattern = new RegExp(/^[\w#][\w\.\’+#](.[\w\\’#]+)\@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(.[a-zA-Z]{2,20})$/);
+    if (!pattern.test(Email)) {
+      setEmailError('Please enter valid Email!');
+      return;
+    } else {
+      setEmailError('');
+    }
+  };
 
   return (
     <>
@@ -61,27 +125,32 @@ const AddDeliverBoy = () => {
             <form >
               <h2 className="text-center"><strong>Add</strong> Delivery Boy.</h2>
               <div className="form-group">
-                <input className="form-control" type="text" value={Fname} onChange={(e) => setFName(e.target.value)} placeholder="Delivery Boy First Name" />
+                <input className="form-control" type="text" value={Fname} onChange={(e) => { setFName(e.target.value); validFirstName(); }} placeholder="Delivery Boy First Name" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Fnameerror}  </span>
                 {error && !Fname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
-                <input className="form-control" type="text" value={Lname} onChange={(e) => setLName(e.target.value)} placeholder="Delivery Boy Last Name" />
+                <input className="form-control" type="text" value={Lname} onChange={(e) => { setLName(e.target.value); validLastName(); }} placeholder="Delivery Boy Last Name" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Lnameerror}  </span>
                 {error && !Lname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
-                <textarea className="form-control" type="text" value={Address} onChange={(e) => setAddress(e.target.value)} placeholder="Delivery Boy Address" />
+                <textarea className="form-control" type="text" value={Address} onChange={(e) => { setAddress(e.target.value) }} placeholder="Delivery Boy Address" />
                 {error && !Address && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
-                <input className="form-control" type="email" value={Email} onChange={(e) => setEmail(e.target.value)} placeholder="Delivery Boy Email" />
+                <input className="form-control" type="email" value={Email} onChange={(e) => { setEmail(e.target.value); validEmail(); }} placeholder="Delivery Boy Email" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Emailerror}  </span>
                 {error && !Email && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
-                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Delivery Boy Password" />
+                <input className="form-control" type="password" value={Password} onChange={(e) => { setPassword(e.target.value); validPassword(); }} placeholder="Delivery Boy Password" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Passworderror}  </span>
                 {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
-                <input className="form-control" type="tel" value={MobileNo} onChange={(e) => setMobileNo(e.target.value)} placeholder="Delivery Boy Mobile Number" />
+                <input className="form-control" type="tel" value={MobileNo} onChange={(e) => { setMobileNo(e.target.value); validMobileNo(); }} placeholder="Delivery Boy Mobile Number" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {MobileNoerror}  </span>
                 {error && !MobileNo && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">

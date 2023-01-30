@@ -553,8 +553,8 @@ section {
 .products .box-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(25rem, 1fr))[auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  -ms-grid-columns: (minmax(6cm, 1fr))[auto-fit];
+  grid-template-columns: repeat(auto-fit, minmax(6cm, 1fr));
   gap: 1.5rem;
 }
 
@@ -618,7 +618,7 @@ section {
 }
 
 .products .box-container .box .content {
-  padding: 1.5rem;
+  padding: 0.5rem;
 }
 
 .products .box-container .box .content h3 {

@@ -7,6 +7,7 @@ const ForgotPassword = () => {
   const [Password, setPassword] = React.useState('');
   const [ConPassword, setConPassword] = React.useState('');
   const [error, setError] = React.useState(false);
+  const [Passworderror, setPasswordError] = React.useState('');
   const navigate = useNavigate();
 
   var uid = sessionStorage.getItem("uid").replace(/['"]+/g, '');
@@ -49,6 +50,21 @@ const ForgotPassword = () => {
     }
 
   }
+
+  //Validate Password
+  const validPassword = (e) => {
+    var pattern = new RegExp(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/
+    );
+    if (!pattern.test(Password)) {
+      setPasswordError(
+        'Only 8 characters are allowed, include 1 number,1 uppercase and lowercase letter and 1 special character!'
+      );
+      return false;
+    } else {
+      setPasswordError('');
+    }
+  };
   return (
     <>
       <FormContainer>
@@ -60,7 +76,8 @@ const ForgotPassword = () => {
 
 
               <div className="form-group">
-                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                <input className="form-control" type="password" value={Password} onChange={(e) => { setPassword(e.target.value); validPassword(); }} placeholder="Password" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {Passworderror}  </span>
                 {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Password field!</span>}
               </div>
               <div className="form-group">

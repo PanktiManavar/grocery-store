@@ -9,6 +9,7 @@ const AddSubCategory = () => {
   const [sname, setSubCategoryname] = useState('');
   const [category, setCategory] = useState("");
   const [error, setError] = useState(false);
+  const [snameerror, setSubCategorynameError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +52,19 @@ const AddSubCategory = () => {
     // return console.log(result.result);
     setCategory(result.result);
   }
+
+  //Validate sub category
+  const validSname = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(sname)) {
+      setSubCategorynameError('Please Enter Valid Sub category!');
+      return;
+    } else {
+      setSubCategorynameError('');
+    }
+  };
+
+
   return (
     <>
       <FormContainer>
@@ -59,7 +73,6 @@ const AddSubCategory = () => {
             {/* <div className="image-holder"></div> */}
             <form>
               <h2 className="text-center"><strong>Add</strong> New Sub Category.</h2>
-
 
               <div className="form-group">
                 <select className="form-control" onChange={(e) => setCategoryid(e.target.value)}>
@@ -73,7 +86,8 @@ const AddSubCategory = () => {
                 </select>
               </div>
               <div className="form-group">
-                <input className="form-control" type="text" value={sname} onChange={(e) => setSubCategoryname(e.target.value)} placeholder="Sub Category" />
+                <input className="form-control" type="text" value={sname} onChange={(e) => { setSubCategoryname(e.target.value); validSname(); }} placeholder="Sub Category" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {snameerror}  </span>
                 {error && !sname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
 
               </div>

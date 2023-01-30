@@ -7,7 +7,7 @@ const AddCategory = () => {
 
   const [cname, setCname] = React.useState('');
   const [error, setError] = useState(false);
-
+  const [cnameerror, setCnameError] = React.useState('');
   const navigate = useNavigate();
 
 
@@ -38,7 +38,16 @@ const AddCategory = () => {
     console.warn(result);
   }
 
-
+  //Validate category
+  const validCname = (e) => {
+    var pattern = new RegExp(/[A-Za-z]+/);
+    if (!pattern.test(cname)) {
+      setCnameError('Please Enter Valid Category!');
+      return;
+    } else {
+      setCnameError('');
+    }
+  };
 
   return (
     <>
@@ -49,9 +58,9 @@ const AddCategory = () => {
             <form >
               <h2 className="text-center"><strong>Add</strong> New Category.</h2>
               <div className="form-group">
-                <input className="form-control" type="text" value={cname} onChange={(e) => setCname(e.target.value)} placeholder="Category" />
+                <input className="form-control" type="text" value={cname} onChange={(e) => { setCname(e.target.value); validCname(); }} placeholder="Category" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {cnameerror}  </span>
                 {error && !cname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out category field!</span>}
-
               </div>
 
               <div className="form-group">
@@ -61,11 +70,6 @@ const AddCategory = () => {
             </form>
           </div>
         </div>
-
-
-
-
-
       </FormContainer>
     </>
   );

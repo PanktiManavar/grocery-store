@@ -6,6 +6,7 @@ const AddPincode = () => {
 
   const [pcode, setPcode] = React.useState('');
   const [error, setError] = React.useState(false);
+  const [pcodeerror, setPcodeError] = React.useState('');
   const navigate = useNavigate();
 
   const addPincode = async (e) => {
@@ -35,6 +36,17 @@ const AddPincode = () => {
     console.warn(result);
   }
 
+  //Validate Pincode
+  const validPincode = (e) => {
+    var pattern = new RegExp(/^[1-9][0-9]{4}$/);
+    if (!pattern.test(pcode)) {
+      setPcodeError('Only 6 number are allowed!');
+      return;
+    } else {
+      setPcodeError('');
+    }
+  };
+
   return (
     <>
       <FormContainer>
@@ -44,7 +56,8 @@ const AddPincode = () => {
             <form>
               <h2 className="text-center"><strong>Add</strong> New Pincode.</h2>
               <div className="form-group">
-                <input className="form-control" type="number" value={pcode} onChange={(e) => setPcode(e.target.value)} placeholder="Pincode" />
+                <input className="form-control" type="text" value={pcode} onChange={(e) => { setPcode(e.target.value); validPincode(); }} placeholder="Pincode" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {pcodeerror}  </span>
                 {error && !pcode && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}</div>
 
               <div className="form-group">
