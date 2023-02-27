@@ -3,7 +3,6 @@ const feedbackmodel = require('../db/feedbackdb')
 
 module.exports = {
     insertfeedback: async (req, res) => {
-        //  console.log("insert")
         feedback = new feedbackmodel(req.body);
 
         const result = await feedback.save();
@@ -34,7 +33,6 @@ module.exports = {
             // var id = "632aa96f3443edea84f0bd9d"
             const result = await feedbackmodel.find();
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {

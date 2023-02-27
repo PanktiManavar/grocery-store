@@ -14,7 +14,7 @@ const ViewProducts = () => {
   const [subid, setSubid] = useState('');
   const navigate = useNavigate();
 
-  const auth = sessionStorage.getItem('userid');
+  const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
 
   useEffect(() => {
     const getProduct = async () => {
@@ -53,7 +53,7 @@ const ViewProducts = () => {
     let mname = product.mname;
     // return console.log(Rid, "+", Pid, "+", mname);
 
-    let result = await fetch('/api/cartinsert', {
+    let result = await fetch('/api/cartinsert/', {
       method: 'post',
       body: JSON.stringify({
         Rid,
@@ -64,15 +64,19 @@ const ViewProducts = () => {
         "Content-Type": "application/json"
       },
     });
-    return result;
     result = await result.json();
-    if (result) {
-      alert("Cart Added ");
-      navigate('/Product');
+    // return console.log(result);
+    if (result.error) {
+      alert(result.error)
+    } else {
+      if (result) {
+        alert("Cart Added ");
+        navigate('/Productt');
 
-    }
-    else {
-      alert("Cart not Added");
+      }
+      else {
+        alert("Cart not Added");
+      }
     }
     // console.warn(result);
   }
@@ -82,10 +86,10 @@ const ViewProducts = () => {
     return (
       <>
 
-        <div className="col-md-6 rowsty">
+        <div className="col-md-7 rowsty">
           <img src={`http://localhost:8000/${product.pimg}`} alt={product.pname} height="300px" width='400px' />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-4">
           <h4 className='text-uppercase text-black-50'>
             Category : {subid}
           </h4>

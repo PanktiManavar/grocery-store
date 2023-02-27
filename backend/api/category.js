@@ -3,7 +3,6 @@ const categorymodel = require('../db/categorydb')
 
 module.exports = {
     insertCategory: async (req, res) => {
-        //  console.log("insert")
         category = new categorymodel(req.body);
 
         checkexists_category = await categorymodel.findOne({ cname: req.body.cname });
@@ -19,10 +18,8 @@ module.exports = {
     },
     selectCategoryById: async (req, resp) => {
         try {
-            // var id = "632aa96f3443edea84f0bd9d"
             const result = await categorymodel.findById(req.params.id);
             if (result) {
-                // console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -39,7 +36,6 @@ module.exports = {
             // var id = "632aa96f3443edea84f0bd9d"
             const result = await categorymodel.find();
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -82,7 +78,6 @@ module.exports = {
         try {
             const result = await categorymodel.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {

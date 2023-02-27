@@ -59,7 +59,6 @@ module.exports = {
             }
 
             const product = new productmodel(model);
-            // return resp.send(product);
 
             const result = product.save();
             resp.send(result);
@@ -79,7 +78,6 @@ module.exports = {
         try {
             const result = await productmodel.find({ status: "Active", subid: req.params.id }).populate("subid", "sname");
             if (result) {
-                // console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -95,7 +93,6 @@ module.exports = {
         try {
             const result = await productmodel.findById(req.params.id).populate("subid", "sname");
             if (result) {
-                console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -123,7 +120,6 @@ module.exports = {
             } else if (resultp.status == "Deactive") {
                 const updateinfo = await productmodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
                 if (updateinfo) {
-                    // resp.send(updateinfo)
                     resp.send("Update status in Active")
                 }
                 else {

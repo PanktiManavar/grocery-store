@@ -139,7 +139,7 @@ module.exports = {
             service: 'gmail',
             auth: {
                 user: 'krishnakpatel3121@gmail.com',
-                pass: 'fhgbexpsfhklyyjh'
+                pass: 'xtfpsdyhlcjmlzzb'
             },
             port: 465,
             host: 'smtp.gmail.com'
@@ -171,7 +171,7 @@ module.exports = {
             service: 'gmail',
             auth: {
                 user: 'krishnakpatel3121@gmail.com',
-                pass: 'fhgbexpsfhklyyjh'
+                pass: 'xtfpsdyhlcjmlzzb'
             },
             port: 465,
             host: 'smtp.gmail.com'

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const cartmodel = require('../db/cartdb');
 const { restart } = require('nodemon');
+const productmodel = require('../db/productdb');
+const { populate } = require('../db/productdb');
 
 module.exports = {
     insertcart: async (req, res) => {
         try {
-            // return console.log(req.param.id);
             const cart = new cartmodel({
                 Rid: req.body.Rid,
                 Pid: req.body.Pid,
@@ -17,20 +18,24 @@ module.exports = {
 
 
             if (rids && pids) {
-                cart.qty += 1;
+                const productdata = await productmodel.findOne({ _id: rids.Pid });
+                // return res.send(productdata)
+                if (productdata.qty > rids.qty) {
+                    rids.qty += 1
 
-                const updateinfo = await cartmodel.findByIdAndUpdate({ _id: rids._id }, { $set: { qty: cart.qty } }, { new: true });
-                if (updateinfo) {
-                    res.send("Update cart ")
+                    const updateinfo = await cartmodel.findByIdAndUpdate({ _id: rids._id }, { $set: { qty: rids.qty } }, { new: true });
+                    if (updateinfo) {
+                        res.send(updateinfo)
+                    }
+                    else {
+                        res.send("Cart does not update")
+                    }
                 }
                 else {
-                    res.send("Cart does not update")
+                    res.send({ error: "Product are not added because qty are not available" })
                 }
-
-                //  return console.log(cart.qty, id)
             }
             else {
-                //  console.log("else part ma aave che")
                 const cartData = await cart.save();
                 if (cartData) {
                     res.status(200).send({ success: true, msg: "cart product details", data: cartData });
@@ -65,7 +70,6 @@ module.exports = {
         try {
             const result = await cartmodel.findByIdAndDelete(req.params.id);
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -79,11 +83,10 @@ module.exports = {
     },
     selectcartById: async (req, resp) => {
         try {
-            // return console.log(req.params.Rid);
-            const result = await cartmodel.find({ Rid: req.params.id });
+            const result = await (await cartmodel.find({ Rid: req.params.id }).populate({ path: "Pid", select: ["pimg", "price", "pname"], populate: { path: "subid", select: "sname" } }));
+            //   .populate([{ path: 'user', model: 'User' }, { path: 'meal', model: 'Meal' }])
             if (result) {
-                console.log(result);
-                resp.send({ result: result });
+                resp.send(result);
             }
             else {
                 resp.send("Not found");
@@ -98,7 +101,6 @@ module.exports = {
         try {
             const result = await cartmodel.find();
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -114,7 +116,6 @@ module.exports = {
         try {
             const posts = await cartmodel.findOne().sort({ _id: -1 }).limit(1);
             resp.send(posts._id);
-            // console.log(posts._id);
         }
         catch (err) {
             console.log(err.message);

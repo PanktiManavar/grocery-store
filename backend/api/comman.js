@@ -27,4 +27,17 @@ module.exports = {
             resp.send(err.message);
         }
     },
+
+    addqty: async (req, resp) => {
+        try {
+            let products = await productmodel.find({ qty: { $lte: 6 } });
+            if (products) {
+                resp.send(products)
+            } else {
+                resp.send({ result: "All Product qty are available" })
+            }
+        } catch (err) {
+
+        }
+    }
 };

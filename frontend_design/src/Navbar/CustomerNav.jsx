@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 
 const CustomerNav = () => {
     const auth = sessionStorage.getItem('role');
@@ -14,10 +15,10 @@ const CustomerNav = () => {
                         <a href="/Aboutt">About</a>
                         <a href="/Contactt">Contact</a>
 
-                        <a href='#'>Cart</a>
+                        <a href='/Cart'><FaShoppingCart /></a>
                         <Dropdown>
                             <Dropdown.Toggle variant="none" href >
-                                MyAccount
+                                <FaUser />
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item href="/Changepassword">Chnage Password</Dropdown.Item>
@@ -27,7 +28,7 @@ const CustomerNav = () => {
                     </nav>
                     :
                     <nav className='nav-ul nav-right nav-right'>
-                        <li><Link to="/Signin">SignUp</Link></li>
+                        <li><Link to="/Signin"><FaUser />SignUp</Link></li>
                         <li><Link to="/Login">Login</Link></li>
 
                     </nav>

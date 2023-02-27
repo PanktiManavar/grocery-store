@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 
 const Product = () => {
 
@@ -9,15 +10,16 @@ const Product = () => {
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
-  const [subcatname, setSubCategory] = useState('');
-  const [cid, setCategoryid] = useState('');
+
+
+  const navigate = useNavigate();
+  const params = useParams();
 
   let componentMounted = true;
-
+  const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
   useEffect(() => {
     getCategory();
     getProducts();
-
   }, []);
 
   const getProducts = async () => {
@@ -30,7 +32,6 @@ const Product = () => {
       setLoading(false);
       // console.log(filter);
     }
-
     return () => {
       componentMounted = false;
     };
@@ -44,24 +45,45 @@ const Product = () => {
     setLoading(false);
   }
 
-  const Addcart = async (product) => {
-    return console.log("hello");
-    //   let result = await fetch('api/cartinsert', {
-    //     method: 'post',
-    //     body: JSON.stringify({ pcode }),
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   });
-    //   result = await result.json();
-    //   if (result) {
-    //     alert("Pincode inserted");
-    //     navigate('/SelectPincode');
+  const Addcart = async (pmname, pid) => {
+    return console.log(pmname + pid);
+    // {
+    //   auth ?
+    //     cart(pmname, pid)
+    //     :
+    //     navigate("/Login");
+    // }
 
-    //   }
-    //   else {
-    //     alert("Pincode not inserted");
-    //   }
+  }
+
+  const cart = async (p) => {
+
+    let Rid = auth;
+    let Pid = params.id;
+    let mname = p;
+    // return console.log(Rid, "+", Pid, "+", mname);
+
+    let result = await fetch('/api/cartinsert', {
+      method: 'post',
+      body: JSON.stringify({
+        Rid,
+        Pid,
+        mname
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    result = await result.json();
+    // return console.log(result);
+    if (result) {
+      alert("Cart Added ");
+      navigate('/Product');
+
+    }
+    else {
+      alert("Cart not Added");
+    }
     //   console.warn(result);
     // }
 
@@ -117,14 +139,15 @@ const Product = () => {
                   <>
                     <div className="box">
                       <div className="icons">
-                        <Link to=""><FaShoppingCart></FaShoppingCart></Link>
-                        <Link to="#"><FaHeart></FaHeart></Link>
+                        {/* <Link onClick={Addcart(product.mname, product._id)}><FaShoppingCart></FaShoppingCart></Link> */}
+                        <Link ><FaShoppingCart></FaShoppingCart></Link>
+                        <Link ><FaHeart></FaHeart></Link>
                         <Link to={`/Product/${product._id}`}> <FaEye></FaEye></Link>
                       </div>
                       <div className="image">
                         {/* <img src={product.pimg === '' ? '' : URL.createObjectURL(product.pimg)} /> */}
                         {/* <img src={product.img} alt={product.img} /> */}
-                        <img src={`http://localhost:8000/${product.pimg}`} alt="aree yaarrrr" />
+                        <img src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
                       </div>
                       <div className="content">
                         <h3>{product.pname}</h3>

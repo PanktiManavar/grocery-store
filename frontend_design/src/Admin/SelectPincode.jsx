@@ -50,9 +50,20 @@ const SelectPincode = () => {
     return (
       <>
         <FormContainer>
+
           <div className="register-photo">
+            <div class="card form-container">
+              <div class="card-body">
+                <a href="addart.aspx">
+                  <button type="button" class="btn btn-rounded btn-info" name="add">
+                    <span class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
+                    </span>Add</button>
+                </a>
+              </div>
+            </div>
             <div className="form-container">
               {/* <div className="image-holder"></div> */}
+
               <form>
                 <h2 className="text-center"><strong>Pincode</strong> List.</h2>
                 <div className="form-group">
@@ -103,19 +114,13 @@ const FormContainer = styled.div`{
   .register-photo {
    background:#f1f7fc;
    padding:80px 0;
-   margin-top:30px;
  }
-
-.link{
-  text-decoration:none;
-  color:white;
-}
-.styled-table {
+ .styled-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 900px;
+  min-width: 700px;
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-size: 100px;
@@ -146,13 +151,19 @@ const FormContainer = styled.div`{
   font-weight: bold;
   color: #009879;
 }
-
+ .register-photo .image-holder {
+   display:table-cell;
+   width:150px;
+   background:url(image/rglg.jpg);
+   background-size:cover;
+ }
  
  .register-photo .form-container {
    display:table;
    max-width:900px;
    width:90%;
    margin:0 auto;
+   margin-top:10px;
    box-shadow:1px 1px 5px rgba(0,0,0,0.1);
  }
  
@@ -186,6 +197,8 @@ const FormContainer = styled.div`{
    color:inherit;
    text-indent:6px;
    height:40px;
+   margin-top:10px;
+   font-size:12px;
  }
  
  .register-photo form .form-check {
@@ -202,14 +215,15 @@ const FormContainer = styled.div`{
    margin-top:35px;
    text-shadow:none;
    outline:none !important;
-
  }
  
  .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
    background:#eb3b60;
-   
  }
  
+ .register-photo form .btn-primary:active {
+   transform:translateY(1px);
+ }
  
  .register-photo form .already {
    display:block;

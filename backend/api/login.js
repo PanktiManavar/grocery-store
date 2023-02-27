@@ -15,7 +15,6 @@ module.exports = {
                 if (result) {
                     const validpassword = await bcrypt.compare(req.body.Password, result.Password);
 
-                    // console.log(validpassword); If your password is matched then it returns true.
                     if (validpassword) {
 
                         if (result.Status === "Active") {

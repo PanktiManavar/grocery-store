@@ -40,7 +40,7 @@ import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 //for Customer
 import CustHome from './Customer/CustHome';
-import AddToCart from './Viewers/AddToCart';
+import Cart from './Viewers/Cart';
 //component
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
@@ -59,15 +59,15 @@ function App() {
             <Route path="/Productt" element={<Product></Product>} />
             <Route path="/Aboutt" element={<About></About>} />
             <Route path="/Contactt" element={<Contact></Contact>} />
-            <Route path="/Productt/:id" element={<ViewProducts></ViewProducts>} />
+            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
-            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
+            {/* <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} /> */}
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
             <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
             <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
             <Route path='/CheckOutForm' element={<CheckOutForm />} />
-            <Route path='/AddToCart' element={<AddToCart />} />
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
+            <Route path='/Cart' element={<Cart />} />
           </Route>
 
           {/* for admin */}
@@ -93,7 +93,6 @@ function App() {
           {/* for customer */}
           <Route element={<AllcComponent />}>
             <Route path="/CustHome" element={<CustHome></CustHome>} />
-
             <Route path="/Login" element={<Login></Login>} />
             <Route path="/Signin" element={<Signin></Signin>} />
             <Route path='/ForgotPassword' element={<ForgotPassword />} />
@@ -102,8 +101,10 @@ function App() {
             <Route path="/Product" element={<Product></Product>} />
             <Route path="/About" element={<About></About>} />
             <Route path="/Contact" element={<Contact></Contact>} />
-            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
+            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
           </Route>
+          <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
         </Routes>
 
       </BrowserRouter>

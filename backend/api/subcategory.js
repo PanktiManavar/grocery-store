@@ -10,9 +10,7 @@ module.exports = {
         //get category id
         getcid = await categorymodel.findOne({ cid: req.body.cid });
 
-        // if (getid) {
         if (checkexists_subcategory) {
-            console.log(JSON.stringify("Sub-Category Already exists!"));
             return resp.send(JSON.stringify("Sub-Category Already exists!"));
         } else {
             const result = await subcategory.save();
@@ -25,9 +23,8 @@ module.exports = {
     selectsubcategoryById: async (req, resp) => {
         try {
             // var id = "632aa96f3443edea84f0bd9d"
-            const result = await subcategorymodel.findById({ _id: req.params.id }).populate("cid", "cname");;
+            const result = await subcategorymodel.findById({ _id: req.params.id }).populate("cid", "cname");
             if (result) {
-                // console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -43,7 +40,6 @@ module.exports = {
         try {
             const result = await subcategorymodel.find({ status: "Active", cid: req.params.id });
             if (result) {
-                // console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -56,11 +52,9 @@ module.exports = {
     },
     selectsubcategory: async (req, resp) => {
         try {
-            // var id = "632aa96f3443edea84f0bd9d"
             const result = await subcategorymodel.find().populate("cid", "cname");
 
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {
@@ -87,7 +81,6 @@ module.exports = {
             } else if (resultp.status == "Deactive") {
                 const updateinfo = await subcategorymodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
                 if (updateinfo) {
-                    // resp.send(updateinfo)
                     resp.send("Update status in Active")
                 }
                 else {
@@ -103,7 +96,6 @@ module.exports = {
         try {
             const result = await subcategorymodel.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (result) {
-                //console.log(result);
                 resp.send({ result: result });
             }
             else {
