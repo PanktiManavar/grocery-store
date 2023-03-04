@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { FaPlusCircle } from "react-icons/fa";
 
 const SelectPincode = () => {
 
@@ -54,25 +55,24 @@ const SelectPincode = () => {
           <div className="register-photo">
             <div class="card form-container">
               <div class="card-body">
-                <a href="addart.aspx">
-                  <button type="button" class="btn btn-rounded btn-info" name="add">
-                    <span class="btn-icon-left text-info"><i class="fa fa-plus color-info"></i>
-                    </span>Add</button>
-                </a>
+                <Link to="/AddPincode">
+                  <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
+                    <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                </Link>
               </div>
             </div>
             <div className="form-container">
               {/* <div className="image-holder"></div> */}
 
               <form>
-                <h2 className="text-center"><strong>Pincode</strong> List.</h2>
+                <h2 className="text-center" style={{ textTransform: "uppercase" }}><strong>Pincode List</strong> </h2>
                 <div className="form-group">
                   <table className='styled-table'>
-                    <tr>
-                      <td>Sr.No.</td>
-                      <td>Pcode</td>
-                      <td>Status</td>
-                      <td>Operation</td>
+                    <tr style={{ textTransform: "uppercase" }}>
+                      <th>Sr.No.</th>
+                      <th>Pcode</th>
+                      <th>Status</th>
+                      <th>Operation</th>
                     </tr>
 
                     {
@@ -83,7 +83,7 @@ const SelectPincode = () => {
                           <td><button className="btn btn-primary btn-block" onClick={() => deletePincode(item._id)}>{item.status}</button></td>
                           <td>
                             {/* <div className="form-group"> */}
-                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdatePincode/${item._id}`} > Update Pincode</Link></button>
+                            <button className="btn btn-primary btn-block link"><Link className='link' to={`/UpdatePincode/${item._id}`} > Update</Link></button>
                             {/* <button className="btn btn-primary btn-block" onClick={() => deletePincode(item._id)}>Delete Pincode</button> */}
                             {/* </div> */}
                           </td>
@@ -127,6 +127,10 @@ const FormContainer = styled.div`{
   font-size:14px;
 }
 
+.link{
+  text-decoration:none;
+  color:white;
+}
 .styled-table thead tr {
   background-color: #009879;
   color: #ffffff;
@@ -212,7 +216,7 @@ const FormContainer = styled.div`{
    border-radius:4px;
    padding:11px;
    box-shadow:none;
-   margin-top:35px;
+   
    text-shadow:none;
    outline:none !important;
  }

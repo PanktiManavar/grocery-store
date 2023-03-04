@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 const Cart = () => {
 
@@ -10,7 +11,9 @@ const Cart = () => {
 
     const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
 
+    const total = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0).toFixed(2);
     useEffect(() => {
+        // alert(total)
         getProducts();
 
     }, []);
@@ -23,6 +26,16 @@ const Cart = () => {
         setLoading(false);
         setCount(result.length);
         console.log(result);
+    };
+
+    const deletecart = async (id) => {
+        let result = await fetch(`api/cartdelete/${id}`, {
+            method: "delete",
+        });
+        result = await result.json();
+
+        getProducts();
+        alert("Product is deleted");
     };
 
     const Loading = () => {
@@ -46,6 +59,13 @@ const Cart = () => {
                                         <div className="col align-self-center text-right text-muted">{count} items</div>
                                     </div>
                                 </div>
+                                <div className="row text-muted" style={{ textAlign: "center" }}>
+                                    <div className="col"><h4>Image</h4></div>
+                                    <div className="col"><h4>Name</h4></div>
+                                    <div className="col"><h4>Qty</h4></div>
+                                    <div className="col"><h4>Price</h4></div>
+                                    <div className="col"><h4></h4></div>
+                                </div>
                                 {cart.map((item, index) =>
                                     <div className="row border-top border-bottom" key={index}>
                                         <div className="row main align-items-center">
@@ -57,9 +77,12 @@ const Cart = () => {
                                                 <div className="row">{item.Pid[0].pname}</div>
                                             </div>
                                             <div className="col">
-                                                <Link to="#">-</Link><Link to="#" className="border">{item.qty}</Link><Link to="#">+</Link>
+                                                <button style={{ backgroundColor: "white", marginRight: "5px" }}>-</button><Link style={{ textDecoration: "none" }}>{item.qty}</Link><button style={{ backgroundColor: "white", marginLeft: "5px" }}>+</button>
                                             </div>
-                                            <div className="col">&euro; {item.qty * item.Pid[0].price} <span className="close">&#10005;</span></div>
+                                            <div className="col">Rs. {item.qty * item.Pid[0].price}</div>
+                                            <div className="col">
+                                                <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <CloseButton aria-label="Hide" /></button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -69,13 +92,13 @@ const Cart = () => {
                                 <div><h5><b>Summary</b></h5></div>
                                 <form>
                                     <p>SHIPPING</p>
-                                    <select><option className="text-muted">Standard-Delivery- &euro;5.00</option></select>
+                                    <select><option className="text-muted">Standard-Delivery-5.00</option></select>
                                     <p>GIVE CODE</p>
                                     <input id="code" placeholder="Enter your code" />
                                 </form>
                                 <div className="totalprice row">
                                     <div className="col">TOTAL PRICE :</div>
-                                    <div className="col text-right">&euro;480</div>
+                                    <div className="col text-right">Rs.{total}</div>
                                     {/* <div className="col text-right">&euro; {cart[0].qty * cart[0].Pid[0].price + cart[1].qty * cart[1].Pid[0].price}</div> */}
                                 </div>
                                 <button className="btn btn-primary btn-block btn">CHECKOUT</button>
@@ -89,7 +112,7 @@ const Cart = () => {
     return (
         <div>
             <div className="heading">
-                <h1>Our Shop</h1>
+                <h1>Cart</h1>
                 <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link>- Cart </p>
             </div>
 

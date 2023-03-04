@@ -553,8 +553,8 @@ section {
 .products .box-container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(6cm, 1fr))[auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(6cm, 1fr));
+  -ms-grid-columns: (minmax(5cm, 1fr))[auto-fit];
+  grid-template-columns: repeat(auto-fit, minmax(5cm, 1fr));
   gap: 1.5rem;
 }
 

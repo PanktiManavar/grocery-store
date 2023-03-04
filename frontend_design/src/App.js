@@ -49,7 +49,7 @@ import AllcComponent from './component/AllcComponent';
 function App() {
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <BrowserRouter>
         <Routes>
           {/* for viewers */}

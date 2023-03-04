@@ -1,42 +1,52 @@
 import React from 'react'
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const CustomerNav = () => {
+
+    const navigate = useNavigate();
+    const logout = () => {
+        sessionStorage.clear();
+        navigate("/Login");
+    }
     const auth = sessionStorage.getItem('role');
     return (
-        <div className="d-flex flex-column  sidebar-div header">
-            <header>
-                {auth ?
-                    <nav className="navbar">
-                        <a href="/Homee">Home</a>
-                        <a href="/Productt">Product</a>
-                        <a href="/Aboutt">About</a>
-                        <a href="/Contactt">Contact</a>
+        <div>
+            {auth ?
+                <Navbar collapseOnSelect expand="lg" className="navbar fixed-top " style={{ backgroundColor: "#bac34e", padding: "20px" }}>
+                    <Container>
+                        <Navbar.Brand href="#home" style={{ fontSize: "20px", fontFamily: "sans-serif", color: "white" }}>Grocery Store</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
+                            <Nav className="me-auto">
+                                <Nav.Link href="/Homee">Home</Nav.Link>
+                                <Nav.Link href="/Productt">Product</Nav.Link>
+                                <Nav.Link href="/Aboutt">About</Nav.Link>
+                                <Nav.Link href="/Contactt">Contact</Nav.Link>
+                            </Nav>
+                            <Nav>
+                                <Nav.Link href="/Cart"><FaShoppingCart /></Nav.Link>
 
-                        <a href='/Cart'><FaShoppingCart /></a>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="none" href >
-                                <FaUser />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="/Changepassword">Chnage Password</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                    </nav>
-                    :
-                    <nav className='nav-ul nav-right nav-right'>
-                        <li><Link to="/Signin"><FaUser />SignUp</Link></li>
-                        <li><Link to="/Login">Login</Link></li>
-
-                    </nav>
-                }
-            </header>
-        </div >
-
-
+                                <NavDropdown title="Account" id="collasible-nav-dropdown" >
+                                    <NavDropdown.Item href="/Changepassword" style={{ fontSize: "14px" }}>Change Password</NavDropdown.Item>
+                                    <NavDropdown.Item href="/Login" onClick={logout} style={{ fontSize: "14px" }}>Logout</NavDropdown.Item>
+                                </NavDropdown>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar >
+                :
+                <Nav className='nav-ul nav-right nav-right'>
+                    <li><Nav.Link to="/Signin"><FaUser />SignUp</Nav.Link></li>
+                    <li><Nav.Link to="/Login">Login</Nav.Link></li>
+                </Nav>
+            }
+        </div>
 
     )
 }

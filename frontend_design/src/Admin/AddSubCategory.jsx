@@ -48,8 +48,6 @@ const AddSubCategory = () => {
   const getcategoryname = async () => {
     let result = await fetch("api/categoryselect");
     result = await result.json();
-    //console.info(result.data);
-    // return console.log(result.result);
     setCategory(result.result);
   }
 

@@ -30,7 +30,7 @@ module.exports = {
 
     addqty: async (req, resp) => {
         try {
-            let products = await productmodel.find({ qty: { $lte: 6 } });
+            let products = await productmodel.find({ qty: { $gt: 40 } });
             if (products) {
                 resp.send(products)
             } else {

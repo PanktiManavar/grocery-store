@@ -14,12 +14,13 @@ const ViewProducts = () => {
   const [subid, setSubid] = useState('');
   const navigate = useNavigate();
 
-  const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
+
+  const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
 
   useEffect(() => {
+    // return console.log(auth);
     const getProduct = async () => {
       setLoading(true);
-      // return console.log(params.id);
       let result = await fetch(`/api/productselectbyid/${params.id}`);
       result = await result.json()
       // console.log(result.result);
@@ -51,7 +52,7 @@ const ViewProducts = () => {
     let Rid = auth;
     let Pid = params.id;
     let mname = product.mname;
-    // return console.log(Rid, "+", Pid, "+", mname);
+    console.log(Rid, "+", Pid, "+", mname, product.qty);
 
     let result = await fetch('/api/cartinsert/', {
       method: 'post',
@@ -71,6 +72,7 @@ const ViewProducts = () => {
     } else {
       if (result) {
         alert("Cart Added ");
+
         navigate('/Productt');
 
       }
@@ -102,7 +104,7 @@ const ViewProducts = () => {
           </p>
           <FormContainer>
             <button className="btn btn-primary px-8 py-3" onClick={Addcart}>Add To Cart</button>
-            <Link className="btn btn-primary ms-2 px-8 py-3">Go to Cart</Link>
+            <Link className="btn btn-primary ms-2 px-8 py-3" to="/Cart">Go to Cart</Link>
           </FormContainer>
         </div>
       </>

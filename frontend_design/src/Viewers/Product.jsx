@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const Product = () => {
 
@@ -16,12 +18,12 @@ const Product = () => {
   const params = useParams();
 
   let componentMounted = true;
-  const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
   useEffect(() => {
     getCategory();
     getProducts();
   }, []);
 
+  const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
   const getProducts = async () => {
     setLoading(true);
     const response = await fetch("api/productselect");
@@ -46,7 +48,7 @@ const Product = () => {
   }
 
   const Addcart = async (pmname, pid) => {
-    return console.log(pmname + pid);
+    // return console.log(pmname + pid);
     // {
     //   auth ?
     //     cart(pmname, pid)
@@ -56,38 +58,36 @@ const Product = () => {
 
   }
 
-  const cart = async (p) => {
+  // const cart = async (p) => {
 
-    let Rid = auth;
-    let Pid = params.id;
-    let mname = p;
-    // return console.log(Rid, "+", Pid, "+", mname);
+  //   let Rid = auth;
+  //   let Pid = params.id;
+  //   let mname = p;
+  //   // return console.log(Rid, "+", Pid, "+", mname);
 
-    let result = await fetch('/api/cartinsert', {
-      method: 'post',
-      body: JSON.stringify({
-        Rid,
-        Pid,
-        mname
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-    result = await result.json();
-    // return console.log(result);
-    if (result) {
-      alert("Cart Added ");
-      navigate('/Product');
+  //   let result = await fetch('/api/cartinsert', {
+  //     method: 'post',
+  //     body: JSON.stringify({
+  //       Rid,
+  //       Pid,
+  //       mname
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //   });
+  //   result = await result.json();
+  //   // return console.log(result);
+  //   if (result) {
+  //     alert("Cart Added ");
+  //     navigate('/Product');
 
-    }
-    else {
-      alert("Cart not Added");
-    }
-    //   console.warn(result);
-    // }
+  //   }
+  //   else {
+  //     alert("Cart not Added");
+  //   }
 
-  }
+  // }
 
   const Loading = () => {
     return (
@@ -137,26 +137,17 @@ const Product = () => {
               {filter.map((product) => {
                 return (
                   <>
-                    <div className="box">
-                      <div className="icons">
-                        {/* <Link onClick={Addcart(product.mname, product._id)}><FaShoppingCart></FaShoppingCart></Link> */}
-                        <Link ><FaShoppingCart></FaShoppingCart></Link>
-                        <Link ><FaHeart></FaHeart></Link>
-                        <Link to={`/Product/${product._id}`}> <FaEye></FaEye></Link>
-                      </div>
-                      <div className="image">
-                        {/* <img src={product.pimg === '' ? '' : URL.createObjectURL(product.pimg)} /> */}
-                        {/* <img src={product.img} alt={product.img} /> */}
-                        <img src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
-                      </div>
-                      <div className="content">
-                        <h3>{product.pname}</h3>
-
-                        <div className="price">Rs.{product.price} | Mess. : {product.mname}</div>
-
-                      </div>
-                    </div>
-
+                    <Card style={{ width: '20rem', textAlign: "center" }}>
+                      <Link to={`/Product/${product._id}`} style={{ textDecoration: "none" }}>
+                        <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
+                      </Link>
+                      <Card.Body>
+                        <Card.Title className='content'>{product.pname}</Card.Title>
+                        <Card.Text>{product.descripation}</Card.Text>
+                        <Card.Title>Rs.{product.price}</Card.Title>
+                        <Button variant="primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
                   </>
                 )
               })
