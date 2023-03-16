@@ -138,9 +138,15 @@ const Product = () => {
                 return (
                   <>
                     <Card style={{ width: '20rem', textAlign: "center" }}>
-                      <Link to={`/Product/${product._id}`} style={{ textDecoration: "none" }}>
-                        <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
-                      </Link>
+                      {auth ?
+                        <Link to={`/Productt/${product._id}`} style={{ textDecoration: "none" }}>
+                          <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
+                        </Link>
+                        :
+                        <Link to={`/Product/${product._id}`} style={{ textDecoration: "none" }}>
+                          <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
+                        </Link>
+                      }
                       <Card.Body>
                         <Card.Title className='content'>{product.pname}</Card.Title>
                         <Card.Text>{product.descripation}</Card.Text>

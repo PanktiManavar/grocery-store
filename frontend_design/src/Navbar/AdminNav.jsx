@@ -83,7 +83,7 @@ const AdminNav = () => {
                                 <Nav.Link href="/SelectDeliverBoy">DeliveryBoy</Nav.Link>
                             </Nav>
                             <Nav>
-                                <Nav.Link href="/">Notification</Nav.Link>
+                                <Nav.Link href="/Notification">Notification</Nav.Link>
 
                                 <NavDropdown title="Account" id="collasible-nav-dropdown" >
                                     <NavDropdown.Item href="/Changepassword" style={{ fontSize: "14px" }}>Change Password</NavDropdown.Item>

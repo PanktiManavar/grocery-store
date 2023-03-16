@@ -59,28 +59,30 @@ const Cart = () => {
                                         <div className="col align-self-center text-right text-muted">{count} items</div>
                                     </div>
                                 </div>
-                                <div className="row text-muted" style={{ textAlign: "center" }}>
-                                    <div className="col"><h4>Image</h4></div>
-                                    <div className="col"><h4>Name</h4></div>
-                                    <div className="col"><h4>Qty</h4></div>
-                                    <div className="col"><h4>Price</h4></div>
-                                    <div className="col"><h4></h4></div>
+                                <div className="row ">
+                                    <div className="row main text-center" >
+                                        <div className="col-3" ><h4>Image</h4></div>
+                                        <div className="col-4" ><h4>Name</h4></div>
+                                        <div className="col-2" ><h4>Qty</h4></div>
+                                        <div className="col"><h4></h4></div>
+                                    </div>
                                 </div>
                                 {cart.map((item, index) =>
                                     <div className="row border-top border-bottom" key={index}>
-                                        <div className="row main align-items-center">
+                                        <div className="row main align-items-center" style={{ fontSize: "10px" }}>
                                             <div className="col-4">
                                                 <img src={`http://localhost:8000/${item.Pid[0].pimg}`} alt="loading" style={{ width: "11.5rem" }} />
                                             </div>
                                             <div className="col">
                                                 <div className="row text-muted">{item.Pid[0].subid[0].sname}</div>
                                                 <div className="row">{item.Pid[0].pname}</div>
+                                                <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}</div>
                                             </div>
-                                            <div className="col">
+                                            <div className="col-2 border" style={{ marginLeft: "24px", textAlign: "center" }}>
                                                 <button style={{ backgroundColor: "white", marginRight: "5px" }}>-</button><Link style={{ textDecoration: "none" }}>{item.qty}</Link><button style={{ backgroundColor: "white", marginLeft: "5px" }}>+</button>
                                             </div>
-                                            <div className="col">Rs. {item.qty * item.Pid[0].price}</div>
-                                            <div className="col">
+                                            {/* <div className="col" style={{ marginLeft: "14px" }}>Rs. {item.qty * item.Pid[0].price}</div> */}
+                                            <div className="col" style={{ marginLeft: "30px" }}>
                                                 <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <CloseButton aria-label="Hide" /></button>
                                             </div>
                                         </div>
@@ -91,17 +93,29 @@ const Cart = () => {
                             <div className="col-md-4 summary">
                                 <div><h5><b>Summary</b></h5></div>
                                 <form>
-                                    <p>SHIPPING</p>
-                                    <select><option className="text-muted">Standard-Delivery-5.00</option></select>
-                                    <p>GIVE CODE</p>
-                                    <input id="code" placeholder="Enter your code" />
+                                    <p>GIVE COUPAN CODE</p>
+                                    <input placeholder="Enter your coupan code" />
                                 </form>
-                                <div className="totalprice row">
+                                <div className="row mt-4">
+                                    <div className="col"> Subtotal : </div>
+                                    <div className="col text-right">Rs.{total}</div>
+                                </div>
+                                <div className="row mt-4">
+                                    <div className="col">Shipping Cost :</div>
+                                    <div className="col text-right" >$0.00</div>
+                                </div>
+                                <div className="row mt-4">
+                                    <div className="col ">Discount :</div>
+                                    <div className="col text-right">$0.00</div>
+                                </div>
+
+                                <div className="totalprice row mt-4 ">
                                     <div className="col">TOTAL PRICE :</div>
                                     <div className="col text-right">Rs.{total}</div>
                                     {/* <div className="col text-right">&euro; {cart[0].qty * cart[0].Pid[0].price + cart[1].qty * cart[1].Pid[0].price}</div> */}
                                 </div>
-                                <button className="btn btn-primary btn-block btn">CHECKOUT</button>
+                                <Link to={`/CheckOutForm/${total}`}>
+                                    <button className="btn btn-primary btn-block btn"> CHECKOUT </button></Link>
                             </div>
                         </div>
                     </div>
@@ -113,7 +127,7 @@ const Cart = () => {
         <div>
             <div className="heading">
                 <h1>Cart</h1>
-                <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link>- Cart </p>
+                <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link>-- Cart </p>
             </div>
 
             <div className='row justify-content-center'>

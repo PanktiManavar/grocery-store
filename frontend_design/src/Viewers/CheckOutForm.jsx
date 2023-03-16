@@ -1,361 +1,425 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import CloseButton from 'react-bootstrap/CloseButton';
 
 const CheckOutForm = () => {
+  const [Fname, setFname] = React.useState("");
+  const [Email, setEmail] = React.useState("");
+  const [Mobile, setMobileNO] = React.useState("");
+  const [Address, setAddress] = React.useState("");
+  const [Pinid, setPincode] = React.useState("");
+  const [Totalprice, setTotalPrice] = React.useState("");
+  const [Finalprice, setFinalPrice] = React.useState("");
+  const [loading, setLoading] = useState(false);
 
-  // const [Fname, setFname] = React.useState("");
-  // const [Lname, setLname] = React.useState("");
-  // const [Address, setAddress] = React.useState("");
-  // const [TotalPrice, setTotalPrice] = React.useState("");
-  // const [FinalPrice, setFinalPrice] = React.useState("");
+  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState([]);
+  const [pcodes, setPincodess] = useState([]);
+
+  const param = useParams();
+  const navigate = useNavigate()
+  const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
+
+  useEffect(() => {
+    // alert(auth)
+    if (param.id > 0.00) {
+      getProducts();
+      getpincode();
+      getuser();
+    }
+    else {
+      navigate("/Cart")
+    }
+  }, []);
+
+  const getProducts = async () => {
+    setLoading(true);
+    let result = await fetch(`/api/cartgetbyid/${auth}`);
+    result = await result.json();
+    setCart(result);
+    setLoading(false);
+  };
+
+  const getuser = async () => {
+    setLoading(true);
+    let userresult = await fetch(`/api/registerselectbyid/${auth}`);
+    userresult = await userresult.json();
+    setUser(userresult.result);
+    setLoading(false);
+  }
+
+  const Addorder = async () => {
+    {
+      auth ?
+        checkout()
+        :
+        navigate("/Login");
+    }
+  }
+
+  //Get pincode
+  const getpincode = async () => {
+    let results = await fetch("/api/pincodeselect");
+    results = await results.json();
+    setPincodess(results.result);
+    console.log(results.result);
+  }
+
+  const checkout = async () => {
+    let Rid = auth;
+    let result = await fetch('api/orderinsert', {
+      method: 'post',
+      body: JSON.stringify({
+        Rid, Address, Totalprice, Finalprice, Pinid
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    result = await result.json();
+  }
+  const Loading = () => {
+    return (
+      <>
+        Loading...
+      </>
+    )
+  }
+  const Showcart = () => {
+    return (
+      <>
+        <FormContainer>
+          <div className="card " style={{ marginBlock: "15px", marginTop: "95px" }} >
+            <div className="row " >
+              <div className="col-md-6 cart">
+                {/* //jj */}
+                {/* <div className="register-photo">
+                  <div className="form-container"> */}
+                <h2 className="text-center"><strong>CheckOut Form</strong></h2>
+                <div className='form-group'>
+                  <h4>01. Personal Details</h4></div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-outline">
+                      <label>Name</label>
+                      <input type="text" className="form-control" placeholder={user.Fname + " " + user.Lname} onChange={(e) => setFname(e.target.value)} readOnly />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-outline">
+                      <label>Email</label>
+                      <input type="email" className="form-control" placeholder={user.Email} onChange={(e) => setEmail(e.target.value)} readOnly />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-outline">
+                      <label>Number</label>
+                      <input type="email" className="form-control" value={user.MobileNo} onChange={(e) => setMobileNO(e.target.value)} />
+                    </div>
+                  </div>
+                </div>
+                <div className='form-group'>
+                  <h4 className='h4-sty'>02. Shipping Details</h4></div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-outline">
+                      <label>Address</label>
+                      <textarea name="postContent" class="form-control" value={Address} onChange={(e) => setAddress(e.target.value)} rows={4} cols={40} placeholder="Enter your address " />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-outline" style={{ marginTop: "10px" }}>
+                      <select className="form-control" onChange={(e) => setPincodess(e.target.value)}>
+                        <option value={0}>----Select Pincode----</option>
+                        {
+                          pcodes.length > 0 ? pcodes.map((item, index) => (
+                            <option key={item._id[index]} value={item._id[index]}>{item.pcode[index]}</option>
+                          ))
+                            : <option value={0}>No Records Founds!</option>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className='form-group'>
+                  <h5 className='h4-sty'>Shipping Cost</h5>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="btn" style={{ width: "155px" }}>
+                      <div className='p-3 card '>
+                        <div>
+                          <h4 style={{ color: "#f4476b", marginBottom: "10px" }}>Fast Delivery</h4>
+                          <h5 className='p-sty'>Cost : Rs.200</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div className="btn" style={{ width: "155px" }}>
+                      <div className='p-3 card '>
+                        <div>
+                          <h4 style={{ color: "#f4476b", marginBottom: "10px" }}>Late Delivery</h4>
+                          <h5 className='p-sty'>Cost : Rs.70</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              {/* </div>
+              </div> */}
+              <div className="col-md-6 summary">
+                <h2 className="text-center"><strong>Order Summary</strong></h2>
+                <div className="text-center ">
+                  {/* <h2 className="">No Item Added Yet!</h2> */}
+                  {cart.map((item, index) =>
+                    <div className="row border-top bg-light border" key={index}>
+                      <div className="row main align-items-center" style={{ fontSize: "10px" }}>
+                        <div className="col-4">
+                          <img src={`http://localhost:8000/${item.Pid[0].pimg}`} alt="loading" style={{ width: "6.5rem" }} />
+                        </div>
+                        <div className="col">
+                          <div className="row text-muted">{item.Pid[0].subid[0].sname}</div>
+                          <div className="row">{item.Pid[0].pname}</div>
+                          <div className="row">Qty : {item.qty}</div>
+                          <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}</div>
+                        </div>
+                        {/* <div className="col" style={{ marginLeft: "14px" }}>Rs. {item.qty * item.Pid[0].price}</div> */}
+                      </div>
+                    </div>
+
+                  )}
+                </div>
+
+                <div className="row" style={{ marginTop: "50px" }}>
+                  <div className="row mt-4" >
+                    <div className="col"> Subtotal : </div>
+                    <div className="col text-right">Rs.8888</div>
+                  </div>
+                  <div className="row mt-4">
+                    <div className="col">Shipping Cost :</div>
+                    <div className="col text-right" >$0.00</div>
+                  </div>
+                  <div className="row mt-4">
+                    <div className="col ">Discount :</div>
+                    <div className="col text-right">$0.00</div>
+                  </div>
+
+                  <div className="totalprice row mt-4 ">
+                    <div className="col">TOTAL PRICE :</div>
+                    <div className="col text-right">Rs.777</div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-8">
+                    <div className="form-group">
+                      <button className="btn btn-primary btn-block " onClick={Addorder} >Payment Process</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FormContainer>
+      </>
+    )
+  }
 
   return (
-    <>
-      {/* <FormContainer>
-        <div className="register-photo">
-          <div className="form-container">
+    <div>
+      <div>
 
-            <form method="post">
-              <h2 className="text-center"><strong>CheckOut</strong> Form.</h2>
-              <div className='form-group'>
-                <h4>01. Personal Details</h4></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" placeholder="First Name" class="form-control" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" placeholder="Last Name" class="form-control" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="email" class="form-control" placeholder='Email' />
-                  </div>
-                </div>
-              </div>
-              <div className='form-group'>
-                <h4 className='h4-sty'>02. Shipping Details</h4></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text-area" class="form-control" placeholder='Address' />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" class="form-control" placeholder='Pincode Number' />
-                  </div>
-                </div>
-              </div>
-              <div className='form-group'>
-                <h5 className='h4-sty'>Shipping Cost</h5>
-              </div>
-              <div className="row">
-                <div className="col-md-6">
-                  <div>
-                    <div className='p-3 card border-gray rounded-md '>
-                      <label className='cursor-pointer label flex items-center justify-between'>
-                        <div>
-                          <div>
-                            <h5>Fast Delivery</h5>
-                            <h6 className='p-sty'>Today Cost : Rs.110</h6>
-                          </div>
-                        </div>
-                        <div>
-                          <input type="radio" value="hhh"></input>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div>
-                    <div className='p-3 card border-gray rounded-md '>
-                      <label className='cursor-pointer label flex items-center justify-between'>
-                        <div>
-                          <h5>Late Delivery</h5>
-                          <h6 className='p-sty'>Cost : Rs.70</h6>
-                        </div>
-                        <div>
-                          <input type="radio" value="hhh"></input>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-8">
-                  <div className="form-group">
-                    <button className="btn btn-primary btn-block" >Payment Process</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <div className="image-holder">
+      </div>
 
+      <div className='row justify-content-center'>
+        {loading ? <Loading /> : <Showcart />}
 
-            </div>
-          </div>
-        </div>
-
-      </FormContainer > */}
-      <FormContainer>
-        <div className="register-photo">
-          <div className="form-container">
-
-            <form method="post">
-              <h2 className="text-center"><strong>CheckOut</strong> Form.</h2>
-              <div className='form-group'>
-                <h4>01. Personal Details</h4></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" placeholder="First Name" class="form-control" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" placeholder="Last Name" class="form-control" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="email" class="form-control" placeholder='Email' />
-                  </div>
-                </div>
-              </div>
-              <div className='form-group'>
-                <h4 className='h4-sty'>02. Shipping Details</h4></div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text-area" class="form-control" placeholder='Address' />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-outline">
-                    <input type="text" class="form-control" placeholder='Pincode Number' />
-                  </div>
-                </div>
-              </div>
-              <div className='form-group'>
-                <h5 className='h4-sty'>Shipping Cost</h5>
-              </div>
-              <div className="row">
-                <div className="col-md-6">
-                  <div>
-                    <div className='p-3 card border-gray rounded-md '>
-                      <label className='cursor-pointer label flex items-center justify-between'>
-                        <div>
-                          <div>
-                            <h5>Fast Delivery</h5>
-                            <h6 className='p-sty'>Today Cost : Rs.110</h6>
-                          </div>
-                        </div>
-                        <div>
-                          <input type="radio" value="hhh"></input>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div>
-                    <div className='p-3 card border-gray rounded-md '>
-                      <label className='cursor-pointer label flex items-center justify-between'>
-                        <div>
-                          <h5>Late Delivery</h5>
-                          <h6 className='p-sty'>Cost : Rs.70</h6>
-                        </div>
-                        <div>
-                          <input type="radio" value="hhh"></input>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-8">
-                  <div className="form-group">
-                    <button className="btn btn-primary btn-block" >Payment Process</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <div className="image-holder">
-
-              {/* order summary */}
-
-              <div className="md:w-full lg:w-2/5 lg:ml-10 xl:ml-14 md:ml-6 flex flex-col h-full md:sticky lg:sticky top-28 md:order-2 lg:order-2">
-                <div className="border p-5 lg:px-8 lg:py-8 rounded-lg bg-white order-1 sm:order-2">
-                  <h2 className="text-center font-semibold font-serif text-lg pb-4"><strong>Order Summary</strong></h2>
-                  <div className="overflow-y-scroll flex-grow scrollbar-hide w-full max-h-64 bg-gray-50 block">
-                    <div className="text-center py-10">
-                      <span className="flex justify-center my-auto text-gray-500 font-semibold text-4xl">
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
-                          height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"></svg>
-                      </span>
-                      <h2 className="font-medium font-serif text-sm pt-2 text-gray-600">No Item Added Yet!</h2>
-                    </div>
-                  </div>
-                  <div
-                    className="flex items-center mt-4 py-4 lg:py-4 text-sm w-full font-semibold text-heading last:border-b-0 last:text-base last:pb-0">
-                    <form className="w-full">
-                      <div className="flex flex-col sm:flex-row items-start justify-end">
-                        <input type="text"
-                          placeholder="Input your coupon code"
-                          className="form-input py-2 px-3 md:px-4 w-full appearance-none transition ease-in-out border text-input text-sm rounded-md h-12 duration-200 bg-white border-gray-200 focus:ring-0 focus:outline-none focus:border-emerald-500 placeholder-gray-500 placeholder-opacity-75" />
-                        <button className="btn btn-primary btn-block  md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold text-center justify-center border border-gray-200 rounded-md placeholder-white focus-visible:outline-none focus:outline-none px-5 md:px-6 lg:px-8 py-3 md:py-3.5 lg:py-3 mt-3 sm:mt-0 sm:ml-3 md:mt-0 md:ml-3 lg:mt-0 lg:ml-3 hover:text-white hover:bg-emerald-500 h-12 text-sm lg:text-base w-full sm:w-auto">Apply</button>
-                        {/* <button className="btn btn-primary btn-block">Apply</button> */}
-                      </div>
-                    </form>
-                  </div>
-                  <div
-                    className="flex items-center py-2 text-sm w-full font-semibold text-gray-500 last:border-b-0 last:text-base last:pb-0">
-                    Subtotal<span className="ml-auto flex-shrink-0 text-gray-800 font-bold">$0.00</span></div>
-                  <div
-                    className="flex items-center py-2 text-sm w-full font-semibold text-gray-500 last:border-b-0 last:text-base last:pb-0">
-                    Shipping Cost<span className="ml-auto flex-shrink-0 text-gray-800 font-bold">$0.00</span></div>
-                  <div
-                    className="flex items-center py-2 text-sm w-full font-semibold text-gray-500 last:border-b-0 last:text-base last:pb-0">
-                    Discount<span className="ml-auto flex-shrink-0 font-bold text-orange-400">$0.00</span></div>
-                  <div className="border-t mt-4">
-                    <div className="flex items-center font-bold font-serif justify-between pt-5 text-sm uppercase">Total
-                      cost<span className="font-serif font-extrabold text-lg"> $0.00</span></div>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-            </div>
-          </div>
-        </div>
-
-      </FormContainer >
-
-    </>
-  );
-};
+      </div>
+    </div >
+  )
+}
 
 export default CheckOutForm;
 
 const FormContainer = styled.div`{
-    .register-photo {
-     background:#f1f7fc;
-     padding:80px 0;
-     margin-top:30px;
-   }
-  
-   .p-sty{
-    font:size:20px;
-   }
-    .h4-sty{
-      margin-top:12px;
-    }
-    .cursor-pointer {
-      cursor: pointer;
-    }
-    .justify-between {
-      justify-content: space-between;
-    }
-    .items-center {
-      align-items: center;
-    }
-    .flex {
+    
+    body{
+      background: #ddd;
+      min-height: 100vh;
+      vertical-align: middle;
       display: flex;
-    }
-   .register-photo .image-holder {
-     display:table-cell;
-     width:350px;
-     height:100px;
-     background-size:cover;
-   }
-   
-   .register-photo .form-container {
-     display:table;
-     max-width:900px;
-     width:90%;
-     margin:0 auto;
-     box-shadow:1px 1px 5px rgba(0,0,0,0.1);
-   }
-   
-   .register-photo form {
-     display:table-cell;
-     width:400px;
-     background-color:#ffffff;
-     padding:40px 60px;
-     color:#505e6c;
-   }
-   
-   @media (max-width:991px) {
-     .register-photo form {
-       padding:40px;
+      font-family: sans-serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+  }
+  .title{
+      margin-bottom: 5vh;
+  }
+  .card{
+      margin: auto;
+      max-width: 950px;
+      width: 90%;
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 1rem;
+      border: transparent;
+  }
+  @media(max-width:767px){
+      .card{
+          margin: 3vh auto;
+      }
+  }
+  .cart{
+      background-color: #fff;
+      padding: 4vh 5vh;
+      border-bottom-left-radius: 1rem;
+      border-top-left-radius: 1rem;
+  }
+  @media(max-width:767px){
+      .cart{
+          padding: 4vh;
+          border-bottom-left-radius: unset;
+          border-top-right-radius: 1rem;
+      }
+  }
+  .summary{
+      background-color: #ddd;
+      border-top-right-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      padding: 4vh;
+      color: rgb(65, 65, 65);
+  }
+  @media(max-width:767px){
+      .summary{
+      border-top-right-radius: unset;
+      border-bottom-left-radius: 1rem;
+      }
+  }
+  .summary .col-2{
+      padding: 0;
+  }
+  .summary .col-10
+  {
+      padding: 0;
+  }.row{
+      margin: 0;
+  }
+  .title b{
+      font-size: 1.5rem;
+  }
+  .main{
+      margin: 0;
+      padding: 2vh 0;
+      width: 100%;
+  }
+  .col-2, .col{
+      padding: 0 1vh;
+  }
+  a{
+      padding: 0 1vh;
+  }
+  .close{
+      margin-left: auto;
+      font-size: 0.7rem;
+  }
+  img{
+      width: 3.5rem;
+  }
+  .back-to-shop{
+      margin-top: 4.5rem;
+  }
+  h5{
+      margin-top: 4vh;
+  }
+  hr{
+      margin-top: 1.25rem;
+  }
+  form{
+      padding: 2vh 0;
+  }
+  select{
+      border: 1px solid rgba(0, 0, 0, 0.137);
+      padding: 1.5vh 1vh;
+      margin-bottom: 4vh;
+      outline: none;
+      width: 100%;
+      background-color: rgb(247, 247, 247);
+  }
+  input{
+      border: 1px solid rgba(0, 0, 0, 0.137);
+      padding: 1vh;
+      margin-bottom: 4vh;
+      outline: none;
+      width: 100%;
+      background-color: rgb(247, 247, 247);
+  }
+  input:focus::-webkit-input-placeholder
+  {
+        color:transparent;
+  }
+  ${'' /* .btn{
+      background-color: #000;
+      border-color: #000;
+      color: white;
+      width: 100%;
+      font-size: 0.7rem;
+      margin-top: 4vh;
+      padding: 1vh;
+      border-radius: 0;
+  }
+  .btn:focus{
+      box-shadow: none;
+      outline: none;
+      box-shadow: none;
+      color: white;
+      -webkit-box-shadow: none;
+      -webkit-user-select: none;
+      transition: none; 
+  }
+  .btn:hover{
+      color: white;
+  } */}
+  a{
+      color: black; 
+  }
+  a:hover{
+      
+      text-decoration: none;
+  }
+  .totalprice {
+    border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;
+  }
+   .btn-primary {
+       background:#f4476b;
+       border:none;
+       border-radius:4px;
+       padding:11px;
+       box-shadow:none;
+       margin-top:35px;
+       text-shadow:none;
+       outline:none !important;
      }
-   }
-   
-   .register-photo form h2 {
-     font-size:24px;
-     line-height:1.5;
-     margin-bottom:30px;
-   }
-   
-   .register-photo form .form-control {
-     background:#f7f9fc;
-     border:none;
-     border-bottom:1px solid #dfe7f1;
-     border-radius:0;
-     box-shadow:none;
-     outline:none;
-     color:inherit;
-     text-indent:6px;
-     height:40px;
-     margin-top:10px;
-     font-size:12px;
-   }
-   
-   .register-photo form .form-check {
-     font-size:13px;
-     line-height:20px;
-   }
-   
-   .register-photo form .btn-primary {
-     background:#f4476b;
-     border:none;
-     border-radius:4px;
-     padding:11px;
-     box-shadow:none;
-     margin-top:35px;
-     text-shadow:none;
-     outline:none !important;
-   }
-   
-   .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
-     background:#eb3b60;
-   }
-   
-   .register-photo form .btn-primary:active {
-     transform:translateY(1px);
-   }
-   
-   .register-photo form .already {
-     display:block;
-     text-align:center;
-     font-size:12px;
-     color:#6f7a85;
-     opacity:0.9;
-     text-decoration:none;
-   }
-   }
-   `;
+     
+     .btn-primary:hover,  .btn-primary:active {
+       background:#eb3b60;
+     }
+     
+    .btn-primary:active {
+       transform:translateY(1px);
+     }
+   #code{
+      background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+      background-repeat: no-repeat;
+      background-position-x: 95%;
+      background-position-y: center;
+  }
+  }`;

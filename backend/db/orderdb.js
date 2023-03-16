@@ -12,7 +12,7 @@ const feedbackSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    totalprice: {
+    Totalprice: {
         type: Number,
         required: true
     },
@@ -20,15 +20,15 @@ const feedbackSchema = new mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_coupancode' }],
         // required: [true, "coupancode is required"]
     },
-    finalprice: {
+    Finalprice: {
         type: Number,
         required: true
     },
-    pinid: {
+    Pinid: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_pincode' }],
         required: [true, "Pincode is required"]
     },
-    rid: {
+    Drid: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
         // required: [true, "delivery boy is required"]
     },
@@ -37,8 +37,7 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     payment_type: {
-        type: String,
-        required: true
+        type: String
     },
     payment_id: {
         type: Number

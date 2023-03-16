@@ -38,6 +38,7 @@ import SelectProduct from './Admin/SelectProduct';
 import UpdateProduct from './Admin/UpdateProduct';
 import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
+import Notification from './Admin/Notification';
 //for Customer
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
@@ -59,13 +60,13 @@ function App() {
             <Route path="/Productt" element={<Product></Product>} />
             <Route path="/Aboutt" element={<About></About>} />
             <Route path="/Contactt" element={<Contact></Contact>} />
-            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
+            <Route path="/Productt/:id" element={<ViewProducts></ViewProducts>} />
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
             {/* <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} /> */}
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
             <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
             <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
-            <Route path='/CheckOutForm' element={<CheckOutForm />} />
+            <Route path='/CheckOutForm/:id' element={<CheckOutForm />} />
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
             <Route path='/Cart' element={<Cart />} />
           </Route>
@@ -88,7 +89,7 @@ function App() {
             <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
             <Route path="/SelectDeliverBoy" element={<SelectDeliverBoy />} />
             <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
-
+            <Route path='/Notification' element={<Notification />} />
           </Route>
           {/* for customer */}
           <Route element={<AllcComponent />}>
@@ -101,10 +102,10 @@ function App() {
             <Route path="/Product" element={<Product></Product>} />
             <Route path="/About" element={<About></About>} />
             <Route path="/Contact" element={<Contact></Contact>} />
-            {/* <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} /> */}
+            <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
             <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
           </Route>
-          <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+
         </Routes>
 
       </BrowserRouter>

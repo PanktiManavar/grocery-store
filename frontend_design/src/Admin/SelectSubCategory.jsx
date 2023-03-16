@@ -69,8 +69,7 @@ const SelectSubCategory = () => {
                     subcategory.map((item, index) =>
                       <tr key={item._id}>
                         <td>{index + 1}</td>
-                        <td>{item['cid'][0].cname}</td>
-                        {/* <td>{item.cid.cname}</td> */}
+                        <td>{item.cid[0].cname}</td> 
                         <td>{item.sname}</td>
                         <td>
                           <button className="btn btn-primary btn-block" onClick={() => deletesubCategory(item._id)}>{item.status}</button>

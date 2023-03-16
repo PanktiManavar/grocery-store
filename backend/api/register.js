@@ -6,9 +6,9 @@ var bcrypt = require('bcryptjs');
 module.exports = {
     selectRegisterById: async (req, resp) => {
         try {
-            const result = await registermodel.findById(req.params.id);
+            // resp.send(req.params.id)
+            const result = await registermodel.findById({ _id: req.params.id });
             if (result) {
-                console.log(result);
                 resp.send({ result: result });
             }
             else {

@@ -8,69 +8,63 @@ module.exports = {
     //url ma Registration user id pass karava ni
     insertorder: async (req, res) => {
         try {
-            const result = await cartmodel.findOne({ Rid: req.params.id });
+            const result = await cartmodel.findOne({ Rid: req.body.Rid });
             if (result) {
-                const productdata = await productmodel.findOne({ _id: result.Pid });
-                // return res.send(productdata)
-                if (productdata.qty > result.qty) {
-                    const totalprice = productdata.price * result.qty
-                    const order = new ordermodel({
-                        Rid: result._id,
-                        Address: req.body.Address,
-                        totalprice: totalprice,
-                        finalprice: totalprice,
-                        pinid: req.body.pinid,
-                        payment_status: "pendding",
-                        payment_type: "card",
-                        ostatus: "ordered"
-                    });
+                const order = new ordermodel({
+                    Rid: result._id,
+                    Address: req.body.Address,
+                    Totalprice: req.body.tprice,
+                    Finalprice: req.body.fprice,
+                    Pinid: req.body.pinid,
+                    payment_status: "pendding",
+                    ostatus: "ordered"
+                });
 
-                    const orderdata = await order.save();
-                    if (orderdata) {
-                        // res.send("data are save");
-                        const posts = await ordermodel.findOne().sort({ _id: -1 }).limit(1);
-                        let cartdata = await cartmodel.find({ Rid: req.params.id });
-                        cartdata.forEach(async element => {
-                            const orderitem = new orderitemmodel({
-                                oid: posts._id,
-                                Pid: element.Pid,
-                                qty: element.qty,
-                                mname: element.mname
-                            })
-                            const orderitemdata = await orderitem.save();
-                            // return res.send(productdata.qty);
-                            if (orderitemdata) {
-                                const resultss = await cartmodel.findByIdAndRemove({ _id: element.id });
-                                if (resultss) {
-                                    const pids = await productmodel.findOne({ _id: element.Pid });
-                                    if (pids) {
-                                        const qty = pids.qty - element.qty;
-                                        // return res.send(qty);
-                                        const qtyupdate = await productmodel.findByIdAndUpdate(element.Pid, { $set: { qty: qty } }, { new: true });
-                                        if (qtyupdate) {
-                                            res.send({ response: qtyupdate });
-                                        } else {
-                                            res.send("product qty  not updated");
-                                        }
-                                    } else {
-                                        res.send("pid not found ")
-                                    }
-                                }
-                                else {
-                                    res.send("result not found");
-                                }
-                            } else {
-                                res.send("not order item");
-                            }
+                const orderdata = await order.save();
+                if (orderdata) {
+                    const posts = await ordermodel.findOne().sort({ _id: -1 }).limit(1);
+                    let cartdata = await cartmodel.find({ Rid: req.body.Rid });
+                    cartdata.forEach(async element => {
+                        const orderitem = new orderitemmodel({
+                            oid: posts._id,
+                            Pid: element.Pid,
+                            qty: element.qty,
+                            mname: element.mname
                         })
-                    }
-                    else {
-                        res.send("data not save");
-                    }
-                } else {
-                    res.send("You can't order this product beacuse are qty are not here");
-                    return;
+                        const orderitemdata = await orderitem.save();
+
+                        if (orderitemdata) {
+                            const resultss = await cartmodel.findByIdAndRemove({ _id: element.id });
+                            if (resultss) {
+                                const pids = await productmodel.findOne({ _id: element.Pid });
+                                if (pids) {
+                                    const qty = pids.qty - element.qty;
+                                    // return res.send(qty);
+                                    const qtyupdate = await productmodel.findByIdAndUpdate(element.Pid, { $set: { qty: qty } }, { new: true });
+                                    if (qtyupdate) {
+                                        res.send("order conform");
+                                    } else {
+                                        res.send("product qty  not updated");
+                                    }
+                                } else {
+                                    res.send("pid not found ")
+                                }
+                            }
+                            else {
+                                res.send("result not found");
+                            }
+                        } else {
+                            res.send("not order item");
+                        }
+                    })
                 }
+                else {
+                    res.send("data not save");
+                }
+                // } else {
+                //     res.send("You can't order this product beacuse are qty are not here");
+                //     return;
+                // }
             }
             else {
                 res.send("Not found");
