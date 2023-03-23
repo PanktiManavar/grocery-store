@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaPlusCircle } from "react-icons/fa";
+import swal from "sweetalert"
 
 const SelectPincode = () => {
 
@@ -47,17 +48,58 @@ const SelectPincode = () => {
     }
   };
 
+  const softdeletePincode = async (id, event) => {
+    event.preventDefault();
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to see this record here!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    });
+
+    if (willDelete) {
+      let result = await fetch(`api/pincodedelete/${id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      result = result.json();
+      console.log(result);
+      if (result) {
+        swal({
+          title: "Delete Pincode",
+          text: "Pincode Successfully!",
+          icon: "success",
+        });
+        getPincode();
+      } else {
+        swal({
+          title: "Delete Pincode",
+          text: "Pincode Deletion Fail!!",
+          icon: "warning",
+        });
+      }
+    } else {
+      swal("Pincode record is safe!");
+    }
+
+
+  }
+
   const ShowProducts = () => {
     return (
       <>
         <FormContainer>
 
           <div className="register-photo">
-            <div class="card form-container">
-              <div class="card-body">
+            <div className="card form-container">
+              <div className="card-body">
                 <Link to="/AddPincode">
-                  <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
-                    <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                  <button type="button" className="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
+                    <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
                 </Link>
               </div>
             </div>
@@ -68,28 +110,30 @@ const SelectPincode = () => {
                 <h2 className="text-center" style={{ textTransform: "uppercase" }}><strong>Pincode List</strong> </h2>
                 <div className="form-group">
                   <table className='styled-table'>
-                    <tr style={{ textTransform: "uppercase" }}>
-                      <th>Sr.No.</th>
-                      <th>Pcode</th>
-                      <th>Status</th>
-                      <th>Operation</th>
-                    </tr>
-
-                    {
-                      pincode.map((item, index) =>
-                        <tr key={item._id}>
-                          <td>{index + 1}</td>
-                          <td>{item.pcode}</td>
-                          <td><button className="btn btn-primary btn-block" onClick={() => deletePincode(item._id)}>{item.status}</button></td>
-                          <td>
-                            {/* <div className="form-group"> */}
-                            <button className="btn btn-primary btn-block link"><Link className='link' to={`/UpdatePincode/${item._id}`} > Update</Link></button>
-                            {/* <button className="btn btn-primary btn-block" onClick={() => deletePincode(item._id)}>Delete Pincode</button> */}
-                            {/* </div> */}
-                          </td>
-                        </tr>
-                      )
-                    }
+                    <thead style={{ backgroundColor: "white", color: "white" }}>
+                      <tr style={{ textTransform: "uppercase" }}>
+                        <th>Sr.No.</th>
+                        <th>Pcode</th>
+                        <th>Status</th>
+                        <th>Operation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        pincode.map((item, index) =>
+                          <tr key={item._id}>
+                            <td>{index + 1}</td>
+                            <td>{item.pcode}</td>
+                            <td>
+                              <button className="btn btn-primary btn-block" onClick={(event) => softdeletePincode(item._id, event)}>{item.status}</button>
+                            </td>
+                            <td>
+                              <button className="btn btn-primary btn-block link"><Link className='link' to={`/UpdatePincode/${item._id}`} > Update</Link></button>
+                            </td>
+                          </tr>
+                        )
+                      }
+                    </tbody>
                   </table>
                 </div>
               </form>
@@ -111,6 +155,12 @@ const SelectPincode = () => {
 export default SelectPincode;
 
 const FormContainer = styled.div`{
+
+  .thead{
+    background-color: white;
+    color: black;
+  }
+
   .register-photo {
    background:#f1f7fc;
    padding:80px 0;

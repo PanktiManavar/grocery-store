@@ -78,9 +78,9 @@ module.exports = {
     vieworder: async (req, resp) => {
         try {
             // const result = await ordermodel.find().populate("Rid", "Fname").populate("pinid", "pcode");
-            const result = await ordermodel.find().populate("Rid", "Fname");
+            const result = await ordermodel.findOne({ Rid: req.params.id }).populate("Pinid");
             if (result) {
-                resp.send({ result: result });
+                resp.send(result);
             }
             else {
                 resp.send("Not found");

@@ -19,75 +19,25 @@ const AdminNav = () => {
 
         <div>
             {auth ?
-                //         <nav className="navbar">
-                //             <a href="/AdminHome">DashBord</a>
-                //          <a href="/Product">Manage Product</a> 
-                //              <Dropdown>
-                //                 <Dropdown.Toggle variant="none" href >
-                //                     Manage Product
-                //                 </Dropdown.Toggle>
-                //                 <Dropdown.Menu>
-                //                     <Dropdown.Item href="/AddProduct">Add Product</Dropdown.Item>
-                //                     <Dropdown.Item href="/SelectProduct">View Product</Dropdown.Item>
-                //                 </Dropdown.Menu>
-                //             </Dropdown>
-                //             <Dropdown>
-                //                 <Dropdown.Toggle variant="none" href >
-                //                     Manage Category
-                //                 </Dropdown.Toggle>
-                //                 <Dropdown.Menu>
-                //                     <Dropdown.Item href="/AddCategory">Add Category</Dropdown.Item>
-                //                     <Dropdown.Item href="/SelectCategory">View Category</Dropdown.Item>
-                //                 </Dropdown.Menu>
-                //             </Dropdown>
-                //             <Dropdown>
-                //                 <Dropdown.Toggle variant="none" href >
-                //                     Manage Sub Category
-                //                 </Dropdown.Toggle>
-                //                 <Dropdown.Menu>
-                //                     <Dropdown.Item href="/AddSubCategory">Add Sub Category</Dropdown.Item>
-                //                     <Dropdown.Item href="/SelectSubCategory">View Sub Category</Dropdown.Item>
-                //                 </Dropdown.Menu>
-                //             </Dropdown>
-                //             <Dropdown>
-                //                 <Dropdown.Toggle variant="none" href >
-                //                     Manage Pincode
-                //                 </Dropdown.Toggle>
-                //                 <Dropdown.Menu>
-                //                     <Dropdown.Item href="/AddPincode">Add Pincode</Dropdown.Item>
-                //                     <Dropdown.Item href="/SelectPincode">View Pincode</Dropdown.Item>
-                //                 </Dropdown.Menu>
-                //             </Dropdown>
-                //             <Dropdown>
-                //                 <Dropdown.Toggle variant="none" href >
-                //                     Manage DeliveryBoy
-                //                 </Dropdown.Toggle>
-                //                 <Dropdown.Menu>
-                //                     <Dropdown.Item href="/AddDeliveryBoy">Add DeliveryBoy</Dropdown.Item>
-                //                     <Dropdown.Item href="/SelectDeliverBoy">View DeliveryBoy</Dropdown.Item>
-                //                 </Dropdown.Menu>
-                //             </Dropdown> 
-                // </nav>
-
-                <Navbar collapseOnSelect expand="lg" className="navbar fixed-top " style={{ backgroundColor: "#bac34e", padding: "20px" }}>
+                <Navbar collapseOnSelect expand="lg" className="navbar " style={{ backgroundColor: "#119c72", padding: "20px" }}>
                     <Container>
                         <Navbar.Brand href="#home" style={{ fontSize: "20px", fontFamily: "sans-serif", color: "white" }}>Grocery Store</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
-                            <Nav className="me-auto">
-                                <Nav.Link href="/AdminHome">DashBord</Nav.Link>
-                                <Nav.Link href="/SelectCategory">Category</Nav.Link>
-                                <Nav.Link href="/SelectSubCategory">SubCategory</Nav.Link>
-                                <Nav.Link href="/SelectPincode">Pincode</Nav.Link>
-                                <Nav.Link href="/SelectProduct">Product</Nav.Link>
-                                <Nav.Link href="/SelectDeliverBoy">DeliveryBoy</Nav.Link>
+                            <Nav className="me-auto" >
+                                <Nav.Link href="/AdminHome" style={{ color: "#030303" }}>DashBord</Nav.Link>
+                                <Nav.Link href="/SelectCategory" style={{ color: "#030303" }}>Category</Nav.Link>
+                                <Nav.Link href="/SelectSubCategory" style={{ color: "#030303" }}>SubCategory</Nav.Link>
+                                <Nav.Link href="/SelectPincode" style={{ color: "#030303" }}>Pincode</Nav.Link>
+                                <Nav.Link href="/SelectProduct" style={{ color: "#030303" }}>Product</Nav.Link>
+                                <Nav.Link href="/SelectDeliverBoy" style={{ color: "#030303" }}>DeliveryBoy</Nav.Link>
                             </Nav>
                             <Nav>
-                                <Nav.Link href="/Notification">Notification</Nav.Link>
+                                <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link>
 
-                                <NavDropdown title="Account" id="collasible-nav-dropdown" >
-                                    <NavDropdown.Item href="/Changepassword" style={{ fontSize: "14px" }}>Change Password</NavDropdown.Item>
-                                    <NavDropdown.Item href="/Login" onClick={logout} style={{ fontSize: "14px" }}>Logout</NavDropdown.Item>
+                                <NavDropdown title="Account" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
+                                    <NavDropdown.Item href="/ChangepasswordAdmin" style={{ fontSize: "14px", color: "#030303" }}>Change Password</NavDropdown.Item>
+                                    <NavDropdown.Item href="/Login" onClick={logout} style={{ fontSize: "14px", color: "#030303" }}>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
                         </Navbar.Collapse>

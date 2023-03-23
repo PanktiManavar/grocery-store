@@ -1,144 +1,340 @@
-import React, { useState } from 'react';
-// import styled from "styled-components";
+import React from 'react'
+import styled from "styled-components";
 
-function TextInput({ type = 'text', label }) {
-  const [value, setValue] = useState('');
-
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
-
+const ViewProductsVegetables = () => {
   return (
-    <div className="input-container">
-      <input type={type} value={value} onChange={handleChange} />
-      <label className={value && 'filled'} >
-        {label}
-      </label>
+    <div style={{ marginTop: "90px" }}>
+      <FormContainer>
+        <h3 >hello</h3>
+        <div class="jm-col-3">
+          <section class="category-container">
+            <div class="category-title jm-heading-xs">Categoty</div>
+            <div class="category-content custom-scrollbar">
+              <div class="accordion border-default jm-cursor-pointer category-content-wrapper">
+                <div class="accordion-wrapper">
+                  <div class="accordion-outer collapsed top_category_list jm-list category-content-title" data-toggle="collapse" data-target="#category-219">
+                    <div class="jm-list-prefix">
+                      <button class="jm-btn tertiary small jm-icon">
+                        <img class="collapse-toggle" />
+                      </button>
+                    </div>
+
+                    <div class="jm-list-content overflow-hidden">
+                      <div class="jm-list-content-title">
+                        <span class="text-truncate">
+                          Fruits &amp; Vegetables
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-inner jm-pl-l collapse category-content-text-list ">
+                    <div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/fresh-fruits/220" title="Go to Fresh Fruits">
+                            Fresh Fruits
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/premium-fruits/8199" title="Go to Premium Fruits">
+                            Premium Fruits
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/fresh-vegetables/229" title="Go to Fresh Vegetables">
+                            Fresh Vegetables
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/herbs-seasonings/233" title="Go to Herbs &amp; Seasonings">
+                            Herbs &amp; Seasonings
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/exotic-fruits-vegetables/243" title="Go to Exotic Fruits &amp; Vegetables">
+                            Exotic Fruits &amp; Vegetables
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="category-content custom-scrollbar">
+              <div class="accordion border-default jm-cursor-pointer category-content-wrapper">
+                <div class="accordion-wrapper">
+                  <div class="accordion-outer collapsed top_category_list jm-list category-content-title" data-toggle="collapse" data-target="#category-219">
+                    <div class="jm-list-prefix">
+                      <button class="jm-btn tertiary small jm-icon">
+                        <img class="collapse-toggle" />
+                      </button>
+                    </div>
+
+                    <div class="jm-list-content overflow-hidden">
+                      <div class="jm-list-content-title">
+                        <span class="text-truncate">
+                          Fruits &amp; Vegetables
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-inner jm-pl-l collapse category-content-text-list ">
+                    <div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/fresh-fruits/220" title="Go to Fresh Fruits">
+                            Fresh Fruits
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/premium-fruits/8199" title="Go to Premium Fruits">
+                            Premium Fruits
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/fresh-vegetables/229" title="Go to Fresh Vegetables">
+                            Fresh Vegetables
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/herbs-seasonings/233" title="Go to Herbs &amp; Seasonings">
+                            Herbs &amp; Seasonings
+                          </a>
+                        </div>
+                      </div>
+                    </div><div class="jm-list category-content-text-list-item " data-toggle="collapse" data-target="#category-219">
+                      <div class="jm-list-content overflow-hidden">
+                        <div class="jm-list-content-title">
+                          <a class="sub_cat_nav text-truncate" href="/c/groceries/fruits-vegetables/exotic-fruits-vegetables/243" title="Go to Exotic Fruits &amp; Vegetables">
+                            Exotic Fruits &amp; Vegetables
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+        </div>
+      </FormContainer>
     </div>
-  );
+  )
 }
 
-export default function ViewProductsVegetables() {
-  return (
-    <div className="App">
-      <form>
-        <TextInput label="First name" />
-        <TextInput label="Last name" />
-      </form>
-    </div>
-  );
+export default ViewProductsVegetables
+
+const FormContainer = styled.div`{
+  .jm-col-3 {
+    flex-basis: 29%;
+    max-width: 62%;
+    margin-left:10px;
+}
+  .category-container {
+    padding: 16px;
+    border-radius: 24px;
+    border: 1px solid #e0e0e0;
 }
 
-// const FormContainer = styled.div`{
-//   .input-container {
-//     position: relative;
-//     display: flex;
-//     flex-direction: column;
-//   }
+.jm-heading-xs {
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 900 !important;
+    font-size: 24px !important;
+    letter-spacing: -0.72px !important;
+    line-height: 1 !important;
+}
+.category-content {
+    margin-top: 8px;
+    max-height: 432px;
+    overflow: hidden;
+}
+.category-content-wrapper {
+    padding-bottom: 8px;
+}
+.border-default {
+    border-bottom: 1px solid #e0e0e0;
+}
+.jm-cursor-pointer {
+    cursor: pointer;
+}
+.category-content-title:not(.collapsed), .category-content-title:hover, .category-content-title.active {
+    color: #141414;
+}
+.category-content-title {
+    color: rgba(0,0,0,.65);
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.07px;
+    line-height: 1.4285714286;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+.jm-list {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.07px;
+    line-height: 1.4285714286;
+    cursor: pointer;
+}
+.jm-list-prefix {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
 
-//   .input-container label {
-//     position: absolute;
-//     pointer-events: none;
-//     transform: translate(0, 23px) scale(1);
-//     transform-origin: top left;
-//     transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-//     color: #6f81a5;
-//     font-size: 16px;
-//     line-height: 1;
-//     left: 16px;
-//   }
+.jm-btn.small.jm-icon {
+    text-align: left;
+    min-width: 2em;
+    justify-content: space-between;
+    padding: 4px;
+}
+.jm-btn.small.jm-icon {
+    text-align: left;
+    min-width: 2em;
+    justify-content: space-between;
+    padding: 4px;
+}
+.jm-btn.small {
+    border-width: 1px;
+    min-height: 2em;
+    padding: 4px 16px;
+}
+.jm-btn.jm-icon {
+    text-align: left;
+    min-width: 3em;
+    justify-content: space-between;
+    padding: 16px;
+}
 
-//   .input-container:focus-within label {
-//     transform: translate(0, 12px) scale(0.8);
-//     color: #0a53e4;
-//   }
-  
-//   .register-photo {
-//     background:#f1f7fc;
-//     padding:80px 0;
-//   }
-  
-//   .register-photo .image-holder {
-//     display:table-cell;
-//     width: 189px;
-//     height: 367px;
-//     background:url(image/rglg.jpg);
-//     background-size:cover;
-//   }
-  
-//   .register-photo .form-container {
-//     display:table;
-//     max-width:900px;
-//     width:90%;
-//     margin:0 auto;
-//     box-shadow:1px 1px 5px rgba(0,0,0,0.1);
-//   }
-  
-//   .register-photo form {
-//     display:table-cell;
-//     width:400px;
-//     background-color:#ffffff;
-//     padding:40px 60px;
-//     color:#505e6c;
-//   }
-  
-//   @media (max-width:991px) {
-//     .register-photo form {
-//       padding:40px;
-//     }
-//   }
-  
-//   .register-photo form h2 {
-//     font-size:24px;
-//     line-height:1.5;
-//     margin-bottom:30px;
-//   }
-  
-//   .register-photo form .form-control {
-//     background:#f7f9fc;
-//     border:none;
-//     border-bottom:1px solid #dfe7f1;
-//     border-radius:0;
-//     box-shadow:none;
-//     outline:none;
-//     color:inherit;
-//     text-indent:6px;
-//     height:40px;
-//     margin-top:10px;
-//     font-size:12px;
-//   }
-  
-//   .register-photo form .form-check {
-//     font-size:13px;
-//     line-height:20px;
-//   }
-  
-//   .register-photo form .btn-primary {
-//     background:#f4476b;
-//     border:none;
-//     border-radius:4px;
-//     padding:11px;
-//     box-shadow:none;
-//     margin-top:35px;
-//     text-shadow:none;
-//     outline:none !important;
-//   }
-  
-//   .register-photo form .btn-primary:hover, .register-photo form .btn-primary:active {
-//     background:#eb3b60;
-//   }
-  
-//   .register-photo form .btn-primary:active {
-//     transform:translateY(1px);
-//   }
-  
-//   .register-photo form .already {
-//     display:block;
-//     text-align:center;
-//     font-size:12px;
-//     color:#6f7a85;
-//     opacity:0.9;
-//     text-decoration:none;
-//   }
-//   }
-//   `;
+.jm-btn.tertiary {
+    color: #0c5273;
+    background-color: rgba(0,0,0,0);
+    border: none;
+}
+.jm-btn {
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    min-width: 40px;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    transition-property: background-color;
+    border-radius: 250px;
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 3em;
+    background-color: #0078ad;
+    border-color: rgba(0,0,0,0);
+    color: #fff;
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.08px;
+    line-height: 1.5;
+    transition: cubic-bezier(0.35, 0, 0.25, 1) 300ms;
+}
+
+.jm-list-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.overflow-hidden {
+    overflow: hidden!important;
+}
+.jm-list-content-title {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.category-content-text-list {
+    color: rgba(0,0,0,.65);
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.07px;
+    line-height: 1.4285714286;
+}
+.jm-pl-l {
+    padding-left: 32px !important;
+}
+.category-content-text-list-item {
+    padding: 4px 0;
+}
+.jm-list {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-family: "JioType",helvetica,arial,sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.07px;
+    line-height: 1.4285714286;
+    cursor: pointer;
+}
+.jm-list-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.overflow-hidden {
+    overflow: hidden!important;
+}
+.jm-list-content-title {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+  `;

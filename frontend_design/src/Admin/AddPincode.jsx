@@ -17,23 +17,25 @@ const AddPincode = () => {
     }
 
     console.warn(pcode);
-    let result = await fetch('api/pincodeinsert', {
-      method: 'post',
-      body: JSON.stringify({ pcode }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    result = await result.json();
-    if (result) {
-      alert("Pincode inserted");
-      navigate('/SelectPincode');
+    if (!error) {
+      let result = await fetch('api/pincodeinsert', {
+        method: 'post',
+        body: JSON.stringify({ pcode }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      result = await result.json();
+      if (result) {
+        alert("Pincode inserted");
+        navigate('/SelectPincode');
 
+      }
+      else {
+        alert("Pincode not inserted");
+      }
+      console.warn(result);
     }
-    else {
-      alert("Pincode not inserted");
-    }
-    console.warn(result);
   }
 
   //Validate Pincode
@@ -41,7 +43,8 @@ const AddPincode = () => {
     var pattern = new RegExp(/^[1-9][0-9]{4}$/);
     if (!pattern.test(pcode)) {
       setPcodeError('Only 6 number are allowed!');
-      return;
+      setError(true);
+      return false;
     } else {
       setPcodeError('');
     }

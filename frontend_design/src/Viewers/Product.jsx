@@ -47,47 +47,6 @@ const Product = () => {
     setLoading(false);
   }
 
-  const Addcart = async (pmname, pid) => {
-    // return console.log(pmname + pid);
-    // {
-    //   auth ?
-    //     cart(pmname, pid)
-    //     :
-    //     navigate("/Login");
-    // }
-
-  }
-
-  // const cart = async (p) => {
-
-  //   let Rid = auth;
-  //   let Pid = params.id;
-  //   let mname = p;
-  //   // return console.log(Rid, "+", Pid, "+", mname);
-
-  //   let result = await fetch('/api/cartinsert', {
-  //     method: 'post',
-  //     body: JSON.stringify({
-  //       Rid,
-  //       Pid,
-  //       mname
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //   });
-  //   result = await result.json();
-  //   // return console.log(result);
-  //   if (result) {
-  //     alert("Cart Added ");
-  //     navigate('/Product');
-
-  //   }
-  //   else {
-  //     alert("Cart not Added");
-  //   }
-
-  // }
 
   const Loading = () => {
     return (
@@ -113,9 +72,13 @@ const Product = () => {
                 //     </div>
                 //   </div>
                 // </div>
-                <a href="#" className="box">
+                <a href="#" className="box " >
+
                   <img src="image/cat-1.png" alt="" />
-                  <h3>{item.cname}</h3>
+
+                  <p>{item.cname}</p>
+
+
                 </a>
 
               )}
@@ -166,6 +129,28 @@ const Product = () => {
     )
   }
 
+  const Catdisplay = () => {
+    return (
+      <>
+        <FormContainer>
+
+          <div className="categorysidebar category-section">
+            <h1 className="title"> Our <span>Category</span></h1>
+            {category.map((item) => {
+              return (
+                <div className='cartegory' style={{ borderBottom: "1px solid #bab6b6", marginBottom: "10px" }}>
+                  <h3>{item.cname}</h3>
+                </div>
+              )
+            }
+            )}
+          </div>
+
+        </FormContainer>
+      </>
+    )
+  }
+
   return (
     <div>
       <div className="heading">
@@ -174,10 +159,14 @@ const Product = () => {
       </div>
 
       <div className='row justify-content-center'>
-        {loading ? <Loading /> : <CategoryShow />}
-        {loading ? <Loading /> : <ShowProducts />}
 
+
+        {/* {loading ? <Loading /> : <CategoryShow />} */}
+        {/* {loading ? <Loading /> : <Catdisplay />} */}
+
+        {loading ? <Loading /> : <ShowProducts />}
       </div>
+
     </div>
   )
 }
@@ -185,7 +174,47 @@ const Product = () => {
 export default Product;
 
 const FormContainer = styled.div`{
+ 
+.category-section{
+    padding: 16px;
+    border-radius: 24px;
+    border: 1px solid #e0e0e0;
+}
+.categorysidebar .category {
+  width:40px;
+  height:40px;
+  
+}
+.categorysidebar .category :hover{
+  background-color:#cdffc8;
+ 
+}
+.category{
+  margin-left:30px;
+}
+.categorysidebar{
+  width:20%;
+  border:1px solid #ccc;
+  margin-top:10px;
+  margin-left:10px;
+  border-radius:10px;
+}
+.categorysidebar .category{
+  display:flex;
+  align-items:center;
+  border: 2px solid #e7e7e7;
+  padding: 10px 20px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.categotysidebar .category h3{
+  font-size:18px;
+  padding:0px;
+}
 
+img, svg {
+    vertical-align: middle;
+}
   .square{
     background: grey;
     width: 160px;
@@ -193,8 +222,8 @@ const FormContainer = styled.div`{
     border:1px;
   }
 .pl-4{
-  border: solid;
-    border-block-color: black;
+    background-color:lightgrey;
+    border: solid;
 }
   .sty-h3
   {

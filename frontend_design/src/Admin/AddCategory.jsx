@@ -8,6 +8,8 @@ const AddCategory = () => {
   const [cname, setCname] = React.useState('');
   const [error, setError] = useState(false);
   const [cnameerror, setCnameError] = React.useState('');
+
+
   const navigate = useNavigate();
 
 
@@ -17,33 +19,36 @@ const AddCategory = () => {
       setError(true);
       return false;
     }
-
     console.warn(cname);
+
     // const userId = JSON.parse(localStorage.getItem('user'))._id;
-    let result = await fetch('api/categoryinsert', {
-      method: 'post',
-      body: JSON.stringify({ cname }),
-      headers: {
-        "Content-Type": "application/json"
+    if (!error) {
+      let result = await fetch('api/categoryinsert', {
+        method: 'post',
+        body: JSON.stringify({ cname }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      result = await result.json();
+      if (result) {
+        alert("Category inserted");
+        navigate('/SelectCategory');
       }
-    });
-    result = await result.json();
-    if (result) {
-      alert("Category inserted");
-      navigate('/SelectCategory');
+      else {
+        alert("Category not inserted");
+      }
+      console.warn(result);
     }
-    else {
-      alert("Category not inserted");
-    }
-    console.warn(result);
   }
 
   //Validate category
   const validCname = (e) => {
-    var pattern = new RegExp(/[A-Za-z]+/);
+    var pattern = new RegExp(/^[A-Za-z]+$/);
     if (!pattern.test(cname)) {
       setCnameError('Please Enter Valid Category!');
-      return;
+      setError(true);
+      return true;
     } else {
       setCnameError('');
     }

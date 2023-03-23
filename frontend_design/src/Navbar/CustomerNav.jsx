@@ -18,21 +18,21 @@ const CustomerNav = () => {
     return (
         <div>
             {auth ?
-                <Navbar collapseOnSelect expand="lg" className="navbar fixed-top " style={{ backgroundColor: "#bac34e", padding: "20px" }}>
+                <Navbar collapseOnSelect expand="lg" className="navbar" style={{ backgroundColor: "#119c72", padding: "20px" }}>
                     <Container>
                         <Navbar.Brand href="#home" style={{ fontSize: "20px", fontFamily: "sans-serif", color: "white" }}>Grocery Store</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
                             <Nav className="me-auto">
-                                <Nav.Link href="/Homee">Home</Nav.Link>
-                                <Nav.Link href="/Productt">Product</Nav.Link>
-                                <Nav.Link href="/Aboutt">About</Nav.Link>
-                                <Nav.Link href="/Contactt">Contact</Nav.Link>
+                                <Nav.Link href="/Homee" style={{ color: "black" }}>Home</Nav.Link>
+                                <Nav.Link href="/Productt" style={{ color: "#030303" }}>Product</Nav.Link>
+                                <Nav.Link href="/Aboutt" style={{ color: "#030303" }}>About</Nav.Link>
+                                <Nav.Link href="/Contactt" style={{ color: "#030303" }}>Contact</Nav.Link>
                             </Nav>
                             <Nav>
                                 <Nav.Link href="/Cart"><FaShoppingCart /></Nav.Link>
 
-                                <NavDropdown title="Account" id="collasible-nav-dropdown" >
+                                <NavDropdown title="Account" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
                                     <NavDropdown.Item href="/Changepassword" style={{ fontSize: "14px" }}>Change Password</NavDropdown.Item>
                                     <NavDropdown.Item href="/Login" onClick={logout} style={{ fontSize: "14px" }}>Logout</NavDropdown.Item>
                                 </NavDropdown>

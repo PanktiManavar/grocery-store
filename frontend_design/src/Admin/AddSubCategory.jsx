@@ -22,28 +22,28 @@ const AddSubCategory = () => {
       setError(true);
       return false;
     }
+    if (!error) {
+      let result = await fetch("api/subcategoryinsert", {
+        method: "post",
+        body: JSON.stringify({
+          cid,
+          sname
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      result = await result.json();
+      if (result) {
+        alert("Sub Category inserted");
+        navigate('/SelectSubCategory');
 
-    let result = await fetch("api/subcategoryinsert", {
-      method: "post",
-      body: JSON.stringify({
-        cid,
-        sname
-      }),
-      headers: {
-        'Content-Type': 'application/json',
       }
-    });
-    result = await result.json();
-    if (result) {
-      alert("Sub Category inserted");
-      navigate('/SelectSubCategory');
-
-    }
-    else {
-      alert("Sub Category not inserted");
+      else {
+        alert("Sub Category not inserted");
+      }
     }
   }
-
   //Get Categoryname
   const getcategoryname = async () => {
     let result = await fetch("api/categoryselect");
@@ -53,9 +53,10 @@ const AddSubCategory = () => {
 
   //Validate sub category
   const validSname = (e) => {
-    var pattern = new RegExp(/[A-Za-z]+/);
+    var pattern = new RegExp(/^[A-Za-z]+$/);
     if (!pattern.test(sname)) {
       setSubCategorynameError('Please Enter Valid Sub category!');
+      setError(true);
       return;
     } else {
       setSubCategorynameError('');

@@ -31,8 +31,8 @@ module.exports = {
     notification: async (req, resp) => {
         try {
             let products = await productmodel.find({ Status: "Active" }).populate("subid", "sname");
-            if (products.length > 0) {
-                resp.send(products)
+            if (products.data.qty < 25) {
+                resp.send({ data: products })
             } else {
                 resp.send({ result: "no products found" })
             }
@@ -40,4 +40,17 @@ module.exports = {
 
         }
     }
+
+    // addqty: async (req, resp) => {
+    //     try {
+    //         let products = await productmodel.find({ qty: { $gt: 40 } });
+    //         if (products) {
+    //             resp.send(products)
+    //         } else {
+    //             resp.send({ result: "All Product qty are available" })
+    //         }
+    //     } catch (err) {
+
+    //     }
+    // }
 };

@@ -16,8 +16,35 @@ const AddProduct = () => {
   const [bname, setBname] = useState('');
   const [pimg, setPimg] = useState('');
   const [error, setError] = useState(false);
+  const [ErrorPrice, setErrorPrice] = useState('')
+  const [ErrorQty, setErrorQty] = useState('')
 
   const navigate = useNavigate();
+
+  //Validate Price
+  const validationPrice = (e) => {
+    var pattern = new RegExp(/^\d+(\.\d{1,2})?$/);
+    if (!pattern.test(price)) {
+      setErrorPrice('Enter valid Price!');
+      setError(true);
+      return false;
+    } else {
+      setErrorPrice('');
+    }
+  };
+
+  //Validate qty
+  const validQuntity = (e) => {
+    var pattern = new RegExp(/^[1-9]\d*$/);
+    if (!pattern.test(qty)) {
+      setErrorQty('Please Enter Valid Quntity!');
+      setError(true);
+      return false;
+    } else {
+      setErrorQty('');
+    }
+  };
+
 
 
   useEffect(() => {
@@ -26,44 +53,45 @@ const AddProduct = () => {
 
   const collectdata = async (e) => {
     e.preventDefault();
-    if (!pname || !descripation || !price || !qty || !mname || !pimg || !bname || !subid) {
+    if (!pname || !descripation || !price || !qty || !mname || !pimg || !subid) {
       setError(true);
       return false;
     }
-    // return console.log(pimg);
-    const formdata = new FormData();
-    formdata.append('pname', pname);
-    formdata.append("descripation", descripation);
-    formdata.append("price", price);
-    formdata.append("qty", qty);
-    formdata.append("mname", mname);
-    formdata.append("pimg", pimg);
-    formdata.append("bname", bname);
-    formdata.append("subid", subid);
+    if (!error) {
+      // return console.log(pimg);
+      const formdata = new FormData();
+      formdata.append('pname', pname);
+      formdata.append("descripation", descripation);
+      formdata.append("price", price);
+      formdata.append("qty", qty);
+      formdata.append("mname", mname);
+      formdata.append("pimg", pimg);
+      formdata.append("bname", bname);
+      formdata.append("subid", subid);
 
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      };
+      const result = await axios.post(
+        "api/productinsert",
+        formdata, config
+      );
+      // let results = await result.json();
+      if (result) {
+        alert("Product inserted");
+        navigate('/SelectProduct');
+
       }
-    };
-    const result = await axios.post(
-      "api/productinsert",
-      formdata, config
-    );
-    // let results = await result.json();
-    if (result) {
-      alert("Product inserted");
-      navigate('/SelectProduct');
-
-    }
-    else {
-      alert("Product not inserted");
+      else {
+        alert("Product not inserted");
+      }
     }
   }
 
   const filehandale = (e) => {
-    // return console.log(e.target.files[0].name);
     setPimg(e.target.files[0]);
   }
 
@@ -78,7 +106,6 @@ const AddProduct = () => {
     let result = await fetch(`api/subcategoryByCategoryid/${categoryid}`);
     result = await result.json();
     setSubCategory(result.result);
-    // return console.log(result.result);
   }
   const onchangeHandel = (e) => {
     getsubcategorynamecateagoryid(e.target.value);
@@ -104,7 +131,8 @@ const AddProduct = () => {
               </div>
 
               <div className="form-group">
-                <input className="form-control" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price in Rupees" />
+                <input className="form-control" type="text" value={price} onChange={(e) => { setPrice(e.target.value); validationPrice() }} placeholder="Price in Rupees" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {ErrorPrice}  </span>
                 {error && !price && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
@@ -118,22 +146,23 @@ const AddProduct = () => {
                   <option value="Pieces">Pieces</option>
                 </select>
               </div>
-              {error && !mname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please Select this field!</span>}
+              {error && !mname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please Select Measurement field!</span>}
 
 
               <div className="form-group">
-                <input className="form-control" type="number" value={qty} onChange={(e) => setQty(e.target.value)} placeholder="Quantity" />
+                <input className="form-control" type="text" value={qty} onChange={(e) => { setQty(e.target.value); validQuntity() }} placeholder="Quantity" />
+                <span className='invalid-input' style={{ fontWeight: 'bold', color: 'red' }}> {ErrorQty}  </span>
                 {error && !qty && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
               </div>
 
               <div className="form-group">
                 <input className="form-control" type="text" value={bname} onChange={(e) => setBname(e.target.value)} placeholder="Brand Name" />
-                {error && !bname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
+                {/* {error && !bname && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>} */}
               </div>
 
               <div className="form-group">
                 <input className="form-control" type="file" onChange={filehandale} />
-                {error && !pimg && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out this field!</span>}
+                {error && !pimg && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please select Image!</span>}
               </div>
 
               {/* category dropdown  */}

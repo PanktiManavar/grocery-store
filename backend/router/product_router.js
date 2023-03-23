@@ -10,5 +10,6 @@ router.get('/api/productselect', productapi.selectproduct);
 router.put('/api/productdelete/:id', productapi.deleteproduct);
 router.put('/api/productupdate/:id', productapi.updateproduct);
 router.get('/api/ProductSelectBySubdId/:id', productapi.selectProductbCategoryID)
-
+router.get('/api/ProductBnameEmpty', productapi.selectBnameEmptyProduct)
+router.get('/api/ProductWithoutEmptyBname/:id', productapi.selectproductWithoutEmpty)
 module.exports = router;

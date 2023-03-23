@@ -29,7 +29,7 @@ const feedbackSchema = new mongoose.Schema({
         required: [true, "Pincode is required"]
     },
     Drid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
+        // type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
         // required: [true, "delivery boy is required"]
     },
     payment_status: {

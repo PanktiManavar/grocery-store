@@ -69,7 +69,7 @@ section {
   -ms-flex-align: center;
   align-items: center;
   font-size: 2.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   padding: 1.2rem 0;
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
   color: #222;
@@ -111,6 +111,7 @@ section {
   right: 0;
   z-index: 1000; */
   /* background-color: #f05978; */
+  /* background-color: #119c72; */
   background: #bac34e;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.5rem 1rem rgba(174, 46, 46, 0.1);
@@ -734,85 +735,6 @@ section {
   color: #bac34e;
 }
 
-.info-container {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(27rem, 1fr))[auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
-  gap: 1.5rem;
-}
-
-.info-container .info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 2rem 0;
-}
-
-.info-container .info img {
-  height: 7rem;
-}
-
-.info-container .info .content h3 {
-  font-size: 2rem;
-  color: #222;
-  padding-bottom: .5rem;
-}
-
-.info-container .info .content span {
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.review {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(30rem, 1fr))[auto-fit];
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 1.5rem;
-}
-
-.review .box {
-  padding: 2rem;
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
-}
-
-.review .box .user {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.review .box .user img {
-  height: 7rem;
-  width: 7rem;
-  border-radius: 50%;
-}
-
-.review .box .user h3 {
-  font-size: 2.2rem;
-  color: #222;
-}
-
-.review .box .user span {
-  font-size: 1.4rem;
-  color: #bac34e;
-}
-
-.review .box p {
-  font-size: 1.4rem;
-  color: #666;
-  line-height: 2;
-}
 
 .blogs .box-container {
   display: -ms-grid;

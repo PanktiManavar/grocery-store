@@ -57,7 +57,7 @@ module.exports = {
             if (resultp.status == "Active") {
                 const updateinfo = await pincodemodel.findByIdAndUpdate(req.params.id, { $set: { status: "Deactive" } }, { new: true });
                 if (updateinfo) {
-                    resp.send("Update status in deactive")
+                    resp.send(updateinfo)
                 }
                 else {
                     resp.send("Status does not update")
@@ -65,7 +65,7 @@ module.exports = {
             } else if (resultp.status == "Deactive") {
                 const updateinfo = await pincodemodel.findByIdAndUpdate(req.params.id, { $set: { status: "Active" } }, { new: true });
                 if (updateinfo) {
-                    resp.send("Update status in Active")
+                    resp.send(updateinfo)
                 }
                 else {
                     resp.send("Status does not update")

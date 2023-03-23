@@ -3,7 +3,7 @@ const mongooes = require('mongoose');
 
 const connectdb = async () => {
     try {
-        await mongooes.connect('mongodb://localhost:27017/gro');
+        await mongooes.connect('mongodb://localhost:27017/demo');
         console.log("connect database");
     }
     catch (err) {

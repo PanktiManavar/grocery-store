@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const productmodel = require('../db/productdb');
-const jwt = require('jsonwebtoken');
-const { parse } = require("path");
 const Path = require("path");
 const multer = require("multer");
 
@@ -67,7 +65,26 @@ module.exports = {
     },
 
     selectproduct: async (req, resp, next) => {
-        let products = await productmodel.find().populate("subid", "sname");
+        let products = await productmodel.find({ status: "Active" }).populate("subid");
+        if (products) {
+            resp.send(products)
+        } else {
+            resp.send({ result: "no products found" })
+        }
+    },
+
+    selectproductWithoutEmpty: async (req, resp, next) => {
+        let products = await productmodel.find({ bname: { $ne: "" } }).populate({ path: "subid", populate: "cid" });
+        if (products) {
+            let products = await productmodel.find();
+            resp.send(products)
+        } else {
+            // resp.send({ result: "no products found" })
+            resp.send('products')
+        }
+    },
+    selectBnameEmptyProduct: async (req, resp) => {
+        let products = await productmodel.find({ bname: " " }).populate("subid", "sname");
         if (products.length > 0) {
             resp.send(products)
         } else {

@@ -39,6 +39,7 @@ import UpdateProduct from './Admin/UpdateProduct';
 import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 import Notification from './Admin/Notification';
+
 //for Customer
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
@@ -52,9 +53,10 @@ function App() {
     <div className="App">
       {/* <NavBar /> */}
       <BrowserRouter>
+
+
         <Routes>
           {/* for viewers */}
-
           <Route element={<CustomerComponent />}>
             <Route path="/Homee" element={<Home></Home>} />
             <Route path="/Productt" element={<Product></Product>} />
@@ -62,10 +64,10 @@ function App() {
             <Route path="/Contactt" element={<Contact></Contact>} />
             <Route path="/Productt/:id" element={<ViewProducts></ViewProducts>} />
             <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
-            {/* <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} /> */}
+            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
             <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
             <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
-            <Route path="/ViewCategoryProduct/:id" element={<ViewCategoryProduct></ViewCategoryProduct>} />
+            <Route path="/ViewCategoryProduct" element={<ViewCategoryProduct></ViewCategoryProduct>} />
             <Route path='/CheckOutForm/:id' element={<CheckOutForm />} />
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
             <Route path='/Cart' element={<Cart />} />
@@ -90,6 +92,7 @@ function App() {
             <Route path="/SelectDeliverBoy" element={<SelectDeliverBoy />} />
             <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
             <Route path='/Notification' element={<Notification />} />
+            <Route path="/ChangepasswordAdmin" element={<Changepassword></Changepassword>} />
           </Route>
           {/* for customer */}
           <Route element={<AllcComponent />}>
@@ -110,7 +113,7 @@ function App() {
 
       </BrowserRouter>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </div >
   );

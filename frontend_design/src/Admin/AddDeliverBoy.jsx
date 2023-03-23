@@ -25,44 +25,46 @@ const AddDeliverBoy = () => {
       setError(true);
       return false;
     }
-
     console.warn(Fname, Lname, Email, Address, Password, MobileNo, UserType);
-    let result = await fetch('api/registration', {
-      method: 'post',
-      body: JSON.stringify({
-        Fname,
-        Lname,
-        Email,
-        Address,
-        Password,
-        MobileNo,
-        UserType
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-    result = await result.json();
-    console.warn(result);
-
-    if (!result.Email) {
-      localStorage.setItem("user", JSON.stringify(result));
+    if (!error) {
+      let result = await fetch('api/registration', {
+        method: 'post',
+        body: JSON.stringify({
+          Fname,
+          Lname,
+          Email,
+          Address,
+          Password,
+          MobileNo,
+          UserType
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
+      result = await result.json();
       console.warn(result);
-      alert("Welcome");
-      navigate('/SelectDeliverBoy');
+
+      if (!result.Email) {
+        localStorage.setItem("user", JSON.stringify(result));
+        console.warn(result);
+        alert("Welcome");
+        navigate('/SelectDeliverBoy');
+      }
+      else {
+        alert("User could not be registered");
+        // navigate('/Home');
+      }
     }
-    else {
-      alert("User could not be registered");
-      // navigate('/Home');
-    }
-  };
+  }
 
   //Validate FirstName
   const validFirstName = (e) => {
-    var pattern = new RegExp(/[A-Za-z]+/);
+    var pattern = new RegExp(/^[A-Za-z]+$/);
     if (!pattern.test(Fname)) {
       setFnameError('Please Enter Valid Fitstname!');
-      return;
+      setError(true);
+      return false;
     } else {
       setFnameError('');
     }
@@ -70,10 +72,11 @@ const AddDeliverBoy = () => {
 
   //Validate LastName
   const validLastName = (e) => {
-    var pattern = new RegExp(/[A-Za-z]+/);
+    var pattern = new RegExp(/^[A-Za-z]+$/);
     if (!pattern.test(Lname)) {
       setLnameError('Please Enter Valid Lastname!');
-      return;
+      setError(true);
+      return false;
     } else {
       setLnameError('');
     }
@@ -84,7 +87,8 @@ const AddDeliverBoy = () => {
     var pattern = new RegExp(/^[789]\d{8}$/);
     if (!pattern.test(MobileNo)) {
       setMobileNoError('Only 10 numbers are allowed!');
-      return;
+      setError(true);
+      return false;
     } else {
       setMobileNoError('');
     }
@@ -99,7 +103,8 @@ const AddDeliverBoy = () => {
       setPasswordError(
         'Only 8 characters are allowed, include 1 number,1 uppercase and lowercase letter and 1 special character!'
       );
-      return;
+      setError(true);
+      return false;
     } else {
       setPasswordError('');
     }
@@ -110,7 +115,8 @@ const AddDeliverBoy = () => {
     var pattern = new RegExp(/^[\w#][\w\.\’+#](.[\w\\’#]+)\@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(.[a-zA-Z]{2,20})$/);
     if (!pattern.test(Email)) {
       setEmailError('Please enter valid Email!');
-      return;
+      setError(true);
+      return false;
     } else {
       setEmailError('');
     }
