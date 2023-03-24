@@ -12,6 +12,8 @@ const CheckOutForm = () => {
   const [Totalprice, setTotalPrice] = React.useState("");
   const [Finalprice, setFinalPrice] = React.useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [shipping, setShipping] = React.useState("");
 
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState([]);
@@ -20,6 +22,9 @@ const CheckOutForm = () => {
   const param = useParams();
   const navigate = useNavigate()
   const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
+  const total = param.id;
+  //const shipping = 0;
+
 
   useEffect(() => {
     // alert(auth)
@@ -60,13 +65,17 @@ const CheckOutForm = () => {
 
   //Get pincode
   const getpincode = async () => {
-    let results = await fetch("/api/pincodeselect");
+    let results = await fetch("/api/pincodeActiveselect");
     results = await results.json();
     setPincodess(results.result);
     console.log(results.result);
   }
 
   const checkout = async () => {
+    if (!Address) {
+      setError(true);
+      return false;
+    }
     let Rid = auth;
     let result = await fetch('api/orderinsert', {
       method: 'post',
@@ -130,6 +139,7 @@ const CheckOutForm = () => {
                     <div class="form-outline">
                       <label>Address</label>
                       <textarea name="postContent" class="form-control" value={Address} onChange={(e) => setAddress(e.target.value)} rows={4} cols={40} placeholder="Enter your address " />
+                      {error && !Address && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out category field!</span>}
                     </div>
                   </div>
                 </div>
@@ -140,7 +150,8 @@ const CheckOutForm = () => {
                         <option value={0}>----Select Pincode----</option>
                         {
                           pcodes.length > 0 ? pcodes.map((item, index) => (
-                            <option key={item._id[index]} value={item._id[index]}>{item.pcode[index]}</option>
+                            // <option key={item._id[index]} value={item._id[index]}>{item.pcode[index]}</option>
+                            <option key={item._id} value={item._id}>{item.pcode}</option>
                           ))
                             : <option value={0}>No Records Founds!</option>
                         }
@@ -155,14 +166,16 @@ const CheckOutForm = () => {
                   <div className="col">
                     <div className="btn" style={{ width: "155px" }}>
                       <div className='p-3 card '>
+                        {/* <button value={shipping} onChange={(e) => { setShipping(200) }}> */}
                         <div>
                           <h4 style={{ color: "#f4476b", marginBottom: "10px" }}>Fast Delivery</h4>
-                          <h5 className='p-sty'>Cost : Rs.200</h5>
+                          <button className='p-sty'>Cost : Rs.200</button>
                         </div>
+                        {/* </button> */}
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  {/* <div class="col">
                     <div className="btn" style={{ width: "155px" }}>
                       <div className='p-3 card '>
                         <div>
@@ -171,7 +184,7 @@ const CheckOutForm = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
               </div>
@@ -203,11 +216,11 @@ const CheckOutForm = () => {
                 <div className="row" style={{ marginTop: "50px" }}>
                   <div className="row mt-4" >
                     <div className="col"> Subtotal : </div>
-                    <div className="col text-right">Rs.8888</div>
+                    <div className="col text-right">Rs.{total}</div>
                   </div>
                   <div className="row mt-4">
                     <div className="col">Shipping Cost :</div>
-                    <div className="col text-right" >$0.00</div>
+                    <div className="col text-right" >Rs.{shipping}</div>
                   </div>
                   <div className="row mt-4">
                     <div className="col ">Discount :</div>

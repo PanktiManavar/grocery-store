@@ -40,7 +40,7 @@ const AllNav = () => {
                 // </Navbar >
 
 
-                <Navbar collapseOnSelect expand="lg" className="navbar fixed-top " style={{ backgroundColor: "#119c72", padding: "13px" }}>
+                <Navbar collapseOnSelect expand="lg" className="navbar" style={{ backgroundColor: "#119c72", padding: "13px" }}>
                     <Container>
                         <Navbar.Brand href="#home" style={{ fontSize: "20px", fontFamily: "sans-serif", color: "white" }}>Grocery Store</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

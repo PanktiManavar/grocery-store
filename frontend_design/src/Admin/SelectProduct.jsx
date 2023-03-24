@@ -59,13 +59,13 @@ const SelectProduct = () => {
                   <thead>
                     <tr>
                       <td>Sr.No.</td>
+                      <td>Image</td>
                       <td>Product</td>
                       <td>Descripation</td>
                       <td>Price</td>
                       <td>Measurement</td>
                       <td>Quantity</td>
                       <td>Brand</td>
-                      <td>Product Image</td>
                       <td>SubCategory</td>
                       <td>Status</td>
                       <td>Operation</td>
@@ -76,13 +76,13 @@ const SelectProduct = () => {
                       filter.map((item, index) =>
                         <tr key={item._id}>
                           <td>{index + 1}</td>
+                          <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
                           <td>{item.pname.substring(0, 10)}...</td>
                           <td>{item.descripation.substring(0, 20)}...</td>
                           <td>{item.price}</td>
                           <td>{item.mname}</td>
                           <td>{item.qty}</td>
                           <td>{item.bname}</td>
-                          <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
                           <td>{item.subid[0].sname}</td>
                           <td>
                             <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>

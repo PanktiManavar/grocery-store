@@ -25,7 +25,7 @@ const AdminNav = () => {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
                             <Nav className="me-auto" >
-                                <Nav.Link href="/AdminHome" style={{ color: "#030303" }}>DashBord</Nav.Link>
+                                {/* <Nav.Link href="/AdminHome" style={{ color: "#030303" }}>DashBord</Nav.Link> */}
                                 <Nav.Link href="/SelectCategory" style={{ color: "#030303" }}>Category</Nav.Link>
                                 <Nav.Link href="/SelectSubCategory" style={{ color: "#030303" }}>SubCategory</Nav.Link>
                                 <Nav.Link href="/SelectPincode" style={{ color: "#030303" }}>Pincode</Nav.Link>

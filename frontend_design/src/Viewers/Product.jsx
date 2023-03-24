@@ -112,9 +112,9 @@ const Product = () => {
                       }
                       <Card.Body>
                         <Card.Title className='content'>{product.pname}</Card.Title>
-                        <Card.Text>{product.descripation}</Card.Text>
+                        <Card.Text>{product.descripation.substring(0, 20)}...</Card.Text>
                         <Card.Title>Rs.{product.price}</Card.Title>
-                        <Button variant="primary">Add to Cart</Button>
+                        {/* <Button variant="primary">Add to Cart</Button> */}
                       </Card.Body>
                     </Card>
                   </>
