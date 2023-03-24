@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import swal from 'sweetalert';
 const AddProduct = () => {
 
   const [subid, setSubcatid] = useState('');
@@ -30,6 +30,7 @@ const AddProduct = () => {
       return false;
     } else {
       setErrorPrice('');
+      setError(false);
     }
   };
 
@@ -42,6 +43,7 @@ const AddProduct = () => {
       return false;
     } else {
       setErrorQty('');
+      setError(false);
     }
   };
 
@@ -57,38 +59,48 @@ const AddProduct = () => {
       setError(true);
       return false;
     }
-    if (!error) {
-      // return console.log(pimg);
-      const formdata = new FormData();
-      formdata.append('pname', pname);
-      formdata.append("descripation", descripation);
-      formdata.append("price", price);
-      formdata.append("qty", qty);
-      formdata.append("mname", mname);
-      formdata.append("pimg", pimg);
-      formdata.append("bname", bname);
-      formdata.append("subid", subid);
+    console.log(pname, descripation, price, qty, mname, pimg, subid);
+    // if (!error) {
+    const formdata = new FormData();
+    formdata.append('pname', pname);
+    formdata.append("descripation", descripation);
+    formdata.append("price", price);
+    formdata.append("qty", qty);
+    formdata.append("mname", mname);
+    formdata.append("pimg", pimg);
+    formdata.append("bname", bname);
+    formdata.append("subid", subid);
 
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      };
-      const result = await axios.post(
-        "api/productinsert",
-        formdata, config
-      );
-      // let results = await result.json();
-      if (result) {
-        alert("Product inserted");
-        navigate('/SelectProduct');
-
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
-      else {
-        alert("Product not inserted");
-      }
+    };
+    const result = await axios.post(
+      "api/productinsert",
+      formdata, config
+    );
+    // let results = await result.json();
+    if (result) {
+      swal({
+        title: "Product Add!",
+        text: "Your Product is Added SuccessFully!",
+        icon: "success",
+        button: "Okay!",
+      });
+      navigate('/SelectProduct');
+
     }
+    else {
+      swal({
+        title: "Your Product Not Added!",
+        text: "You clicked the button and Again insert a product!",
+        icon: "warning",
+        button: "Okay!",
+      });
+    }
+    // }
   }
 
   const filehandale = (e) => {

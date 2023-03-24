@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const AddDeliverBoy = () => {
 
@@ -48,7 +49,12 @@ const AddDeliverBoy = () => {
       if (!result.Email) {
         localStorage.setItem("user", JSON.stringify(result));
         console.warn(result);
-        alert("Welcome");
+        swal({
+          title: "DeliveryBoy Register!",
+          text: "Delivery Boy are SuccessFully Register!",
+          icon: "success",
+          button: "Okay!",
+        });
         navigate('/SelectDeliverBoy');
       }
       else {
@@ -67,6 +73,7 @@ const AddDeliverBoy = () => {
       return false;
     } else {
       setFnameError('');
+      setError(false);
     }
   };
 
@@ -79,6 +86,7 @@ const AddDeliverBoy = () => {
       return false;
     } else {
       setLnameError('');
+      setError(false);
     }
   };
 
@@ -91,6 +99,7 @@ const AddDeliverBoy = () => {
       return false;
     } else {
       setMobileNoError('');
+      setError(false);
     }
   };
 
@@ -107,6 +116,7 @@ const AddDeliverBoy = () => {
       return false;
     } else {
       setPasswordError('');
+      setError(false);
     }
   };
 
@@ -119,6 +129,7 @@ const AddDeliverBoy = () => {
       return false;
     } else {
       setEmailError('');
+      setError(false);
     }
   };
 

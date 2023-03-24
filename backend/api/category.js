@@ -33,8 +33,38 @@ module.exports = {
     },
     selectcategory: async (req, resp) => {
         try {
-            // var id = "632aa96f3443edea84f0bd9d"
             const result = await categorymodel.find();
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    selectActivecategory: async (req, resp) => {
+        try {
+            const result = await categorymodel.find({ status: "Active" });
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    selectDeactivecategory: async (req, resp) => {
+        try {
+            const result = await categorymodel.find({ status: "Deactive" });
             if (result) {
                 resp.send({ result: result });
             }

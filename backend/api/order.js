@@ -92,6 +92,23 @@ module.exports = {
         }
     },
 
+    viewallorder: async (req, resp) => {
+        try {
+            // const result = await ordermodel.find().populate("Rid", "Fname").populate("pinid", "pcode");
+            const result = await ordermodel.find().populate("Pinid");
+            if (result) {
+                resp.send(result);
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
     viewOneCustomerOrder: async (req, resp) => {
         try {
             const data = await ordermodel.find({ Rid: req.params.id });

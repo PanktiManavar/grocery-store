@@ -31,6 +31,7 @@ const AdminNav = () => {
                                 <Nav.Link href="/SelectPincode" style={{ color: "#030303" }}>Pincode</Nav.Link>
                                 <Nav.Link href="/SelectProduct" style={{ color: "#030303" }}>Product</Nav.Link>
                                 <Nav.Link href="/SelectDeliverBoy" style={{ color: "#030303" }}>DeliveryBoy</Nav.Link>
+                                <Nav.Link href="/AdminOrderView" style={{ color: "#030303" }}>Order</Nav.Link>
                             </Nav>
                             <Nav>
                                 <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link>

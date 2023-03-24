@@ -66,6 +66,38 @@ module.exports = {
             console.log(err.message);
         }
     },
+    selectActivesubcategory: async (req, resp) => {
+        try {
+            const result = await subcategorymodel.find({ Status: "Active" }).populate("cid", "cname");
+
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    selectDeactivesubcategory: async (req, resp) => {
+        try {
+            const result = await subcategorymodel.find({ Status: "Deactive" }).populate("cid", "cname");
+
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
     deletesubcategory: async (req, resp) => {
         try {
             const resultp = await subcategorymodel.findById(req.params.id);

@@ -42,11 +42,11 @@ const SelectProduct = () => {
     <>
       <FormContainer>
         <div className="register-photo">
-          <div class="card form-container">
-            <div class="card-body">
+          <div className="card form-container">
+            <div className="card-body">
               <Link to="/AddProduct">
-                <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
-                  <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                <button type="button" className="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
+                  <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
               </Link>
             </div>
           </div>
@@ -56,41 +56,44 @@ const SelectProduct = () => {
               <h2 className="text-center"><strong>Product</strong> List.</h2>
               <div className="form-group">
                 <table className="styled-table">
-                  <tr>
-                    <td>Sr.No.</td>
-                    <td>Product</td>
-                    <td>Descripation</td>
-                    <td>Price</td>
-                    <td>Measurement</td>
-                    <td>Quantity</td>
-                    <td>Brand</td>
-                    <td>Product Image</td>
-                    <td>SubCategory</td>
-                    <td>Status</td>
-                    <td>Operation</td>
-                  </tr>
-
-                  {
-                    filter.map((item, index) =>
-                      <tr key={item._id}>
-                        <td>{index + 1}</td>
-                        <td>{item.pname}</td>
-                        <td>{item.descripation}</td>
-                        <td>{item.price}</td>
-                        <td>{item.mname}</td>
-                        <td>{item.qty}</td>
-                        <td>{item.bname}</td>
-                        <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
-                        <td>{item.subid[0].sname}</td>
-                        <td>
-                          <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>
-                        </td>
-                        <td>
-                          <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateProduct/${item._id}`}>Update</Link></button>
-                        </td>
-                      </tr>
-                    )
-                  }
+                  <thead>
+                    <tr>
+                      <td>Sr.No.</td>
+                      <td>Product</td>
+                      <td>Descripation</td>
+                      <td>Price</td>
+                      <td>Measurement</td>
+                      <td>Quantity</td>
+                      <td>Brand</td>
+                      <td>Product Image</td>
+                      <td>SubCategory</td>
+                      <td>Status</td>
+                      <td>Operation</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      filter.map((item, index) =>
+                        <tr key={item._id}>
+                          <td>{index + 1}</td>
+                          <td>{item.pname.substring(0, 10)}...</td>
+                          <td>{item.descripation.substring(0, 20)}...</td>
+                          <td>{item.price}</td>
+                          <td>{item.mname}</td>
+                          <td>{item.qty}</td>
+                          <td>{item.bname}</td>
+                          <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
+                          <td>{item.subid[0].sname}</td>
+                          <td>
+                            <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>
+                          </td>
+                          <td>
+                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateProduct/${item._id}`}>Update</Link></button>
+                          </td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
                 </table>
               </div>
             </form>

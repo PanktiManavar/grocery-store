@@ -57,25 +57,29 @@ const SelectCategory = () => {
 
               <div className="form-group">
                 <table className='styled-table'>
-                  <tr style={{ textTransform: "uppercase" }}>
-                    <th>Sr.No.</th>
-                    <th>Category Name</th>
-                    <th>Status</th>
-                    <th>Operation</th>
-                  </tr>
-                  {
-                    category.map((item, index) =>
-                      <tr key={item._id}>
-                        <td>{index + 1}</td>
-                        <td>{item.cname}</td>
-                        <td>
-                          <button className="btn btn-primary btn-block" onClick={() => deleteCategory(item._id)}>{item.status}</button>
-                        </td>
-                        <td>
-                          <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateCategory/" + item._id}>Update</Link></button></td>
-                      </tr>
-                    )
-                  }
+                  <thead>
+                    <tr style={{ textTransform: "uppercase" }}>
+                      <th>Sr.No.</th>
+                      <th>Category Name</th>
+                      <th>Status</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      category.map((item, index) =>
+                        <tr key={item._id}>
+                          <td>{index + 1}</td>
+                          <td>{item.cname}</td>
+                          <td>
+                            <button className="btn btn-primary btn-block" onClick={() => deleteCategory(item._id)}>{item.status}</button>
+                          </td>
+                          <td>
+                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateCategory/" + item._id}>Update</Link></button></td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
                 </table>
               </div>
             </form>

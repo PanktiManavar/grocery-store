@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const AddCategory = () => {
 
@@ -19,7 +20,7 @@ const AddCategory = () => {
       setError(true);
       return false;
     }
-    console.warn(cname);
+    console.warn(cname, error);
 
     // const userId = JSON.parse(localStorage.getItem('user'))._id;
     if (!error) {
@@ -32,7 +33,12 @@ const AddCategory = () => {
       });
       result = await result.json();
       if (result) {
-        alert("Category inserted");
+        swal({
+          title: "Categoty Added!",
+          text: "Your Category are Added SuccessFully!",
+          icon: "success",
+          button: "Okay!",
+        });
         navigate('/SelectCategory');
       }
       else {
@@ -48,9 +54,10 @@ const AddCategory = () => {
     if (!pattern.test(cname)) {
       setCnameError('Please Enter Valid Category!');
       setError(true);
-      return true;
+      return false;
     } else {
       setCnameError('');
+      setError(false);
     }
   };
 

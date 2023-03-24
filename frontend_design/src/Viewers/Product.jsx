@@ -26,7 +26,7 @@ const Product = () => {
   const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch("api/productselect");
+    const response = await fetch("api/productActiveselect");
     // return console.warn(response);
     if (componentMounted) {
       setData(await response.clone().json());
@@ -41,7 +41,7 @@ const Product = () => {
 
   const getCategory = async () => {
     setLoading(true);
-    let result = await fetch('api/categoryselect');
+    let result = await fetch('api/categoryActiveselect');
     result = await result.json();
     setCategory(result.result);
     setLoading(false);

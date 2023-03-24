@@ -6,6 +6,8 @@ const registerapi = require('../api/register');
 
 router.get('/api/registerselectbyid/:id', registerapi.selectRegisterById);
 router.get('/api/registerselect', registerapi.selectregister);
+router.get('/api/registerActiveselect', registerapi.selectActiveregister);
+router.get('/api/registerDeactiveselect', registerapi.selectDeactiveregister);
 router.put('/api/registerupdate/:id', registerapi.updateregister);
 router.put('/api/registerdelete/:id', registerapi.deleteregister);
 router.put('/api/updatepassword/:id', registerapi.updatepassword);

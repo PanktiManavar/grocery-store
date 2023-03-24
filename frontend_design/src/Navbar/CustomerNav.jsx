@@ -6,15 +6,29 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useState, useEffect } from "react";
 
 const CustomerNav = () => {
 
+    const [category, setCategory] = useState("");
     const navigate = useNavigate();
     const logout = () => {
         sessionStorage.clear();
         navigate("/Login");
     }
     const auth = sessionStorage.getItem('role');
+
+    useEffect(() => {
+        getcategoryname();
+
+    }, [])
+
+    const getcategoryname = async () => {
+        let result = await fetch("api/categoryActiveselect");
+        result = await result.json();
+        setCategory(result.result);
+        console.log(result.result);
+    }
     return (
         <div>
             {auth ?
@@ -24,7 +38,18 @@ const CustomerNav = () => {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
                             <Nav className="me-auto">
-                                <Nav.Link href="/Homee" style={{ color: "black" }}>Home</Nav.Link>
+                                <NavDropdown title="Category" id="collasible-nav-dropdown" style={{ color: "#030303" }} >
+                                    {
+                                        category.length > 0 ? category.map((item, index) => (
+                                            <NavDropdown.Item style={{ fontSize: "14px" }} key={item._id}>
+                                                {item.cname}
+                                            </NavDropdown.Item>
+                                        ))
+                                            :
+                                            <NavDropdown.Item></NavDropdown.Item>
+                                    }
+
+                                </NavDropdown>
                                 <Nav.Link href="/Productt" style={{ color: "#030303" }}>Product</Nav.Link>
                                 <Nav.Link href="/Aboutt" style={{ color: "#030303" }}>About</Nav.Link>
                                 <Nav.Link href="/Contactt" style={{ color: "#030303" }}>Contact</Nav.Link>
@@ -46,7 +71,7 @@ const CustomerNav = () => {
                     <li><Nav.Link to="/Login">Login</Nav.Link></li>
                 </Nav>
             }
-        </div>
+        </div >
 
     )
 }

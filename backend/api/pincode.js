@@ -35,6 +35,38 @@ module.exports = {
         }
     },
 
+    selectActivepincode: async (req, resp) => {
+        try {
+            const result = await pincodemodel.find({ status: "Active" });
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    selectDeactivepincode: async (req, resp) => {
+        try {
+            const result = await pincodemodel.find({ status: "Deactive" });
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
     selectPincodeById: async (req, resp) => {
         try {
             const result = await pincodemodel.findById(req.params.id);

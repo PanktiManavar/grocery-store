@@ -49,34 +49,38 @@ const SelectDeliverBoy = () => {
 
               <div className="form-group">
                 <table className='styled-table'>
-                  <tr style={{ textTransform: "uppercase" }}>
-                    <th>Sr.No.</th>
-                    <th>Name</th>
-                    {/* <td>Last Name</td> */}
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Moblie No.</th>
-                    {/* <td>UserType</td> */}
-                    <th>Status</th>
-                    <th>Operation</th>
-                  </tr>
-                  {
-                    DeliveryBoy.map((item, index) =>
-                      <tr key={item._id}>
-                        <td>{index + 1}</td>
-                        <td>{item.Fname} {item.Lname}</td>
-                        <td>{item.Address}</td>
-                        <td>{item.Email}</td>
-                        <td>{item.MobileNo}</td>
-                        {/* <td>{item.UserType}</td> */}
-                        <td>
-                          <button className="btn btn-primary btn-block" onClick={() => deleteDeliverboy(item._id)}>{item.Status}</button>
-                        </td>
-                        <td>
-                          <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateDeliverBoy/${item._id}`}>Update</Link></button></td>
-                      </tr>
-                    )
-                  }
+                  <thead>
+                    <tr style={{ textTransform: "uppercase" }}>
+                      <th>Sr.No.</th>
+                      <th>Name</th>
+                      {/* <td>Last Name</td> */}
+                      <th>Address</th>
+                      <th>Email</th>
+                      <th>Moblie No.</th>
+                      {/* <td>UserType</td> */}
+                      <th>Status</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      DeliveryBoy.map((item, index) =>
+                        <tr key={item._id}>
+                          <td>{index + 1}</td>
+                          <td>{item.Fname} {item.Lname}</td>
+                          <td>{item.Address}</td>
+                          <td>{item.Email}</td>
+                          <td>{item.MobileNo}</td>
+                          {/* <td>{item.UserType}</td> */}
+                          <td>
+                            <button className="btn btn-primary btn-block" onClick={() => deleteDeliverboy(item._id)}>{item.Status}</button>
+                          </td>
+                          <td>
+                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateDeliverBoy/${item._id}`}>Update</Link></button></td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
                 </table>
               </div>
             </form>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
+import swal from 'sweetalert';
 
 const AddPincode = () => {
 
@@ -27,7 +28,12 @@ const AddPincode = () => {
       });
       result = await result.json();
       if (result) {
-        alert("Pincode inserted");
+        swal({
+          title: "Pincode Added!",
+          text: "Your Pincode are Added SuccessFully!",
+          icon: "success",
+          button: "Okay!",
+        });
         navigate('/SelectPincode');
 
       }
@@ -47,6 +53,7 @@ const AddPincode = () => {
       return false;
     } else {
       setPcodeError('');
+      setError(false);
     }
   };
 

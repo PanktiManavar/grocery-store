@@ -88,24 +88,30 @@ const ViewProducts = () => {
     return (
       <>
 
-        <div className="col-md-7 rowsty">
-          <img src={`http://localhost:8000/${product.pimg}`} alt={product.pname} height="300px" width='400px' />
-        </div>
-        <div className="col-md-4">
-          <h4 className='text-uppercase text-black-50'>
-            Category : {subid}
-          </h4>
-          <h1 className='display-6'>{product.pname}</h1>
-          <h3 className="display-8 fw-bold my-4">
-            Rs.{product.price}
-          </h3>
-          <p className="lead">
-            {product.descripation}
-          </p>
-          <FormContainer>
-            <button className="btn btn-primary px-8 py-3" onClick={Addcart}>Add To Cart</button>
-            <Link className="btn btn-primary ms-2 px-8 py-3" to="/Cart">Go to Cart</Link>
-          </FormContainer>
+        <div className='row'>
+          <div className='col-sm-6'>
+            <div className="col-md-7 rowsty">
+              <img src={`http://localhost:8000/${product.pimg}`} alt={product.pname} className="image-border" />
+            </div>
+          </div>
+          <div className='col-sm-6'>
+            <div className="col-md-4">
+              <h4 className='text-uppercase text-black-50'>
+                Category : {subid}
+              </h4>
+              <h1 className='display-6'>{product.pname}</h1>
+              <h3 className="display-8 fw-bold my-4">
+                Rs.{product.price}
+              </h3>
+              <p className="lead">
+                {product.descripation}
+              </p>
+              <FormContainer>
+                <button className="btn btn-primary px-8 py-3" onClick={Addcart}>Add To Cart</button>
+                <Link className="btn btn-primary ms-2 px-8 py-3" to="/Cart">Go to Cart</Link>
+              </FormContainer>
+            </div>
+          </div>
         </div>
       </>
     )

@@ -38,6 +38,40 @@ module.exports = {
         }
     },
 
+    selectActiveregister: async (req, resp) => {
+        try {
+            const result = await registermodel.find({ Status: "Active" });
+            if (result) {
+                //console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    selectDeactiveregister: async (req, resp) => {
+        try {
+            const result = await registermodel.find({ Status: "Deactive" });
+            if (result) {
+                //console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
     selectdeliveryboy: async (req, resp) => {
         try {
             const result = await registermodel.find({ UserType: "deliveryboy" });

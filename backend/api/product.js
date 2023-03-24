@@ -65,6 +65,15 @@ module.exports = {
     },
 
     selectproduct: async (req, resp, next) => {
+        let products = await productmodel.find().populate("subid");
+        if (products) {
+            resp.send(products)
+        } else {
+            resp.send({ result: "no products found" })
+        }
+    },
+
+    selectActiveproduct: async (req, resp, next) => {
         let products = await productmodel.find({ status: "Active" }).populate("subid");
         if (products) {
             resp.send(products)

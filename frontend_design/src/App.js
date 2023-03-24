@@ -12,10 +12,6 @@ import Product from './Viewers/Product';
 import About from './Viewers/About';
 import Contact from './Viewers/Contact';
 import ViewProducts from './Viewers/ViewProducts';
-import ViewProductsFruits from './Viewers/ViewProductsFruits';
-import ViewProductsVegetables from './Viewers/ViewProductsVegetables';
-import ViewProductsSpices from './Viewers/ViewProductsSpices';
-import ViewProductsDairy from './Viewers/ViewProductsDairy';
 import ViewCategoryProduct from './Viewers/ViewCategoryProduct';
 import CheckOutForm from './Viewers/CheckOutForm';
 import ForgotPassword from './Viewers/ForgotPassword';
@@ -39,7 +35,7 @@ import UpdateProduct from './Admin/UpdateProduct';
 import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 import Notification from './Admin/Notification';
-
+import ViewOrders from './Admin/ViewOrders';
 //for Customer
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
@@ -63,10 +59,6 @@ function App() {
             <Route path="/Aboutt" element={<About></About>} />
             <Route path="/Contactt" element={<Contact></Contact>} />
             <Route path="/Productt/:id" element={<ViewProducts></ViewProducts>} />
-            <Route path="/ViewProductsFruits" element={<ViewProductsFruits></ViewProductsFruits>} />
-            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
-            <Route path="/ViewProductsSpices" element={<ViewProductsSpices></ViewProductsSpices>} />
-            <Route path="/ViewProductsDairy" element={<ViewProductsDairy></ViewProductsDairy>} />
             <Route path="/ViewCategoryProduct" element={<ViewCategoryProduct></ViewCategoryProduct>} />
             <Route path='/CheckOutForm/:id' element={<CheckOutForm />} />
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
@@ -93,6 +85,7 @@ function App() {
             <Route path='/UpdateDeliverBoy/:id' element={<UpdateDeliverBoy />} />
             <Route path='/Notification' element={<Notification />} />
             <Route path="/ChangepasswordAdmin" element={<Changepassword></Changepassword>} />
+            <Route path='/AdminOrderView' element={<ViewOrders />}></Route>
           </Route>
           {/* for customer */}
           <Route element={<AllcComponent />}>
@@ -106,7 +99,6 @@ function App() {
             <Route path="/About" element={<About></About>} />
             <Route path="/Contact" element={<Contact></Contact>} />
             <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
-            <Route path="/ViewProductsVegetables" element={<ViewProductsVegetables></ViewProductsVegetables>} />
           </Route>
 
         </Routes>

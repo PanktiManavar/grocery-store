@@ -1,88 +1,72 @@
-import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 import { FaPlusCircle } from "react-icons/fa";
 
-const SelectSubCategory = () => {
+const ViewOrders = () => {
 
-  const [subcategory, setsubCategory] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [filter, setFilter] = useState(data);
 
   useEffect(() => {
-    getsubCategory();
+    getOrder();
   }, [])
 
-  const Loading = () => {
-    return (
-      <>
-        Loading...
-      </>
-    )
-  }
+  const getOrder = async () => {
 
-  const getsubCategory = async () => {
-    setLoading(true);
-    let result = await fetch('api/subcategoryselect');
-    result = await result.json();
-    setsubCategory(result.result);
-    setLoading(false);
-  }
-  // console.warn("category", category);
+    const response = await fetch("api/viewallOrder");
+    // response = await response.json();
+    // return console.warn(response);
+    setData(await response.clone().json());
+    setFilter(await response.json());
 
-  const deletesubCategory = async (id) => {
-    let result = await fetch(`api/subcategorydelete/${id}`, {
-      method: "put",
-    });
-    result = await result.json();
-    // return alert(result);
-    getsubCategory();
-    alert("Sub Category is deleted");
   };
 
   return (
     <>
       <FormContainer>
         <div className="register-photo">
-          <div class="card form-container">
-            <div class="card-body">
-              <Link to="/AddSubCategory">
-                <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
-                  <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
-              </Link>
-            </div>
-          </div>
           <div className="form-container">
             {/* <div className="image-holder"></div> */}
-            <form >
-              <h2 className="text-center" style={{ textTransform: "uppercase" }}><strong>Sub Category List</strong> </h2>
-
+            <form>
+              <h2 className="text-center"><strong>Product</strong> List.</h2>
               <div className="form-group">
-                <table className='styled-table'>
+                <table className="styled-table">
                   <thead>
-                    <tr style={{ textTransform: "uppercase" }}>
-                      <th>Sr.No.</th>
-                      <th>Category Name</th>
-                      <th>Sub Category Name</th>
-                      <th>Status</th>
-                      <th>Operation</th>
+                    <tr>
+                      <td>Sr.No.</td>
+                      <td>Product</td>
+                      <td>Descripation</td>
+                      <td>Price</td>
+                      <td>Measurement</td>
+                      <td>Quantity</td>
+                      <td>Brand</td>
+                      <td>Product Image</td>
+                      <td>SubCategory</td>
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      subcategory.map((item, index) =>
+                    {/* {
+                      filter.map((item, index) =>
                         <tr key={item._id}>
                           <td>{index + 1}</td>
-                          <td>{item.cid[0].cname}</td>
-                          <td>{item.sname}</td>
+                          <td>{item.pname.substring(0, 10)}...</td>
+                          <td>{item.descripation.substring(0, 20)}...</td>
+                          <td>{item.price}</td>
+                          <td>{item.mname}</td>
+                          <td>{item.qty}</td>
+                          <td>{item.bname}</td>
+                          <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
+                          <td>{item.subid[0].sname}</td>
                           <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deletesubCategory(item._id)}>{item.status}</button>
+                            <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>
                           </td>
                           <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update</Link></button></td>
-
+                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateProduct/${item._id}`}>Update</Link></button>
+                          </td>
                         </tr>
                       )
-                    }
+                    } */}
                   </tbody>
                 </table>
               </div>
@@ -91,10 +75,10 @@ const SelectSubCategory = () => {
         </div>
       </FormContainer>
     </>
-  );
-};
+  )
+}
 
-export default SelectSubCategory;
+export default ViewOrders;
 
 const FormContainer = styled.div`{
   .register-photo {

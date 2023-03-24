@@ -24,7 +24,7 @@ const UpdateProduct = () => {
 
   //Get Categoryname
   const getcategoryname = async () => {
-    let result = await fetch("/api/categoryselect");
+    let result = await fetch("/api/categoryActiveselect");
     result = await result.json();
     setCategory(result.result);
   }

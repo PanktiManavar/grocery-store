@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const AddSubCategory = () => {
 
@@ -35,7 +36,12 @@ const AddSubCategory = () => {
       });
       result = await result.json();
       if (result) {
-        alert("Sub Category inserted");
+        swal({
+          title: "Sub-Categoty Added!",
+          text: "Your Sub-Category are Added SuccessFully!",
+          icon: "success",
+          button: "Okay!",
+        });
         navigate('/SelectSubCategory');
 
       }
@@ -46,7 +52,7 @@ const AddSubCategory = () => {
   }
   //Get Categoryname
   const getcategoryname = async () => {
-    let result = await fetch("api/categoryselect");
+    let result = await fetch("api/categoryActiveselect");
     result = await result.json();
     setCategory(result.result);
   }
@@ -60,6 +66,7 @@ const AddSubCategory = () => {
       return;
     } else {
       setSubCategorynameError('');
+      setError(false);
     }
   };
 
