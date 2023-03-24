@@ -82,6 +82,15 @@ module.exports = {
         }
     },
 
+    selectDeactiveproduct: async (req, resp, next) => {
+        let products = await productmodel.find({ status: "Deactive" }).populate("subid");
+        if (products) {
+            resp.send(products)
+        } else {
+            resp.send({ result: "no products found" })
+        }
+    },
+
     selectproductWithoutEmpty: async (req, resp, next) => {
         let products = await productmodel.find({ bname: { $ne: "" } }).populate({ path: "subid", populate: "cid" });
         if (products) {
@@ -102,7 +111,7 @@ module.exports = {
     },
     selectProductbCategoryID: async (req, resp) => {
         try {
-            const result = await productmodel.find({ status: "Active", subid: req.params.id }).populate("subid", "sname");
+            const result = await productmodel.find({ status: "Active" }).populate("subid");
             if (result) {
                 resp.send({ result: result });
             }

@@ -38,9 +38,9 @@ module.exports = {
         }
     },
 
-    selectActiveregister: async (req, resp) => {
+    selecDeliveryBoytActiveregister: async (req, resp) => {
         try {
-            const result = await registermodel.find({ Status: "Active" });
+            const result = await registermodel.find({ Status: "Active", UserType: "deliveryboy" });
             if (result) {
                 //console.log(result);
                 resp.send({ result: result });
@@ -55,9 +55,9 @@ module.exports = {
         }
     },
 
-    selectDeactiveregister: async (req, resp) => {
+    selecCustomertActiveregister: async (req, resp) => {
         try {
-            const result = await registermodel.find({ Status: "Deactive" });
+            const result = await registermodel.find({ Status: "Active", UserType: "customer" });
             if (result) {
                 //console.log(result);
                 resp.send({ result: result });
@@ -72,6 +72,38 @@ module.exports = {
         }
     },
 
+    selectDeliveryBoyDeactiveregister: async (req, resp) => {
+        try {
+            const result = await registermodel.find({ Status: "Deactive", UserType: "deliveryboy" });
+            if (result) {
+                //console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    selectCustomerDeactiveregister: async (req, resp) => {
+        try {
+            const result = await registermodel.find({ Status: "Deactive", UserType: "customer" });
+            if (result) {
+                //console.log(result);
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
     selectdeliveryboy: async (req, resp) => {
         try {
             const result = await registermodel.find({ UserType: "deliveryboy" });

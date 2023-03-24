@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { FaPlusCircle } from "react-icons/fa";
+import swal from 'sweetalert'
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const SelectSubCategory = () => {
 
@@ -22,21 +25,51 @@ const SelectSubCategory = () => {
 
   const getsubCategory = async () => {
     setLoading(true);
-    let result = await fetch('api/subcategoryselect');
+    let result = await fetch('api/subcategoryActiveselect');
     result = await result.json();
     setsubCategory(result.result);
     setLoading(false);
   }
   // console.warn("category", category);
 
-  const deletesubCategory = async (id) => {
-    let result = await fetch(`api/subcategorydelete/${id}`, {
-      method: "put",
+  const deletesubCategory = async (id, e) => {
+    e.preventDefault();
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to see this record here!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     });
-    result = await result.json();
-    // return alert(result);
-    getsubCategory();
-    alert("Sub Category is deleted");
+
+    if (willDelete) {
+
+      let result = await fetch(`api/subcategorydelete/${id}`, {
+        method: "put",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      result = result.json();
+      console.log(result);
+      if (result) {
+        swal({
+          title: "Delete Sub-Category",
+          text: "Sub-Category Successfully!",
+          icon: "success",
+        });
+        getsubCategory();
+      } else {
+        swal({
+          title: "Delete Sub-Category",
+          text: "Sub-Category Deletion Fail!!",
+          icon: "warning",
+        });
+      }
+    } else {
+      swal("Sub-Category record is safe!");
+    }
   };
 
   return (
@@ -63,25 +96,30 @@ const SelectSubCategory = () => {
                       <th>Sr.No.</th>
                       <th>Category Name</th>
                       <th>Sub Category Name</th>
-                      <th>Status</th>
                       <th>Operation</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      subcategory.map((item, index) =>
+                      subcategory.length > 0 ? subcategory.map((item, index) => (
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td>{item.cid[0].cname}</td>
                           <td>{item.sname}</td>
-                          <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deletesubCategory(item._id)}>{item.status}</button>
+                          {/* <td>
+                            <button className="btn btn-primary btn-block" onClick={(e) => deletesubCategory(item._id, e)}>{item.status}</button>
                           </td>
                           <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update</Link></button></td>
+                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update</Link></button></td> */}
+                          <td>
+                            <MdDelete className="" onClick={(e) => deletesubCategory(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
+                            <Link to={"/UpdateSubCategory/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
+                          </td>
 
                         </tr>
-                      )
+                      )) :
+                        <tr> <td colspan="4" style={{ textAlign: "center" }}><strong>No Records
+                          Founds!</strong></td></tr>
                     }
                   </tbody>
                 </table>

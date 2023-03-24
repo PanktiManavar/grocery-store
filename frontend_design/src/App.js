@@ -36,6 +36,12 @@ import SelectDeliverBoy from './Admin/SelectDeliverBoy';
 import UpdateDeliverBoy from './Admin/UpdateDeliverBoy';
 import Notification from './Admin/Notification';
 import ViewOrders from './Admin/ViewOrders';
+import CategorySelect from './Admin/DeactiveList/CategorySelect';
+import DeliveryBoySelect from './Admin/DeactiveList/DeliveryBoySelect';
+import PincodeSelect from './Admin/DeactiveList/PincodeSelect';
+import ProductSelect from './Admin/DeactiveList/ProductSelect';
+import SubCategorySelect from './Admin/DeactiveList/SubCategorySelect';
+
 //for Customer
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
@@ -86,6 +92,12 @@ function App() {
             <Route path='/Notification' element={<Notification />} />
             <Route path="/ChangepasswordAdmin" element={<Changepassword></Changepassword>} />
             <Route path='/AdminOrderView' element={<ViewOrders />}></Route>
+            <Route path='/CategoryDView' element={<CategorySelect />}></Route>
+            <Route path='/SubCategoryDView' element={<SubCategorySelect />}></Route>
+            <Route path='/ProductDView' element={<ProductSelect />}></Route>
+            <Route path='/PincodeDView' element={<PincodeSelect />}></Route>
+            <Route path='/DeliveryBoyDView' element={<DeliveryBoySelect />}></Route>
+
           </Route>
           {/* for customer */}
           <Route element={<AllcComponent />}>

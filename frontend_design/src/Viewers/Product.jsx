@@ -155,7 +155,7 @@ const Product = () => {
     <div>
       <div className="heading">
         <h1>Our Shop</h1>
-        <p> <Link to="/Home">Home </Link>- Product </p>
+        <p> <Link to="/Home">Home </Link> {"\u00BB"} Product </p>
       </div>
 
       <div className='row justify-content-center'>

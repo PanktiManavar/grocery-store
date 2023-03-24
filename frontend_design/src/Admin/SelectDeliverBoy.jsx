@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaPlusCircle } from "react-icons/fa";
+import swal from 'sweetalert';
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const SelectDeliverBoy = () => {
 
@@ -12,21 +15,50 @@ const SelectDeliverBoy = () => {
   }, [])
 
   const getDeliveryBoy = async () => {
-    let result = await fetch('api/deliveryboylist');
+    let result = await fetch('api/registerDeliveryBoyActiveselect');
     result = await result.json();
     // return console.log(result.result);
     setDeliveryboy(result.result);
 
   }
 
-  const deleteDeliverboy = async (id) => {
-    let result = await fetch(`api/registerdelete/${id}`, {
-      method: "put",
+  const deleteDeliverboy = async (id, e) => {
+    e.preventDefault();
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to see this record here!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     });
-    result = await result.json();
-    // return alert(result);
-    getDeliveryBoy();
-    alert("Sub Category is deleted");
+
+    if (willDelete) {
+      let result = await fetch(`api/registerdelete/${id}`, {
+        method: "put",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      result = result.json();
+      console.log(result);
+      if (result) {
+        swal({
+          title: "Delete Delivery-boy",
+          text: "Delivery-boy Successfully!",
+          icon: "success",
+        });
+        getDeliveryBoy();
+      } else {
+        swal({
+          title: "Delete Delivery-boy",
+          text: "Delivery-boy Deletion Fail!!",
+          icon: "warning",
+        });
+      }
+    } else {
+      swal("Delivery-boy record is safe!");
+    }
   };
 
 
@@ -53,32 +85,29 @@ const SelectDeliverBoy = () => {
                     <tr style={{ textTransform: "uppercase" }}>
                       <th>Sr.No.</th>
                       <th>Name</th>
-                      {/* <td>Last Name</td> */}
                       <th>Address</th>
                       <th>Email</th>
                       <th>Moblie No.</th>
-                      {/* <td>UserType</td> */}
-                      <th>Status</th>
                       <th>Operation</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      DeliveryBoy.map((item, index) =>
+                      DeliveryBoy.length > 0 ? DeliveryBoy.map((item, index) => (
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td>{item.Fname} {item.Lname}</td>
                           <td>{item.Address}</td>
                           <td>{item.Email}</td>
                           <td>{item.MobileNo}</td>
-                          {/* <td>{item.UserType}</td> */}
                           <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deleteDeliverboy(item._id)}>{item.Status}</button>
+                            <MdDelete className="" onClick={(e) => deleteDeliverboy(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
+                            <Link to={"/UpdateDeliverBoy/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
                           </td>
-                          <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateDeliverBoy/${item._id}`}>Update</Link></button></td>
                         </tr>
-                      )
+                      )) :
+                        <tr> <td colspan="6" style={{ textAlign: "center" }}><strong>No Records
+                          Founds!</strong></td></tr>
                     }
                   </tbody>
                 </table>

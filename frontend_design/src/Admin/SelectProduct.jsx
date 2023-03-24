@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaPlusCircle } from "react-icons/fa";
+import swal from 'sweetalert';
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const SelectProduct = () => {
   const [data, setData] = useState([]);
@@ -14,7 +17,7 @@ const SelectProduct = () => {
 
   const getProduct = async () => {
     setLoading(true);
-    const response = await fetch("api/productselect");
+    const response = await fetch("api/productActiveselect");
     // return console.warn(response);
     setData(await response.clone().json());
     setFilter(await response.json());
@@ -23,19 +26,43 @@ const SelectProduct = () => {
 
   };
 
-  const deleteProduct = async (id) => {
-    let result = await fetch(`api/productdelete/${id}`, {
-      method: "put",
+  const deleteProduct = async (id, e) => {
+    e.preventDefault();
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to see this record here!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     });
-    result = await result.json();
-    if (result) {
-      getProduct();
-      alert("Product is deleted");
+
+    if (willDelete) {
+      let result = await fetch(`api/productdelete/${id}`, {
+        method: "put",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      result = result.json();
+      console.log(result);
+      if (result) {
+        swal({
+          title: "Delete Product",
+          text: "Product Successfully!",
+          icon: "success",
+        });
+        getProduct();
+      } else {
+        swal({
+          title: "Delete Product",
+          text: "Product Deletion Fail!!",
+          icon: "warning",
+        });
+      }
+    } else {
+      swal("Product record is safe!");
     }
-    else {
-      alert("some problem to delete")
-    }
-    // return alert(result);
   };
 
   return (
@@ -67,13 +94,12 @@ const SelectProduct = () => {
                       <td>Quantity</td>
                       <td>Brand</td>
                       <td>SubCategory</td>
-                      <td>Status</td>
                       <td>Operation</td>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      filter.map((item, index) =>
+                      filter.length > 0 ? filter.map((item, index) => (
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
@@ -84,14 +110,16 @@ const SelectProduct = () => {
                           <td>{item.qty}</td>
                           <td>{item.bname}</td>
                           <td>{item.subid[0].sname}</td>
+
                           <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>
+                            <MdDelete className="" onClick={(e) => deleteProduct(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
+                            <Link to={"/UpdateProduct/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
                           </td>
-                          <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateProduct/${item._id}`}>Update</Link></button>
-                          </td>
+
                         </tr>
-                      )
+                      )) :
+                        <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                          Founds!</strong></td></tr>
                     }
                   </tbody>
                 </table>

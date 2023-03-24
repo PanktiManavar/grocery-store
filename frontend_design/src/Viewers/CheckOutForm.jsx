@@ -13,21 +13,20 @@ const CheckOutForm = () => {
   const [Finalprice, setFinalPrice] = React.useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [shipping, setShipping] = React.useState("");
 
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState([]);
-  const [pcodes, setPincodess] = useState([]);
+  const [pcodes, setPincodess] = useState("");
 
   const param = useParams();
   const navigate = useNavigate()
   const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
-  const total = param.id;
-  //const shipping = 0;
+  const subtotal = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0);
 
-
+  const total = parseInt(param.id);
+  const shipping = 20.00;
   useEffect(() => {
-    // alert(auth)
+
     if (param.id > 0.00) {
       getProducts();
       getpincode();
@@ -67,8 +66,8 @@ const CheckOutForm = () => {
   const getpincode = async () => {
     let results = await fetch("/api/pincodeActiveselect");
     results = await results.json();
+    // return console.log(results.result);
     setPincodess(results.result);
-    console.log(results.result);
   }
 
   const checkout = async () => {
@@ -150,7 +149,6 @@ const CheckOutForm = () => {
                         <option value={0}>----Select Pincode----</option>
                         {
                           pcodes.length > 0 ? pcodes.map((item, index) => (
-                            // <option key={item._id[index]} value={item._id[index]}>{item.pcode[index]}</option>
                             <option key={item._id} value={item._id}>{item.pcode}</option>
                           ))
                             : <option value={0}>No Records Founds!</option>
@@ -158,24 +156,25 @@ const CheckOutForm = () => {
                       </select>
                     </div>
                   </div>
+
                 </div>
-                <div className='form-group'>
+                {/*<div className='form-group'>
                   <h5 className='h4-sty'>Shipping Cost</h5>
                 </div>
-                <div className="row">
+                 <div className="row">
                   <div className="col">
                     <div className="btn" style={{ width: "155px" }}>
                       <div className='p-3 card '>
-                        {/* <button value={shipping} onChange={(e) => { setShipping(200) }}> */}
+                        <button value={shipping} onChange={(e) => { setShipping(200) }}>
                         <div>
                           <h4 style={{ color: "#f4476b", marginBottom: "10px" }}>Fast Delivery</h4>
                           <button className='p-sty'>Cost : Rs.200</button>
                         </div>
-                        {/* </button> */}
+                        </button>
                       </div>
                     </div>
                   </div>
-                  {/* <div class="col">
+                  <div class="col">
                     <div className="btn" style={{ width: "155px" }}>
                       <div className='p-3 card '>
                         <div>
@@ -184,8 +183,8 @@ const CheckOutForm = () => {
                         </div>
                       </div>
                     </div>
-                  </div> */}
-                </div>
+                  </div>
+                </div> */}
 
               </div>
               {/* </div>
@@ -224,12 +223,12 @@ const CheckOutForm = () => {
                   </div>
                   <div className="row mt-4">
                     <div className="col ">Discount :</div>
-                    <div className="col text-right">$0.00</div>
+                    <div className="col text-right">0%</div>
                   </div>
 
                   <div className="totalprice row mt-4 ">
                     <div className="col">TOTAL PRICE :</div>
-                    <div className="col text-right">Rs.777</div>
+                    <div className="col text-right">Rs.{total + shipping}</div>
                   </div>
                 </div>
 

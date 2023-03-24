@@ -48,7 +48,6 @@ const CustomerNav = () => {
                                             :
                                             <NavDropdown.Item></NavDropdown.Item>
                                     }
-
                                 </NavDropdown>
                                 <Nav.Link href="/Productt" style={{ color: "#030303" }}>Product</Nav.Link>
                                 <Nav.Link href="/Aboutt" style={{ color: "#030303" }}>About</Nav.Link>

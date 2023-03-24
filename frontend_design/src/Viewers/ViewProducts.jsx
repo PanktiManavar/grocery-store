@@ -108,7 +108,7 @@ const ViewProducts = () => {
             </p>
             <FormContainer>
               <button className="btn btn-primary px-8 py-3" onClick={Addcart}>Add To Cart</button>
-              <Link className="btn btn-primary ms-2 px-8 py-3" to="/Cart">Go to Cart</Link>
+              {/* <Link className="btn btn-primary ms-2 px-8 py-3" to="/Cart">Go to Cart</Link> */}
             </FormContainer>
           </div>
         </div>

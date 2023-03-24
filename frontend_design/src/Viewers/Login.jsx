@@ -52,7 +52,7 @@ const Login = () => {
 
           alert("Welcome User");
           // navigate('/Home')
-          navigate('/Homee')
+          navigate('/Productt')
         }
         else if (result.response.data.UserType === "deliveryboy") {
 

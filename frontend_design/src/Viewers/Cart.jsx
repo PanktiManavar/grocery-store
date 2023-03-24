@@ -11,7 +11,10 @@ const Cart = () => {
 
     const auth = sessionStorage.getItem('userid').replace(/['"]+/g, '');
 
-    const total = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0).toFixed(2);
+    const total = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0);
+    const shipping = 20.00;
+
+
     useEffect(() => {
         // alert(total)
         getProducts();
@@ -63,7 +66,7 @@ const Cart = () => {
                                     <div className="row main text-center" >
                                         <div className="col-3" ><h4>Image</h4></div>
                                         <div className="col-4" ><h4>Name</h4></div>
-                                        <div className="col-2" ><h4>Qty</h4></div>
+                                        {/* <div className="col-2" ><h4>Qty</h4></div> */}
                                         <div className="col"><h4></h4></div>
                                     </div>
                                 </div>
@@ -76,12 +79,14 @@ const Cart = () => {
                                             <div className="col">
                                                 <div className="row text-muted">{item.Pid[0].subid[0].sname}</div>
                                                 <div className="row">{item.Pid[0].pname}</div>
-                                                <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}</div>
+                                                <div className="row">Rs.{item.Pid[0].price}(1 {item.mname})</div>
+
+                                                <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}({item.qty} {item.mname})</div>
                                             </div>
-                                            <div className="col-2 border" style={{ marginLeft: "24px", textAlign: "center" }}>
+                                            {/* <div className="col-2 border" style={{ marginLeft: "24px", textAlign: "center" }}>
                                                 <button style={{ backgroundColor: "white", marginRight: "5px" }}>-</button><Link style={{ textDecoration: "none" }}>{item.qty}</Link><button style={{ backgroundColor: "white", marginLeft: "5px" }}>+</button>
-                                            </div>
-                                            {/* <div className="col" style={{ marginLeft: "14px" }}>Rs. {item.qty * item.Pid[0].price}</div> */}
+                                            </div> */}
+                                            {/* <div className="col" style={{ marginLeft: "14px" }}>{item.qty}</div> */}
                                             <div className="col" style={{ marginLeft: "30px" }}>
                                                 <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <CloseButton aria-label="Hide" /></button>
                                             </div>
@@ -98,20 +103,20 @@ const Cart = () => {
                                 </form>
                                 <div className="row mt-4">
                                     <div className="col"> Subtotal : </div>
-                                    <div className="col text-right">Rs.{total}</div>
+                                    <div className="col text-right">{`Rs. ${total}`}</div>
                                 </div>
                                 <div className="row mt-4">
                                     <div className="col">Shipping Cost :</div>
-                                    <div className="col text-right" >$0.00</div>
+                                    <div className="col text-right" >{`Rs. ${shipping}`}</div>
                                 </div>
                                 <div className="row mt-4">
                                     <div className="col ">Discount :</div>
-                                    <div className="col text-right">$0.00</div>
+                                    <div className="col text-right">0%</div>
                                 </div>
 
                                 <div className="totalprice row mt-4 ">
                                     <div className="col">TOTAL PRICE :</div>
-                                    <div className="col text-right">Rs.{total}</div>
+                                    <div className="col text-right">{`Rs. ${shipping + total}`}</div>
                                     {/* <div className="col text-right">&euro; {cart[0].qty * cart[0].Pid[0].price + cart[1].qty * cart[1].Pid[0].price}</div> */}
                                 </div>
                                 <Link to={`/CheckOutForm/${total}`}>
@@ -127,7 +132,7 @@ const Cart = () => {
         <div>
             <div className="heading">
                 <h1>Cart</h1>
-                <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link>-- Cart </p>
+                <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link> {"\u00BB"} Cart </p>
             </div>
 
             <div className='row justify-content-center'>

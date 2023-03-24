@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { FaPlusCircle } from "react-icons/fa";
 import swal from "sweetalert"
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const SelectPincode = () => {
 
@@ -24,28 +26,12 @@ const SelectPincode = () => {
   }
   const getPincode = async () => {
     setLoading(true);
-    let response = await fetch('api/pincodeselect');
+    let response = await fetch('api/pincodeActiveselect');
     // return console.warn(response)
     response = await response.json();
     setpincode(response.result);
     setLoading(false);
     // console.log(pincode._id);
-  };
-
-  const deletePincode = async (id) => {
-    let result = await fetch(`api/pincodedelete/${id}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-    result = await result.json();
-    setpincode(result.result)
-
-    if (result) {
-      // getPincode();
-      alert("Pincode is deleted");
-    }
   };
 
   const softdeletePincode = async (id, event) => {
@@ -114,24 +100,24 @@ const SelectPincode = () => {
                       <tr style={{ textTransform: "uppercase" }}>
                         <th>Sr.No.</th>
                         <th>Pcode</th>
-                        <th>Status</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
                     <tbody>
                       {
-                        pincode.map((item, index) =>
+                        pincode.length > 0 ? pincode.map((item, index) => (
                           <tr key={item._id}>
                             <td>{index + 1}</td>
                             <td>{item.pcode}</td>
                             <td>
-                              <button className="btn btn-primary btn-block" onClick={(event) => softdeletePincode(item._id, event)}>{item.status}</button>
+                              <MdDelete className="" onClick={(e) => softdeletePincode(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
+                              <Link to={"/UpdatePincode/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
                             </td>
-                            <td>
-                              <button className="btn btn-primary btn-block link"><Link className='link' to={`/UpdatePincode/${item._id}`} > Update</Link></button>
-                            </td>
+
                           </tr>
-                        )
+                        )) :
+                          <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                            Founds!</strong></td></tr>
                       }
                     </tbody>
                   </table>

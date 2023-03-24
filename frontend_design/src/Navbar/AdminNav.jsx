@@ -32,6 +32,13 @@ const AdminNav = () => {
                                 <Nav.Link href="/SelectProduct" style={{ color: "#030303" }}>Product</Nav.Link>
                                 <Nav.Link href="/SelectDeliverBoy" style={{ color: "#030303" }}>DeliveryBoy</Nav.Link>
                                 <Nav.Link href="/AdminOrderView" style={{ color: "#030303" }}>Order</Nav.Link>
+                                <NavDropdown title="Decative" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
+                                    <NavDropdown.Item style={{ fontSize: "14px" }} href="/CategoryDView">Category</NavDropdown.Item>
+                                    <NavDropdown.Item style={{ fontSize: "14px" }} href="/SubCategoryDView">SubCategory</NavDropdown.Item>
+                                    <NavDropdown.Item style={{ fontSize: "14px" }} href="/PincodeDView">Pincode</NavDropdown.Item>
+                                    <NavDropdown.Item style={{ fontSize: "14px" }} href="/ProductDView">Product</NavDropdown.Item>
+                                    <NavDropdown.Item style={{ fontSize: "14px" }} href="/DeliveryBoyDView">DeliveryBoy</NavDropdown.Item>
+                                </NavDropdown>
                             </Nav>
                             <Nav>
                                 <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link>

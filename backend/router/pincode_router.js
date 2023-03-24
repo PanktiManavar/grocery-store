@@ -10,4 +10,4 @@ router.get('/api/pincodeselectbyid/:id', pincodeapi.selectPincodeById);
 router.put('/api/pincodedelete/:id', pincodeapi.deletepincode);
 router.put('/api/pincodeupdate/:id', pincodeapi.updatepincode);
 
-module.exports = router;
+module.exports = router; 

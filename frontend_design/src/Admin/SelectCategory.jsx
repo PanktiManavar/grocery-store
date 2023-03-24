@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { FaPlusCircle } from "react-icons/fa";
+import swal from 'sweetalert';
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
+
 const SelectCategory = () => {
 
   const [category, setCategory] = useState([]);
@@ -21,22 +25,51 @@ const SelectCategory = () => {
 
   const getCategory = async () => {
     setLoading(true);
-    let result = await fetch('api/categoryselect');
+    let result = await fetch('api/categoryActiveselect');
     result = await result.json();
     setCategory(result.result);
     setLoading(false);
   }
   // console.warn("category", category);
 
-  const deleteCategory = async (id) => {
-    let result = await fetch(`api/categorydelete/${id}`, {
-      method: "put",
+  const deleteCategory = async (id, event) => {
+    event.preventDefault();
+    const willDelete = await swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to see this record here!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     });
-    result = await result.json();
 
-    getCategory();
-    alert("Category is deleted");
-  };
+    if (willDelete) {
+      let result = await fetch(`api/categorydelete/${id}`, {
+        method: "put",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      result = result.json();
+      console.log(result);
+      if (result) {
+        swal({
+          title: "Delete Category",
+          text: "Category Successfully!",
+          icon: "success",
+        });
+        getCategory();
+      } else {
+        swal({
+          title: "Delete Category",
+          text: "Category Deletion Fail!!",
+          icon: "warning",
+        });
+      }
+    } else {
+      swal("Category record is safe!");
+    }
+  }
 
   return (
     <>
@@ -54,30 +87,29 @@ const SelectCategory = () => {
             {/* <div className="image-holder"></div> */}
             <form >
               <h2 className="text-center" style={{ textTransform: "uppercase" }}><strong>Category List</strong></h2>
-
               <div className="form-group">
                 <table className='styled-table'>
                   <thead>
                     <tr style={{ textTransform: "uppercase" }}>
                       <th>Sr.No.</th>
                       <th>Category Name</th>
-                      <th>Status</th>
                       <th>Operation</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      category.map((item, index) =>
+                      category.length > 0 ? category.map((item, index) => (
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td>{item.cname}</td>
                           <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deleteCategory(item._id)}>{item.status}</button>
+                            <MdDelete className="" onClick={(e) => deleteCategory(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
+                            <Link to={"/UpdateCategory/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
                           </td>
-                          <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateCategory/" + item._id}>Update</Link></button></td>
                         </tr>
-                      )
+                      ))
+                        :
+                        <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records Founds!</strong></td></tr>
                     }
                   </tbody>
                 </table>
