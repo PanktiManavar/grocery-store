@@ -1,17 +1,26 @@
 import React from 'react'
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useState, useEffect } from "react";
+import 'reactjs-popup/dist/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from "react-bootstrap";
 
 const CustomerNav = () => {
 
     const [category, setCategory] = useState("");
+    const [Subcategory, setSubCategory] = useState("");
     const navigate = useNavigate();
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+
     const logout = () => {
         sessionStorage.clear();
         navigate("/Login");
@@ -29,8 +38,54 @@ const CustomerNav = () => {
         setCategory(result.result);
         console.log(result.result);
     }
+
+    const handleShow = async (id) => {
+        let results = await fetch(`/api/subcategoryByCategoryid/${id}`);
+        results = await results.json();
+        setSubCategory(results.result);
+        setShow(true);
+        return console.log(results.result);
+    }
+
     return (
         <div>
+            <Modal className="modal fade" show={show} onHide={handleClose} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <Modal.Header closeButton>
+                    <Modal.Title>Sub Category</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="row">
+                        {Subcategory.length > 0 ? Subcategory.map((item) => (
+                            <div class="col-sm-3">
+                                <div className="btn" style={{ width: "120px" }}>
+                                    <div className='p-3 card '>
+                                        <div>
+                                            {auth ?
+                                                <Link to={`/Productt/${item._id}`} style={{ textDecoration: "none" }} >
+                                                    <h6>{item.sname}</h6>
+                                                </Link>
+                                                :
+                                                <Link to={`/Product/${item._id}`} style={{ textDecoration: "none" }}>
+                                                    <h6>{item.sname}</h6>
+                                                </Link>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                            :
+                            <h4 style={{ color: "red" }}>Sub Category Not Found</h4>
+                        }
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Cancle
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
             {auth ?
                 <Navbar collapseOnSelect expand="lg" className="navbar" style={{ backgroundColor: "#119c72", padding: "20px" }}>
                     <Container>
@@ -41,7 +96,7 @@ const CustomerNav = () => {
                                 <NavDropdown title="Category" id="collasible-nav-dropdown" style={{ color: "#030303" }} >
                                     {
                                         category.length > 0 ? category.map((item, index) => (
-                                            <NavDropdown.Item style={{ fontSize: "14px" }} key={item._id}>
+                                            <NavDropdown.Item style={{ fontSize: "14px" }} key={item._id} onClick={() => { handleShow(item._id) }}>
                                                 {item.cname}
                                             </NavDropdown.Item>
                                         ))

@@ -9,22 +9,24 @@ const CheckOutForm = () => {
   const [Mobile, setMobileNO] = React.useState("");
   const [Address, setAddress] = React.useState("");
   const [Pinid, setPincode] = React.useState("");
-  const [Totalprice, setTotalPrice] = React.useState("");
-  const [Finalprice, setFinalPrice] = React.useState("");
+  // const [Totalprice, setTotalPrice] = React.useState("");
+  // const [Finalprice, setFinalPrice] = React.useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState([]);
   const [pcodes, setPincodess] = useState("");
+  const [pcd, setPincd] = useState("");
 
   const param = useParams();
   const navigate = useNavigate()
   const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
   const subtotal = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0);
 
-  const total = parseInt(param.id);
   const shipping = 20.00;
+  const Totalprice = parseInt(param.id);
+  const Finalprice = Totalprice + shipping
   useEffect(() => {
 
     if (param.id > 0.00) {
@@ -47,6 +49,7 @@ const CheckOutForm = () => {
 
   const getuser = async () => {
     setLoading(true);
+    console.log(`auth = ${auth}`);
     let userresult = await fetch(`/api/registerselectbyid/${auth}`);
     userresult = await userresult.json();
     setUser(userresult.result);
@@ -71,21 +74,24 @@ const CheckOutForm = () => {
   }
 
   const checkout = async () => {
-    if (!Address) {
-      setError(true);
-      return false;
+    if (!Address || !Totalprice || !Finalprice || pcd) {
+      if (!Address) {
+        setError(true);
+        return false;
+      }
+
+      let result = await fetch('/api/orderinsert', {
+        method: 'post',
+        body: JSON.stringify({
+          auth, Address, Totalprice, Finalprice, pcd
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
+      result = await result.json();
+      alert("record inserted");
     }
-    let Rid = auth;
-    let result = await fetch('api/orderinsert', {
-      method: 'post',
-      body: JSON.stringify({
-        Rid, Address, Totalprice, Finalprice, Pinid
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-    result = await result.json();
   }
   const Loading = () => {
     return (
@@ -94,6 +100,7 @@ const CheckOutForm = () => {
       </>
     )
   }
+
   const Showcart = () => {
     return (
       <>
@@ -145,7 +152,7 @@ const CheckOutForm = () => {
                 <div class="row">
                   <div class="col">
                     <div class="form-outline" style={{ marginTop: "10px" }}>
-                      <select className="form-control" onChange={(e) => setPincodess(e.target.value)}>
+                      <select className="form-control" onChange={(e) => setPincd(e.target.value)}>
                         <option value={0}>----Select Pincode----</option>
                         {
                           pcodes.length > 0 ? pcodes.map((item, index) => (
@@ -215,7 +222,7 @@ const CheckOutForm = () => {
                 <div className="row" style={{ marginTop: "50px" }}>
                   <div className="row mt-4" >
                     <div className="col"> Subtotal : </div>
-                    <div className="col text-right">Rs.{total}</div>
+                    <div className="col text-right" >Rs.{Totalprice}</div>
                   </div>
                   <div className="row mt-4">
                     <div className="col">Shipping Cost :</div>
@@ -228,7 +235,7 @@ const CheckOutForm = () => {
 
                   <div className="totalprice row mt-4 ">
                     <div className="col">TOTAL PRICE :</div>
-                    <div className="col text-right">Rs.{total + shipping}</div>
+                    <div className="col text-right" >Rs.{Finalprice}</div>
                   </div>
                 </div>
 
@@ -378,28 +385,7 @@ const FormContainer = styled.div`{
   {
         color:transparent;
   }
-  ${'' /* .btn{
-      background-color: #000;
-      border-color: #000;
-      color: white;
-      width: 100%;
-      font-size: 0.7rem;
-      margin-top: 4vh;
-      padding: 1vh;
-      border-radius: 0;
-  }
-  .btn:focus{
-      box-shadow: none;
-      outline: none;
-      box-shadow: none;
-      color: white;
-      -webkit-box-shadow: none;
-      -webkit-user-select: none;
-      transition: none; 
-  }
-  .btn:hover{
-      color: white;
-  } */}
+
   a{
       color: black; 
   }

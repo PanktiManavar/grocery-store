@@ -13,6 +13,7 @@ const Cart = () => {
 
     const total = cart.reduce((a, i) => a + i.qty * i.Pid[0].price, 0);
     const shipping = 20.00;
+    // console.log(t);
 
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const Cart = () => {
         setCart(result);
         setLoading(false);
         setCount(result.length);
-        console.log(result);
+        return console.log(result);
     };
 
     const deletecart = async (id) => {

@@ -109,9 +109,9 @@ module.exports = {
             resp.send({ result: "no products found" })
         }
     },
-    selectProductbCategoryID: async (req, resp) => {
+    selectProductsubCategoryID: async (req, resp) => {
         try {
-            const result = await productmodel.find({ status: "Active" }).populate("subid");
+            const result = await productmodel.find({ status: "Active", subid: req.params.id }).populate("subid");
             if (result) {
                 resp.send({ result: result });
             }

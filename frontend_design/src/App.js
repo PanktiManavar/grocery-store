@@ -50,6 +50,9 @@ import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
 import AllcComponent from './component/AllcComponent';
 
+//popupform
+import Popupform from './Viewers/Popupform';
+
 function App() {
   return (
     <div className="App">
@@ -111,6 +114,7 @@ function App() {
             <Route path="/About" element={<About></About>} />
             <Route path="/Contact" element={<Contact></Contact>} />
             <Route path="/Product/:id" element={<ViewProducts></ViewProducts>} />
+            <Route path="/Popup" element={<Popupform></Popupform>} />
           </Route>
 
         </Routes>

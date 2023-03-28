@@ -205,7 +205,7 @@ module.exports = {
             service: 'gmail',
             auth: {
                 user: 'krishnakpatel3121@gmail.com',
-                pass: 'xtfpsdyhlcjmlzzb'
+                pass: 'kqvuiytvqsoginzv'
             },
             port: 465,
             host: 'smtp.gmail.com'

@@ -13,8 +13,8 @@ module.exports = {
                 const order = new ordermodel({
                     Rid: result._id,
                     Address: req.body.Address,
-                    Totalprice: req.body.tprice,
-                    Finalprice: req.body.fprice,
+                    Totalprice: req.body.Totalprice,
+                    Finalprice: req.body.Finalprice,
                     Pinid: req.body.pinid,
                     payment_status: "pendding",
                     ostatus: "ordered"

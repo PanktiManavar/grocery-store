@@ -31,8 +31,8 @@ const AdminNav = () => {
                                 <Nav.Link href="/SelectPincode" style={{ color: "#030303" }}>Pincode</Nav.Link>
                                 <Nav.Link href="/SelectProduct" style={{ color: "#030303" }}>Product</Nav.Link>
                                 <Nav.Link href="/SelectDeliverBoy" style={{ color: "#030303" }}>DeliveryBoy</Nav.Link>
-                                <Nav.Link href="/AdminOrderView" style={{ color: "#030303" }}>Order</Nav.Link>
-                                <NavDropdown title="Decative" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
+                                {/* <Nav.Link href="/AdminOrderView" style={{ color: "#030303" }}>Order</Nav.Link> */}
+                                <NavDropdown title="NotAvailableProduct" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
                                     <NavDropdown.Item style={{ fontSize: "14px" }} href="/CategoryDView">Category</NavDropdown.Item>
                                     <NavDropdown.Item style={{ fontSize: "14px" }} href="/SubCategoryDView">SubCategory</NavDropdown.Item>
                                     <NavDropdown.Item style={{ fontSize: "14px" }} href="/PincodeDView">Pincode</NavDropdown.Item>
@@ -41,7 +41,7 @@ const AdminNav = () => {
                                 </NavDropdown>
                             </Nav>
                             <Nav>
-                                <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link>
+                                {/* <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link> */}
 
                                 <NavDropdown title="Account" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
                                     <NavDropdown.Item href="/ChangepasswordAdmin" style={{ fontSize: "14px", color: "#030303" }}>Change Password</NavDropdown.Item>

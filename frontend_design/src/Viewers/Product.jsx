@@ -3,9 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import { FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
+import 'reactjs-popup/dist/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button, Image } from "react-bootstrap";
+import swal from 'sweetalert';
 const Product = () => {
 
   const [data, setData] = useState([]);
@@ -13,6 +15,12 @@ const Product = () => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  const [prod, setProduct] = useState([]);
+  const [subid, setSubid] = useState('');
 
   const navigate = useNavigate();
   const params = useParams();
@@ -23,7 +31,20 @@ const Product = () => {
     getProducts();
   }, []);
 
+  //model view for one product details
+  const handleShow = async (id) => {
+    setLoading(true);
+    let result = await fetch(`/api/productselectbyid/${id}`);
+    result = await result.json()
+    // console.log(result.result);
+    setProduct(result.result);
+    setSubid(result.result.subid[0].sname)
+    setLoading(false);
+    setShow(true);
+  }
+
   const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
+
   const getProducts = async () => {
     setLoading(true);
     const response = await fetch("api/productActiveselect");
@@ -56,6 +77,52 @@ const Product = () => {
     )
   }
 
+  const Addcart = async () => {
+    {
+      auth ?
+        cart()
+        :
+        navigate("/Login");
+    }
+
+  }
+  const cart = async () => {
+    let Rid = auth;
+    let Pid = prod._id;
+    let mname = prod.mname;
+    console.log(Rid, "+", Pid, "+", mname, "+", prod.qty);
+
+    let result = await fetch('/api/cartinsert/', {
+      method: 'post',
+      body: JSON.stringify({
+        Rid,
+        Pid,
+        mname
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    result = await result.json();
+    // return console.log(result);
+    if (result.error) {
+      alert(result.error)
+    } else if (result) {
+      swal({
+        title: "Cart Added!",
+        text: "Your Product are add in cart!",
+        icon: "success",
+        button: "Okay!",
+      });
+      setShow(false);
+      navigate('/Productt');
+    }
+    else {
+      alert("cart not added please try again");
+    }
+    // console.warn(result);
+  }
+
   const CategoryShow = () => {
     return (
       <>
@@ -65,25 +132,12 @@ const Product = () => {
 
             <div className="box-container ">
               {category.map((item, index) =>
-                // <div className="pl-4">
-                //   <div className="">
-                //     <div className="">
-                //       <h3 className='sty-h3'>{item.cname}</h3>
-                //     </div>
-                //   </div>
-                // </div>
                 <a href="#" className="box " >
-
                   <img src="image/cat-1.png" alt="" />
-
                   <p>{item.cname}</p>
-
-
                 </a>
-
               )}
             </div>
-
           </section>
         </FormContainer>
       </>
@@ -93,6 +147,43 @@ const Product = () => {
   const ShowProducts = () => {
     return (
       <>
+        <Modal className="modal fade" show={show} onHide={handleClose} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <Modal.Header closeButton>
+            <Modal.Title>Product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='row'>
+              <div className='col-sm-6'>
+                <Image src={`http://localhost:8000/${prod.pimg}`} alt="Loading" width={"200px"} height={"200px"}></Image>
+              </div>
+              <div className='col-sm-6'>
+                <div className="col-md-6">
+                  <h4 className='text-uppercase text-black-50'>
+                    Category : {subid}
+                  </h4>
+                  <h1 className='display-6'>{prod.pname}</h1>
+                  <h3 className="display-8 fw-bold my-4">
+                    Rs.{prod.price}
+                  </h3>
+                  <h5> Qty
+                    <input className="form-control" type="number" placeholder="1" />
+                  </h5>
+                </div>
+              </div>
+              <p className="lead">
+                {prod.descripation}
+              </p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Cancle
+            </Button>
+            <Button variant="secondary" className='btn btn-primary px-8 py-3' onClick={Addcart} >
+              Add to cart
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <FormContainer>
           <section className="products">
             <h1 className="title"> Our <span>Products</span> </h1>
@@ -100,8 +191,9 @@ const Product = () => {
               {filter.map((product) => {
                 return (
                   <>
-                    <Card style={{ width: '20rem', textAlign: "center" }}>
-                      {auth ?
+                    <Card style={{ width: '20rem', textAlign: "center" }} onClick={() => { handleShow(product._id) }} >
+                      <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
+                      {/* {auth ?
                         <Link to={`/Productt/${product._id}`} style={{ textDecoration: "none" }}>
                           <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
                         </Link>
@@ -109,7 +201,7 @@ const Product = () => {
                         <Link to={`/Product/${product._id}`} style={{ textDecoration: "none" }}>
                           <Card.Img variant="top" src={`http://localhost:8000/${product.pimg}`} alt="Loading" />
                         </Link>
-                      }
+                      } */}
                       <Card.Body>
                         <Card.Title className='content'>{product.pname}</Card.Title>
                         <Card.Text>{product.descripation.substring(0, 20)}...</Card.Text>
@@ -129,28 +221,6 @@ const Product = () => {
     )
   }
 
-  const Catdisplay = () => {
-    return (
-      <>
-        <FormContainer>
-
-          <div className="categorysidebar category-section">
-            <h1 className="title"> Our <span>Category</span></h1>
-            {category.map((item) => {
-              return (
-                <div className='cartegory' style={{ borderBottom: "1px solid #bab6b6", marginBottom: "10px" }}>
-                  <h3>{item.cname}</h3>
-                </div>
-              )
-            }
-            )}
-          </div>
-
-        </FormContainer>
-      </>
-    )
-  }
-
   return (
     <div>
       <div className="heading">
@@ -159,11 +229,6 @@ const Product = () => {
       </div>
 
       <div className='row justify-content-center'>
-
-
-        {/* {loading ? <Loading /> : <CategoryShow />} */}
-        {/* {loading ? <Loading /> : <Catdisplay />} */}
-
         {loading ? <Loading /> : <ShowProducts />}
       </div>
 
