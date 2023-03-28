@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "63d49d1164de40915d12988b"
+  },
+  "Fname": "Admin",
+  "Lname": "Admin",
+  "Email": "19bmiit048@gmail.com",
+  "Password": "$2a$10$rhs3GFYhA.KjDFPvbdiuR.PaRLdDthL.tLaEcDjeiA3xYT69OuaCm",
+  "MobileNo": {
+    "$numberLong": "9898988989"
+  },
+  "UserType": "Admin",
+  "Status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d49dd764de40915d129891"
+  },
+  "Fname": "pankti",
+  "Lname": "manavar",
+  "Email": "panktimanavar@gmail.com",
+  "Password": "$2a$10$ZopNRJ9Gg/yZxPK4p2G52eZxNH4fbVYC4A7yA62QD3iJAD6XoBhy2",
+  "MobileNo": {
+    "$numberLong": "9878987878"
+  },
+  "UserType": "customer",
+  "Status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d52364de40915d12991d"
+  },
+  "Fname": "Khush",
+  "Lname": "Patel",
+  "Email": "Khushpatel@gmail.com",
+  "Password": "$2a$10$.eiOpHQaz33JwEqr9M5tXeav6C5VbHkSvXWwPYhUkqUIh4p98Heju",
+  "MobileNo": {
+    "$numberLong": "9999999998"
+  },
+  "Address": "Kamrej char rasta ",
+  "UserType": "deliveryboy",
+  "Status": "Active",
+  "__v": 0
+}]

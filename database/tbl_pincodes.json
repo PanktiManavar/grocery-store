@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "63d4d4c064de40915d12990d"
+  },
+  "pcode": 394180,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d4d564de40915d129912"
+  },
+  "pcode": 394185,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d4e264de40915d129917"
+  },
+  "pcode": 394190,
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641ca0f84eb435df39713f90"
+  },
+  "pcode": 394150,
+  "status": "Deactive",
+  "__v": 0
+}]

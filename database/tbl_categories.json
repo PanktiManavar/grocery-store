@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "63d4d2fe64de40915d1298a7"
+  },
+  "cname": "Fruits & Vegetables",
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d32664de40915d1298ac"
+  },
+  "cname": "Dairy & Bakery",
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d33664de40915d1298b1"
+  },
+  "cname": "Staples",
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d35a64de40915d1298b6"
+  },
+  "cname": "Beverages",
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c9ffa4eb435df39713f77"
+  },
+  "cname": "Snacks",
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641d3f8bdae76dd417274e33"
+  },
+  "cname": "Brand",
+  "status": "Active",
+  "__v": 0
+}]

@@ -1,0 +1,109 @@
+[{
+  "_id": {
+    "$oid": "63d4d38964de40915d1298bf"
+  },
+  "sname": "Fresh Fruits",
+  "cid": [
+    {
+      "$oid": "63d4d2fe64de40915d1298a7"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d3b364de40915d1298c9"
+  },
+  "sname": "Fresh Vegetables ",
+  "cid": [
+    {
+      "$oid": "63d4d2fe64de40915d1298a7"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d3cd64de40915d1298d3"
+  },
+  "sname": "Toast & Khari",
+  "cid": [
+    {
+      "$oid": "63d4d32664de40915d1298ac"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d3f064de40915d1298dd"
+  },
+  "sname": "Breads and Buns",
+  "cid": [
+    {
+      "$oid": "63d4d32664de40915d1298ac"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d42a64de40915d1298e7"
+  },
+  "sname": "Atta, Flours & Sooji",
+  "cid": [
+    {
+      "$oid": "63d4d33664de40915d1298b1"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d46464de40915d1298f1"
+  },
+  "sname": "Dals & Pulses",
+  "cid": [
+    {
+      "$oid": "63d4d33664de40915d1298b1"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d48864de40915d1298fb"
+  },
+  "sname": "Tea",
+  "cid": [
+    {
+      "$oid": "63d4d35a64de40915d1298b6"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d4d4a364de40915d129905"
+  },
+  "sname": "Fruit juices",
+  "cid": [
+    {
+      "$oid": "63d4d35a64de40915d1298b6"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641ca0db4eb435df39713f86"
+  },
+  "sname": "Dairy",
+  "cid": [
+    {
+      "$oid": "63d4d32664de40915d1298ac"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+}]

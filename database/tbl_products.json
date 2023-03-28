@@ -1,0 +1,199 @@
+[{
+  "_id": {
+    "$oid": "641c8f6e4eb435df39713ea2"
+  },
+  "pname": "Potato",
+  "descripation": "Potato is a root vegetable and the most versatile of all. It is widely used across Indian kitchens paired with numerous other vegetables for preparation of several delicacies. Be it Brinjal, Cauliflower, Tomato, Onion or be it Soyabean Chunks or the Spinach clan- Potatoes goes with all for delicious cuisines. Buy Potato per kg online now.",
+  "price": 20,
+  "mname": "Kg",
+  "qty": "36",
+  "bname": "PrivateLabel",
+  "pimg": "img/1679593326770_poteto.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d3b364de40915d1298c9"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c92e94eb435df39713ed3"
+  },
+  "pname": "Cauliflower 1 pc (Approx 600 g - 1000 g)",
+  "descripation": "Cauliflower can be enjoyed raw or cooked. Raw cauliflower makes a great snack when dipped in hummus or another healthy vegetable dip. Your favourite pasta dish can be quickly upgraded to a healthier alternative with the addition of fresh cauliflower. Cauliflower is also delicious when roasted, steamed, or sauteed with your favourite spices. Try adding some grilled bread slices to the top for even more awesome flavours! So, go ahead, buy Cauliflower 1 pc (Approx 600 g - 1000 g) online now!",
+  "price": 29,
+  "mname": "Kg",
+  "qty": "9",
+  "bname": "PrivateLabel",
+  "pimg": "img/1679594217432_flower.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d3b364de40915d1298c9"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c93884eb435df39713ede"
+  },
+  "pname": "Sonaka Seedless Grapes",
+  "descripation": "Grapes offer a wealth of health benefits due to their high nutrient and antioxidant contents. Grapes are delicious and easy to add to your diet for breakfast, lunch, dinner or simply as a convenient, healthy snack. So, go ahead, and buy Sonaka Seedless Grapes 500 g online now!",
+  "price": 70,
+  "mname": "Kg",
+  "qty": "20",
+  "bname": "PrivateLabel",
+  "pimg": "img/1679594376105_greengraps.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d38964de40915d1298bf"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c93e34eb435df39713ee7"
+  },
+  "pname": "Orange Imported 1 kg",
+  "descripation": "Oranges are a favourite snack for many people. They can be eaten out-of-hand or used as a garnish. Besides orange juices, which are very popular worldwide, there are many other culinary uses of oranges. Oranges can be made into jams, marmalades, and preserves with the addition of sugar. They may also be used in salads, desserts, ice creams, sorbets, and savoury dishes. So, go ahead, buy Orange Imported 1 kg online now!",
+  "price": 99,
+  "mname": "Kg",
+  "qty": "20",
+  "bname": "PrivateLabel",
+  "pimg": "img/1679594467716_orange.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d38964de40915d1298bf"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c94674eb435df39713ef0"
+  },
+  "pname": "Musk Melon 1 pc (Approx. 600 g - 900 g)",
+  "descripation": "Musk Melon has ribbed, netted, or smooth skin. Its outer skin is usually off-white or yellow in the shade while it is peach in colour from the inside and has many seeds in between. It has a sweet, musky taste and high sugar content that lingers on the tongue for a long time. Fully ripen Musk Melon offers a juicy, smooth, and sweet taste. It also has a high water content, which makes you feel full after having the fruit. So go ahead and buy Musk Melon 1 pc (Approx. 600 g - 900 g) today.",
+  "price": 35,
+  "mname": "Kg",
+  "qty": "20",
+  "bname": "PrivateLable",
+  "pimg": "img/1679594599693_tetty.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d38964de40915d1298bf"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c95194eb435df39713ef9"
+  },
+  "pname": "Parle Real Elaichi Premium Rusk 300 g",
+  "descripation": "Parle Real Elaichi Premium Rusk 273 g is a twice-baked dried bread, also referred to as the 'toast biscuit'. You can have these rusks as it is or along with your tea or coffee. You can also spread some butter, jam or cheese over them and make an interesting snack of it. These rusks are prepared using premium quality ingredients to give you an authentic taste. So go ahead, buy this product online today and make tea-time more fun!!",
+  "price": 41,
+  "mname": "Packet",
+  "qty": "100",
+  "bname": "Parle",
+  "pimg": "img/1679594777516_rush.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d3cd64de40915d1298d3"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c95c54eb435df39713f02"
+  },
+  "pname": "Kots Aata Khari 200 g (Carton)",
+  "descripation": "Try Kots Aata Khari when you experience hunger at odd hours. Freshly baked, each bite of these buttery treats offers crunchy delight. Each puff is cooked to perfection until it is golden brown. The ingredients melt in your mouth and leave you delighted with their taste. Buy this product online now!",
+  "price": 62.5,
+  "mname": "Packet",
+  "qty": "50",
+  "bname": "Kots",
+  "pimg": "img/1679594949529_khari.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d3cd64de40915d1298d3"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c96324eb435df39713f0b"
+  },
+  "pname": "Britannia Healthy Slice Bread 450 g",
+  "descripation": "Make delicious sandwiches with Britannia Healthy Slice Bread 450 g. This bread is ideal to dip in milk and eat, or toast it till golden brown with butter on top. Made from the finest ingredients, it is baked to perfection to make it soft and spongy. Go ahead, buy this product online now!",
+  "price": 38,
+  "mname": "Packet",
+  "qty": "9",
+  "bname": "Britannia",
+  "pimg": "img/1679595058326_bread.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d3f064de40915d1298dd"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c97044eb435df39713f14"
+  },
+  "pname": "Chakki Atta 10 kg",
+  "descripation": "Chakki Atta is freshly made from the choicest grains. It is carefully ground using modern chakki technique. It is used to make a wide range of foods including bread, crumpets, muffins, noodles, pasta, biscuits, cakes, pastries, cereal bars, sweet and savoury snack foods, crackers, crisp-breads, sauces and confectioner. Buy Chakki Atta online now!",
+  "price": 365,
+  "mname": "Packet",
+  "qty": "100",
+  "bname": "Chakki",
+  "pimg": "img/1679595268099_chakkiaata.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d42a64de40915d1298e7"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641c976f4eb435df39713f1d"
+  },
+  "pname": "Suji / Rawa 1 kg",
+  "descripation": "Rawa, more popularly known as Sooji, is an important ingredient used in every Indian kitchen. Rawa is special wheat flour different from the normal one as it is gritty and coarse. Right from the delicious sooji ka halwa to a nutritious Upma, sooji can instantly take care of your hunger and save your day. Buy Suji / Rawa online now!",
+  "price": 44,
+  "mname": "Packet",
+  "qty": "100",
+  "bname": "Chakki",
+  "pimg": "img/1679595375162_suji.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d42a64de40915d1298e7"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "641e8517f714b2edd73c9348"
+  },
+  "pname": "Rice",
+  "descripation": "Rice des",
+  "price": 120,
+  "mname": "Kg",
+  "qty": "100",
+  "bname": "PrivateLable",
+  "pimg": "img/1679721751399_orang2.jpg",
+  "subid": [
+    {
+      "$oid": "63d4d46464de40915d1298f1"
+    }
+  ],
+  "status": "Active",
+  "__v": 0
+}]
