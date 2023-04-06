@@ -3,6 +3,7 @@ const cartmodel = require('../db/cartdb');
 const ordermodel = require('../db/orderdb')
 const orderitemmodel = require('../db/orderitemdb')
 const productmodel = require('../db/productdb')
+const registartionmodel = require('../db/registrationdb')
 
 module.exports = {
     //url ma Registration user id pass karava ni
@@ -15,14 +16,15 @@ module.exports = {
                     Address: req.body.Address,
                     Totalprice: req.body.Totalprice,
                     Finalprice: req.body.Finalprice,
-                    Pinid: req.body.pinid,
+                    Pinid: req.body.Pinid,
                     payment_status: "pendding",
                     ostatus: "ordered"
                 });
 
                 const orderdata = await order.save();
                 if (orderdata) {
-                    const posts = await ordermodel.findOne().sort({ _id: -1 }).limit(1);
+                    // const posts = await ordermodel.findOne().sort({ _id: -1 }).limit(1);
+                    const posts = await ordermodel.findOne({ Rid: req.body.Rid }).sort({ _id: -1 }).limit(1);
                     let cartdata = await cartmodel.find({ Rid: req.body.Rid });
                     cartdata.forEach(async element => {
                         const orderitem = new orderitemmodel({
@@ -42,7 +44,7 @@ module.exports = {
                                     // return res.send(qty);
                                     const qtyupdate = await productmodel.findByIdAndUpdate(element.Pid, { $set: { qty: qty } }, { new: true });
                                     if (qtyupdate) {
-                                        res.send("order conform");
+                                        res.send(qtyupdate);
                                     } else {
                                         res.send("product qty  not updated");
                                     }
@@ -75,29 +77,13 @@ module.exports = {
             console.log(err.message);
         }
     },
-    vieworder: async (req, resp) => {
-        try {
-            // const result = await ordermodel.find().populate("Rid", "Fname").populate("pinid", "pcode");
-            const result = await ordermodel.findOne({ Rid: req.params.id }).populate("Pinid");
-            if (result) {
-                resp.send(result);
-            }
-            else {
-                resp.send("Not found");
-                return;
-            }
-        }
-        catch (err) {
-            console.log(err.message);
-        }
-    },
 
     viewallorder: async (req, resp) => {
         try {
-            // const result = await ordermodel.find().populate("Rid", "Fname").populate("pinid", "pcode");
-            const result = await ordermodel.find().populate("Pinid");
+            const result = await ordermodel.find().populate("Rid").populate("Pinid", "pcode");
             if (result) {
-                resp.send(result);
+                // const data = await orderitemmodel.find({ oid: result._id })
+                resp.send({ result: result })
             }
             else {
                 resp.send("Not found");
@@ -108,12 +94,32 @@ module.exports = {
             console.log(err.message);
         }
     },
-
+    //pincode update
+    updateorder: async (req, resp) => {
+        try {
+            const result = await ordermodel.findByIdAndUpdate(req.params.id, { $set: { Pinid: req.body.Pinid } }, { new: true });
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
     viewOneCustomerOrder: async (req, resp) => {
         try {
-            const data = await ordermodel.find({ Rid: req.params.id });
-            if (data) {
-                resp.send(data);
+            const result = await ordermodel.find({ Rid: req.params.id }).populate("Rid").populate("Pinid", "pcode");
+            if (result) {
+                // const data = await orderitemmodel.find({ oid: result._id })
+                resp.send({ result: result })
+            }
+            else {
+                resp.send("Not found");
+                return;
             }
         }
         catch (err) {

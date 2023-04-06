@@ -45,6 +45,7 @@ import SubCategorySelect from './Admin/DeactiveList/SubCategorySelect';
 //for Customer
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
+import Myaccount from './Viewers/Myaccount';
 //component
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
@@ -72,6 +73,7 @@ function App() {
             <Route path='/CheckOutForm/:id' element={<CheckOutForm />} />
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
             <Route path='/Cart' element={<Cart />} />
+            <Route path='/MyAccount' element={<Myaccount />} />
           </Route>
 
           {/* for admin */}

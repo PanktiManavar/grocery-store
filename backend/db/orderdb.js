@@ -25,13 +25,13 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     Pinid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_pincode' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: pincodemodel }],
         required: [true, "Pincode is required"]
     },
-    Drid: {
-        // type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
-        // required: [true, "delivery boy is required"]
-    },
+    // Drid: {
+    // type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_registrations' }],
+    // required: [true, "delivery boy is required"]
+    //},
     payment_status: {
         type: String,
         required: true

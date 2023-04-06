@@ -14,6 +14,7 @@ const Product = () => {
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState([]);
+  const [qty, setQty] = useState('');
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -27,7 +28,6 @@ const Product = () => {
 
   let componentMounted = true;
   useEffect(() => {
-    getCategory();
     getProducts();
   }, []);
 
@@ -60,15 +60,6 @@ const Product = () => {
     };
   };
 
-  const getCategory = async () => {
-    setLoading(true);
-    let result = await fetch('api/categoryActiveselect');
-    result = await result.json();
-    setCategory(result.result);
-    setLoading(false);
-  }
-
-
   const Loading = () => {
     return (
       <>
@@ -90,13 +81,14 @@ const Product = () => {
     let Rid = auth;
     let Pid = prod._id;
     let mname = prod.mname;
-    console.log(Rid, "+", Pid, "+", mname, "+", prod.qty);
+    console.log(Rid, "+", Pid, "+", mname, "+", qty);
 
-    let result = await fetch('/api/cartinsert/', {
+    let result = await fetch('/api/insertcart/', {
       method: 'post',
       body: JSON.stringify({
         Rid,
         Pid,
+        qty,
         mname
       }),
       headers: {
@@ -107,6 +99,7 @@ const Product = () => {
     // return console.log(result);
     if (result.error) {
       alert(result.error)
+      setShow(false);
     } else if (result) {
       swal({
         title: "Cart Added!",
@@ -122,28 +115,6 @@ const Product = () => {
     }
     // console.warn(result);
   }
-
-  const CategoryShow = () => {
-    return (
-      <>
-        <FormContainer>
-          <section className="category">
-            <h1 className="title"> Our <span>Category</span></h1>
-
-            <div className="box-container ">
-              {category.map((item, index) =>
-                <a href="#" className="box " >
-                  <img src="image/cat-1.png" alt="" />
-                  <p>{item.cname}</p>
-                </a>
-              )}
-            </div>
-          </section>
-        </FormContainer>
-      </>
-    )
-  }
-
   const ShowProducts = () => {
     return (
       <>
@@ -166,7 +137,8 @@ const Product = () => {
                     Rs.{prod.price}
                   </h3>
                   <h5> Qty
-                    <input className="form-control" type="number" placeholder="1" />
+                    <input className="form-control" type="number" name="quantity" min="1" max="10" defaultValue='1' placeholder='1' onChange={(e) => { setQty(e.target.value); }} />
+                    {/* <input className="form-control" type="number" placeholder="1" /> */}
                   </h5>
                 </div>
               </div>

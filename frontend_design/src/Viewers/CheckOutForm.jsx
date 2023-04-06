@@ -49,11 +49,12 @@ const CheckOutForm = () => {
 
   const getuser = async () => {
     setLoading(true);
-    console.log(`auth = ${auth}`);
+    // console.log(`auth = ${auth}`);
     let userresult = await fetch(`/api/registerselectbyid/${auth}`);
     userresult = await userresult.json();
     setUser(userresult.result);
     setLoading(false);
+    // console.log(user)
   }
 
   const Addorder = async () => {
@@ -74,24 +75,27 @@ const CheckOutForm = () => {
   }
 
   const checkout = async () => {
-    if (!Address || !Totalprice || !Finalprice || pcd) {
-      if (!Address) {
-        setError(true);
-        return false;
-      }
-
-      let result = await fetch('/api/orderinsert', {
-        method: 'post',
-        body: JSON.stringify({
-          auth, Address, Totalprice, Finalprice, pcd
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        },
-      });
-      result = await result.json();
-      alert("record inserted");
+    // return alert(auth)
+    //if (!Address || !Totalprice || !Finalprice || !pcd) {
+    if (!Address) {
+      setError(true);
+      return false;
     }
+
+    let result = await fetch('/api/orderinsert', {
+      method: 'post',
+      body: JSON.stringify({
+        Rid: auth, Address, Totalprice, Finalprice, pcd
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    result = await result.json();
+    navigate("/Productt")
+    console.log(result);
+
+    // }
   }
   const Loading = () => {
     return (

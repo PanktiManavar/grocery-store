@@ -48,6 +48,84 @@ module.exports = {
             res.status(400).send({ success: false, msg: error.message });
         }
     },
+    cartInsert: async (req, resp) => {
+        try {
+            const cart = new cartmodel({
+                Rid: req.body.Rid,
+                Pid: req.body.Pid,
+                qty: req.body.qty,
+                mname: req.body.mname
+            });
+
+            rids = await cartmodel.findOne({ Rid: req.body.Rid });
+            pids = await cartmodel.findOne({ Pid: req.body.Pid });
+
+
+            if (rids && pids) {
+                resp.send({ error: "Product are allready added in cart" });
+            }
+            else {
+                const cartData = await cart.save();
+                if (cartData) {
+                    resp.status(200).send({ success: true, msg: "cart product details", data: cartData });
+                }
+                else {
+                    resp.send("data not save");
+                }
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    Addqty: async (req, resp) => {
+        try {
+            const results = await productmodel.findById(req.body.Pid);
+            // resp.send({ error: req.body.qty })
+            if (results.qty > req.body.qty) {
+                const updateqty = await cartmodel.findByIdAndUpdate({ _id: req.params.id }, { $set: { qty: parseInt(req.body.qty) + 1 } }, { new: true });
+                if (updateqty) {
+                    resp.send({ data: updateqty, mess: results })
+                } else {
+                    resp.send({ error: "qty not update" })
+                }
+            } else {
+                resp.send({ error: "Qty not available " });
+            }
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+
+    Minusqty: async (req, resp) => {
+        try {
+            if (parseInt(req.body.qty) - 1 == 0) {
+                try {
+                    const results = await cartmodel.findByIdAndDelete(req.params.id);
+                    if (results) {
+                        resp.send({ result: results, mesg: "delete" });
+                    }
+                    else {
+                        resp.send({ error: "Product deleted" });
+                        return;
+                    }
+                }
+                catch (err) {
+                    console.log(err.message);
+                }
+
+            } else {
+                const updateqty = await cartmodel.findByIdAndUpdate({ _id: req.params.id }, { $set: { qty: parseInt(req.body.qty) - 1 } }, { new: true });
+                if (updateqty) {
+                    resp.send({ data: updateqty })
+                } else {
+                    resp.send({ error: "qty not update" })
+                }
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
     updatecart: async (req, resp) => {
         try {
             const id = req.params.id;

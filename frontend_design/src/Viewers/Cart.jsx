@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import CloseButton from 'react-bootstrap/CloseButton';
-
+import { FaRegMinusSquare, FaRegPlusSquare } from 'react-icons/fa'
 const Cart = () => {
 
     const [cart, setCart] = useState([]);
@@ -22,6 +22,42 @@ const Cart = () => {
 
     }, []);
 
+    const Minusqty = async (id, Pid, qty) => {
+
+        let result = await fetch(`/api/Minusqty/${id}`, {
+            method: 'put',
+            body: JSON.stringify({ Pid, qty }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        result = await result.json()
+        console.log(result);
+        if (result.error) {
+            alert(result.error)
+        }
+        getProducts();
+
+    }
+
+    const Addqty = async (id, Pid, qty) => {
+        // return alert(qty)
+        let result = await fetch(`/api/Addqty/${id}`, {
+            method: 'put',
+            body: JSON.stringify({ Pid, qty }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        result = await result.json()
+        console.log(result);
+        if (result.error) {
+            alert(result.error)
+        }
+        getProducts();
+
+    }
+
     const getProducts = async () => {
         setLoading(true);
         let result = await fetch(`api/cartgetbyid/${auth}`);
@@ -29,7 +65,7 @@ const Cart = () => {
         setCart(result);
         setLoading(false);
         setCount(result.length);
-        return console.log(result);
+        return console.log(result[0].Pid[0]._id);
     };
 
     const deletecart = async (id) => {
@@ -67,7 +103,7 @@ const Cart = () => {
                                     <div className="row main text-center" >
                                         <div className="col-3" ><h4>Image</h4></div>
                                         <div className="col-4" ><h4>Name</h4></div>
-                                        {/* <div className="col-2" ><h4>Qty</h4></div> */}
+                                        <div className="col-2" ><h4>Qty</h4></div>
                                         <div className="col"><h4></h4></div>
                                     </div>
                                 </div>
@@ -84,10 +120,12 @@ const Cart = () => {
 
                                                 <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}({item.qty} {item.mname})</div>
                                             </div>
-                                            {/* <div className="col-2 border" style={{ marginLeft: "24px", textAlign: "center" }}>
-                                                <button style={{ backgroundColor: "white", marginRight: "5px" }}>-</button><Link style={{ textDecoration: "none" }}>{item.qty}</Link><button style={{ backgroundColor: "white", marginLeft: "5px" }}>+</button>
-                                            </div> */}
-                                            {/* <div className="col" style={{ marginLeft: "14px" }}>{item.qty}</div> */}
+                                            <div className="col-2" style={{ marginLeft: "24px", textAlign: "center" }}>
+                                                <button onClick={() => Minusqty(item._id, item.Pid, item.qty)} style={{ backgroundColor: "white" }}>  <FaRegMinusSquare style={{ padding: 0, fontSize: 16, marginRight: "10px" }} /></button>
+                                                <span style={{ fontSize: "13px" }}>{item.qty}</span>
+                                                <button onClick={() => Addqty(item._id, item.Pid, item.qty)} style={{ backgroundColor: "white" }} >  <FaRegPlusSquare style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></button>
+
+                                            </div>
                                             <div className="col" style={{ marginLeft: "30px" }}>
                                                 <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <CloseButton aria-label="Hide" /></button>
                                             </div>
