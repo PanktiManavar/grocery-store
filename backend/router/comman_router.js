@@ -5,4 +5,5 @@ const commonapi = require('../api/comman');
 
 router.get('/api/countdata', commonapi.datacount);
 router.get('/api/notification', commonapi.notification)
+router.get("/currentdate", commonapi.currentdate);
 module.exports = router;

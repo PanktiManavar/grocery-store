@@ -39,6 +39,21 @@ module.exports = {
         } catch (err) {
 
         }
+    },
+
+    currentdate: async (req, resp) => {
+        try {
+            // let date = new Date()
+            // resp.send(date)
+
+            const today = new Date();
+            // const formattedDate = today.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '/');
+            const formattedDate = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+            resp.send(formattedDate);
+        } catch (err) {
+
+        }
     }
 
     // addqty: async (req, resp) => {

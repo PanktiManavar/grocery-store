@@ -17,6 +17,7 @@ import CheckOutForm from './Viewers/CheckOutForm';
 import ForgotPassword from './Viewers/ForgotPassword';
 import Changepassword from './Viewers/Changepassword';
 import Sendmail from './Viewers/Sendmail';
+import CustOrderView from './Viewers/CustOrderView';
 // for admin
 import AdminHome from './Admin/AdminHome';
 import AddProduct from './Admin/AddProduct';
@@ -74,6 +75,7 @@ function App() {
             <Route path="/Changepassword" element={<Changepassword></Changepassword>} />
             <Route path='/Cart' element={<Cart />} />
             <Route path='/MyAccount' element={<Myaccount />} />
+            <Route path='/MyOrder' element={<CustOrderView />} />
           </Route>
 
           {/* for admin */}

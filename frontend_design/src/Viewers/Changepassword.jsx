@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-
+import { AiOutlineDashboard, AiOutlineUnorderedList, AiOutlineSetting, AiOutlineUnlock, AiOutlineLogout } from "react-icons/ai"
+import "./Myaccount.css"
 
 const Changepassword = () => {
 
@@ -12,6 +13,11 @@ const Changepassword = () => {
   const navigate = useNavigate();
 
   const userid = sessionStorage.getItem("userid").replace(/['"]+/g, '');
+
+  const logout = () => {
+    sessionStorage.clear();
+    navigate("/Login");
+  }
 
   const UpdatePassword = async (e) => {
     e.preventDefault();
@@ -51,32 +57,94 @@ const Changepassword = () => {
   }
   return (
     <>
-      <FormContainer>
-        <div className="register-photo">
-          <div className="form-container">
-            <div className="image-holder"></div>
-            <form>
-              <h2 className="text-center"><strong>Change</strong> Password.</h2>
-              <div className="form-group">
-                <input className="form-control" type="password" value={OldPassword} onChange={(e) => setOldPassword(e.target.value)} placeholder="Old Password" />
-                {error && !OldPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Old-Password field!</span>}
+      <div className='bg-gray-50' >
+        <div className='mx-auto max-w-screen-2xl px-3 sm:px-10'>
+          <div className="flex flex-row">
+
+            <div className='bg-white p-4 sm:p-5 lg:p-8 rounded-md sticky top-32' style={{ margin: "30px 40px 45px 40px", width: "270px", height: "220px" }}> {/* margin: top right bottom left */}
+              <div className="flex flex-col" style={{ justifyContent: 'center' }}>
+                <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="/MyAccount">
+                  <span><AiOutlineDashboard style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                  <span className="ml-2 text-xl font-medium">Dashboard</span>
+                </a>
+                <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="MyOrder">
+                  <span><AiOutlineUnorderedList style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                  <span className="ml-2 text-xl font-medium">My Order</span>
+                </a>
+                <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600">
+                  <span><AiOutlineSetting style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                  <span className="ml-2 text-xl font-medium">Update Profile</span>
+                </a>
+                <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="/Changepassword">
+                  <span><AiOutlineUnlock style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                  <span className="ml-2 text-xl font-medium">Change Password</span>
+                </a>
+                <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="/Login" onClick={logout} >
+                  <span><AiOutlineLogout style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                  <span className="ml-2 text-xl font-medium">Logout</span>
+                </a>
               </div>
-              <div className="form-group">
-                <input className="form-control" type="password" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="New Password" />
-                {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out New-Password field!</span>}
+            </div>
+
+
+            <div className='col w-full bg-white mt-5 p-4 sm:p-5 lg:p-8 rounded-md overflow-hidden' style={{ margin: "40px 30px 45px 0" }}>
+              <div className='overflow-hidden' >
+                <h2 className='text-xl font-serif font-semibold mb-5' style={{ fontSize: "15px" }}>Change Password</h2>
+                <div className='max-w-screen-2xl mx-auto'>
+                  <div className='rounded-md font-serif'>
+                    <div className='flex flex-col'>
+                      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="align-middle inline-block border border-gray-100 rounded-md min-w-full pb-2 sm:px-6 lg:px-8">
+                          <div class="overflow-hidden border-b last:border-b-0 border-gray-100 rounded-md">
+                            <FormContainer>
+                              <div className="row">
+                                <div className="col">
+                                  <div className="form-outline">
+                                    <label style={{ fontSize: "12px", marginTop: "10px" }}>Current Password</label>
+                                    <input className="form-control" type="password" value={OldPassword} style={{ padding: "10px" }} onChange={(e) => setOldPassword(e.target.value)} placeholder="Enter Current Password" />
+                                    {error && !OldPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Old-Password field!</span>}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col">
+                                  <div className="form-outline">
+                                    <label style={{ fontSize: "12px", marginTop: "20px" }}>New Password</label>
+                                    <input className="form-control" type="password" value={Password} style={{ padding: "10px" }} onChange={(e) => setPassword(e.target.value)} placeholder="Enter New Password" />
+                                    {error && !Password && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out New-Password field!</span>}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col">
+                                  <div className="form-outline">
+                                    <label style={{ fontSize: "12px", marginTop: "20px" }}>Conform Password</label>
+                                    <input className="form-control" type="password" style={{ padding: "10px" }} value={ConPassword} onChange={(e) => setConPassword(e.target.value)} placeholder="Enter Conform Password" />
+                                    {error && !ConPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Confirm-Password field!</span>}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row" style={{ textAlign: "right" }}>
+                                <div className="col">
+                                  <div className="form-outline">
+                                    <button className="btn btn-block" onClick={UpdatePassword} style={{ backgroundColor: "rgb(17, 156, 114)", color: "white", marginTop: "20px", padding: "10px" }}>Change Password</button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </FormContainer>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <input className="form-control" type="password" value={ConPassword} onChange={(e) => setConPassword(e.target.value)} placeholder="New Password" />
-                {error && !ConPassword && <span className="invalid-input" style={{ fontWeight: 'bold', color: 'red' }}>Please fill out Confirm-Password field!</span>}
-              </div>
-              <div className="form-group">
-                {/* <button className="btn btn-primary btn-block">Change Password</button> */}
-                <button className="btn btn-primary btn-block" onClick={UpdatePassword}>Change Password</button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      </FormContainer>
+      </div >
+      {/* </FormContainer> */}
     </>
   )
 }

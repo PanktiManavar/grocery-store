@@ -109,7 +109,7 @@ const CheckOutForm = () => {
     return (
       <>
         <FormContainer>
-          <div className="card " style={{ marginBlock: "15px", marginTop: "95px" }} >
+          <div className="card " style={{ marginBlock: "15px", marginTop: "60px" }} >
             <div className="row " >
               <div className="col-md-6 cart">
                 {/* //jj */}

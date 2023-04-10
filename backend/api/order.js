@@ -10,6 +10,8 @@ module.exports = {
     insertorder: async (req, res) => {
         try {
             const result = await cartmodel.findOne({ Rid: req.body.Rid });
+            const today = new Date();
+            const orderdate = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             if (result) {
                 const order = new ordermodel({
                     Rid: result._id,
@@ -17,8 +19,10 @@ module.exports = {
                     Totalprice: req.body.Totalprice,
                     Finalprice: req.body.Finalprice,
                     Pinid: req.body.Pinid,
+                    Odate: orderdate,
                     payment_status: "pendding",
-                    ostatus: "ordered"
+                    payment_type: "COD",
+                    ostatus: "pendding"
                 });
 
                 const orderdata = await order.save();
@@ -130,7 +134,8 @@ module.exports = {
     deleteorder: async (req, resp) => {
         try {
             const id = req.params.id;
-            const update = new Date();
+            const today = new Date();
+            const update = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             const options = { new: true };
             const orderstatus = await ordermodel.findById({ _id: id });
             if (orderstatus) {
@@ -139,7 +144,7 @@ module.exports = {
                         const result = await ordermodel.findByIdAndUpdate(id, { cancel_at: update, cancel_by: "customer", ostatus: "cancel", refund_status: "pedding" }, options);
                         if (result) {
                             //resp.send("Data updated");
-                            resp.send("Your Order is canceled");
+                            resp.send({ result: result });
                         }
                         else {
                             resp.send("Your Order is not canceled");
