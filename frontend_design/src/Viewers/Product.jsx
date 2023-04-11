@@ -138,6 +138,7 @@ const Product = () => {
                   </h3>
                   <h5> Qty
                     <input className="form-control" type="number" name="quantity" min="1" max="10" defaultValue='1' placeholder='1' onChange={(e) => { setQty(e.target.value); }} />
+
                     {/* <input className="form-control" type="number" placeholder="1" /> */}
                   </h5>
                 </div>

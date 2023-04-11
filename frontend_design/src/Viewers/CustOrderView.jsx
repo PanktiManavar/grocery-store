@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Myaccount.css"
 import { AiOutlineDashboard, AiOutlineUnorderedList, AiOutlineSetting, AiOutlineUnlock, AiOutlineLogout } from "react-icons/ai"
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineFeedback } from 'react-icons/md';
 
 const CustOrderView = () => {
     const [order, setOrder] = useState([]);
@@ -31,7 +32,7 @@ const CustOrderView = () => {
             <div className='mx-auto max-w-screen-2xl px-3 sm:px-10'>
                 <div className="flex flex-row">
 
-                    <div className='bg-white p-4 sm:p-5 lg:p-8 rounded-md sticky top-32' style={{ margin: "30px 40px 45px 40px", width: "270px", height: "220px" }}> {/* margin: top right bottom left */}
+                    <div className='bg-white p-4 sm:p-5 lg:p-8 rounded-md sticky top-32' style={{ margin: "30px 40px 45px 40px", width: "270px", height: "260px" }}> {/* margin: top right bottom left */}
                         <div className="flex flex-col" style={{ justifyContent: 'center' }}>
                             <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="/MyAccount">
                                 <span><AiOutlineDashboard style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
@@ -52,6 +53,10 @@ const CustOrderView = () => {
                             <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" onClick={logout}>
                                 <span><AiOutlineLogout style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
                                 <span className="ml-2 text-xl font-medium">Logout</span>
+                            </a>
+                            <a className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 hover:text-emerald-600" href="/Feedback">
+                                <span><MdOutlineFeedback style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></span>
+                                <span className="ml-2 text-xl font-medium">Feedback</span>
                             </a>
                         </div>
                     </div>
@@ -96,7 +101,7 @@ const CustOrderView = () => {
                                                                             <span class="text-sm font-bold">{`Rs. ${item.Finalprice}`}</span>
                                                                         </td>
                                                                         <td class="px-5 py-3 leading-6 text-center whitespace-nowrap">
-                                                                            <span class="text-sm font-bold">Details</span>
+                                                                            <a href={`/MyOrder/ViewOrder/${item._id}`}> <span class="text-sm font-bold">Details</span></a>
                                                                         </td>
                                                                     </tr>
                                                                 ))

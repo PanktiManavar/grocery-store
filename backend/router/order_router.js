@@ -8,5 +8,7 @@ router.get('/api/viewallOrder', orderapi.viewallorder);
 router.get('/api/deleteOrder/:id', orderapi.deleteorder);
 router.get('/api/viewpersonorder/:id', orderapi.viewOneCustomerOrder);
 router.put('/api/updateorder/:id', orderapi.updateorder);
+router.get('/api/ViewOrderByid/:id', orderapi.vieworderByOId);
+router.put('/api/adddelivery/:id', orderapi.updateorder);
 
 module.exports = router;

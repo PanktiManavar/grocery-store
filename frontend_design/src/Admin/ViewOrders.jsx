@@ -1,29 +1,86 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import { FaPlusCircle } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 const ViewOrders = () => {
 
-  const [data, setData] = useState([]);
-  const [filter, setFilter] = useState(data);
+  const [order, setOrder] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
 
   useEffect(() => {
-    getOrder();
+    getorder();
   }, [])
 
-  const getOrder = async () => {
+  const getorder = async () => {
+    let result = await fetch(`/api/viewallOrder`);
+    result = await result.json();
+    if (result) {
+      setOrder(result.result);
+      console.log(result.result);
+    }
+  }
 
-    const response = await fetch("api/viewallOrder");
-    // response = await response.json();
-    // return console.warn(response);
-    setData(await response.clone().json());
-    setFilter(await response.json());
+  const handleShow = async (e) => {
+    e.preventDefault()
+    let result = await fetch(`/api/deliveryboylist`);
+    result = await result.json();
+    if (result) {
+      setOrder(result.result);
+      console.log(result.result);
+    }
+    setShow(true);
+  }
+  // const handleShow = () => setShow(true);
 
-  };
+  const adddelieryboy = async (id) => {
+    let result = await fetch(`/api/adddelivery/${id}`);
+    result = await result.json();
+    if (result) {
+      setOrder(result.result);
+      console.log(result.result);
+    }
+  }
 
   return (
     <>
+      <Modal className="modal fade" show={show} onHide={handleClose} id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <Modal.Header closeButton>
+          <Modal.Title>Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Example textarea</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Cancle
+          </Button>
+          <Button variant="secondary" className='btn btn-primary px-8 py-3'  >
+            Add to cart
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <FormContainer>
         <div className="register-photo">
           <div className="form-container">
@@ -35,38 +92,34 @@ const ViewOrders = () => {
                   <thead>
                     <tr>
                       <td>Sr.No.</td>
-                      <td>Product</td>
-                      <td>Descripation</td>
-                      <td>Price</td>
-                      <td>Measurement</td>
-                      <td>Quantity</td>
-                      <td>Brand</td>
-                      <td>Product Image</td>
-                      <td>SubCategory</td>
+                      <td>Order Item</td>
+                      <td>Customer</td>
+                      <td>Method</td>
+                      <td>Status</td>
+                      <td>Pincode</td>
+                      <td>Action</td>
+                      <td>Add D-boy</td>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {
-                      filter.map((item, index) =>
+                    {
+                      order.length > 0 ? order.map((item, index) => (
                         <tr key={item._id}>
                           <td>{index + 1}</td>
-                          <td>{item.pname.substring(0, 10)}...</td>
-                          <td>{item.descripation.substring(0, 20)}...</td>
-                          <td>{item.price}</td>
-                          <td>{item.mname}</td>
-                          <td>{item.qty}</td>
-                          <td>{item.bname}</td>
-                          <td ><img src={`http://localhost:8000/${item.pimg}`} alt="loading" width={90} height={90} /></td>
-                          <td>{item.subid[0].sname}</td>
+                          <td>{item._id}</td>
+                          <td>{item[0]["Rid"].Fname}</td>
+                          <td>{item.payment_type}</td>
+                          <td>{item.ostatus}</td>
+                          <td>{item._Odate}</td>
+                          <td>View</td>
                           <td>
-                            <button className="btn btn-primary btn-block" onClick={() => deleteProduct(item._id)}>{item.status}</button>
-                          </td>
-                          <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={`/UpdateProduct/${item._id}`}>Update</Link></button>
+                            <button className='btn ' onClick={(e) => { handleShow(e) }} style={{ backgroundColor: "lightgrey" }}>model</button>
                           </td>
                         </tr>
-                      )
-                    } */}
+                      )) :
+                        <tr> <td colSpan="4" style={{ textAlign: "center" }}><strong>No Records
+                          Founds!</strong></td></tr>
+                    }
                   </tbody>
                 </table>
               </div>

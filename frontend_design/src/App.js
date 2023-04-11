@@ -17,7 +17,6 @@ import CheckOutForm from './Viewers/CheckOutForm';
 import ForgotPassword from './Viewers/ForgotPassword';
 import Changepassword from './Viewers/Changepassword';
 import Sendmail from './Viewers/Sendmail';
-import CustOrderView from './Viewers/CustOrderView';
 // for admin
 import AdminHome from './Admin/AdminHome';
 import AddProduct from './Admin/AddProduct';
@@ -47,6 +46,9 @@ import SubCategorySelect from './Admin/DeactiveList/SubCategorySelect';
 import CustHome from './Customer/CustHome';
 import Cart from './Viewers/Cart';
 import Myaccount from './Viewers/Myaccount';
+import CustOrderView from './Viewers/CustOrderView';
+import OrderByid from './Viewers/OrderByid';
+import FeedbackForm from './Viewers/FeedbackForm';
 //component
 import AdminComponent from './component/AdminComponent';
 import CustomerComponent from './component/CustomerComponent';
@@ -76,6 +78,8 @@ function App() {
             <Route path='/Cart' element={<Cart />} />
             <Route path='/MyAccount' element={<Myaccount />} />
             <Route path='/MyOrder' element={<CustOrderView />} />
+            <Route path='/Feedback' element={<FeedbackForm />} />
+            <Route path='/MyOrder/ViewOrder/:id' element={<OrderByid />} />
           </Route>
 
           {/* for admin */}

@@ -82,6 +82,23 @@ module.exports = {
         }
     },
 
+    vieworderByOId: async (req, resp) => {
+        try {
+            const result = await orderitemmodel.find({ oid: req.params.id }).populate("Pid", "pcode").populate({ path: "oid", populate: "Rid" });
+            if (result) {
+                // const data = await orderitemmodel.find({ oid: result._id })
+                resp.send({ result: result })
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
     viewallorder: async (req, resp) => {
         try {
             const result = await ordermodel.find().populate("Rid").populate("Pinid", "pcode");
@@ -98,6 +115,23 @@ module.exports = {
             console.log(err.message);
         }
     },
+    //add delievry boy
+    addDeliveryboy: async (req, resp) => {
+        try {
+            const result = await ordermodel.findByIdAndUpdate(req.params.id, { $set: { Drid: req.body.Drid } }, { new: true });
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+
     //pincode update
     updateorder: async (req, resp) => {
         try {
