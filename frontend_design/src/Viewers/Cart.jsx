@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { FaRegMinusSquare, FaRegPlusSquare } from 'react-icons/fa'
+import { ImCancelCircle } from 'react-icons/im'
 const Cart = () => {
 
     const [cart, setCart] = useState([]);
@@ -127,12 +128,12 @@ const Cart = () => {
 
                                             </div>
                                             <div className="col" style={{ marginLeft: "30px" }}>
-                                                <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <CloseButton aria-label="Hide" /></button>
+                                                <button style={{ backgroundColor: "white" }} onClick={() => deletecart(item._id)}> <ImCancelCircle aria-label="Hide" /></button>
                                             </div>
                                         </div>
                                     </div>
-
                                 )}
+                                <a href="/Productt" style={{ textDecoration: "None" }}> <div className="back-to-shop" >{"\u00ab"} <span className="text-muted">Back to shop</span></div></a>
                             </div>
                             <div className="col-md-4 summary">
                                 <div><h5><b>Summary</b></h5></div>
@@ -299,28 +300,7 @@ const FormContainer = styled.div`{
   {
         color:transparent;
   }
-  ${'' /* .btn{
-      background-color: #000;
-      border-color: #000;
-      color: white;
-      width: 100%;
-      font-size: 0.7rem;
-      margin-top: 4vh;
-      padding: 1vh;
-      border-radius: 0;
-  }
-  .btn:focus{
-      box-shadow: none;
-      outline: none;
-      box-shadow: none;
-      color: white;
-      -webkit-box-shadow: none;
-      -webkit-user-select: none;
-      transition: none; 
-  }
-  .btn:hover{
-      color: white;
-  } */}
+  
   a{
       color: black; 
   }

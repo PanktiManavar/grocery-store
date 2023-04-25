@@ -10,11 +10,12 @@ module.exports = {
     insertorder: async (req, res) => {
         try {
             const result = await cartmodel.findOne({ Rid: req.body.Rid });
+            // return console.log(result);
             const today = new Date();
             const orderdate = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             if (result) {
                 const order = new ordermodel({
-                    Rid: result._id,
+                    Rid: req.body.Rid,
                     Address: req.body.Address,
                     Totalprice: req.body.Totalprice,
                     Finalprice: req.body.Finalprice,
@@ -84,7 +85,7 @@ module.exports = {
 
     vieworderByOId: async (req, resp) => {
         try {
-            const result = await orderitemmodel.find({ oid: req.params.id }).populate("Pid", "pcode").populate({ path: "oid", populate: "Rid" });
+            const result = await orderitemmodel.find({ oid: req.params.id }).populate("Pid").populate({ path: "oid", populate: "Rid" });
             if (result) {
                 // const data = await orderitemmodel.find({ oid: result._id })
                 resp.send({ result: result })
@@ -100,11 +101,26 @@ module.exports = {
     },
 
     viewallorder: async (req, resp) => {
+        // try {
+        //     const result = await ordermodel.find().populate("Rid").populate("Pinid", "pcode");
+        //     if (result) {
+        //         // const data = await orderitemmodel.find({ oid: result._id })
+        //         resp.send({ result: result })
+        //     }
+        //     else {
+        //         resp.send("Not found");
+        //         return;
+        //     }
+        // }
+        // catch (err) {
+        //     console.log(err.message);
+        // }
+
         try {
-            const result = await ordermodel.find().populate("Rid").populate("Pinid", "pcode");
+            const result = await ordermodel.find().populate("Pinid", "pcode");
+
             if (result) {
-                // const data = await orderitemmodel.find({ oid: result._id })
-                resp.send({ result: result })
+                resp.send({ result: result });
             }
             else {
                 resp.send("Not found");

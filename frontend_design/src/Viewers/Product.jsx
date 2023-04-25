@@ -137,8 +137,8 @@ const Product = () => {
                     Rs.{prod.price}
                   </h3>
                   <h5> Qty
-                    <input className="form-control" type="number" name="quantity" min="1" max="10" defaultValue='1' placeholder='1' onChange={(e) => { setQty(e.target.value); }} />
-
+                    {/* <input className="form-control" type="number" name="quantity" min="1" max="10" defaultValue='1' placeholder='1' onChange={(e) => { setQty(e.target.value); }} /> */}
+                    <input id="quantity" className="form-control" type="number" min="1" max="10" value={qty} defaultValue='1' onChange={(e) => { setQty(e.target.value); }} />
                     {/* <input className="form-control" type="number" placeholder="1" /> */}
                   </h5>
                 </div>
@@ -149,10 +149,10 @@ const Product = () => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleClose} style={{ backgroundColor: "blue" }}>
               Cancle
             </Button>
-            <Button variant="secondary" className='btn btn-primary px-8 py-3' onClick={Addcart} >
+            <Button variant="secondary" className='btn btn-primary px-8 py-3' onClick={Addcart} style={{ backgroundColor: "grey" }}>
               Add to cart
             </Button>
           </Modal.Footer>

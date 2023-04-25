@@ -7,6 +7,10 @@ import Modal from 'react-bootstrap/Modal';
 const ViewOrders = () => {
 
   const [order, setOrder] = useState([]);
+  const [dboy, setDeliverBoy] = useState([]);
+  const [sdboy, setsDeliverBoy] = useState([]);
+  const [dboyadd, setAdddboy] = useState('');
+  const [oid, setOids] = useState('');
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -23,27 +27,39 @@ const ViewOrders = () => {
     if (result) {
       setOrder(result.result);
       console.log(result.result);
+
     }
   }
 
-  const handleShow = async (e) => {
+  const handleShow = async (oid, e) => {
     e.preventDefault()
     let result = await fetch(`/api/deliveryboylist`);
     result = await result.json();
     if (result) {
-      setOrder(result.result);
+      setDeliverBoy(result.result);
+      // console.log(result.result);
       console.log(result.result);
+      setOids(oid);
     }
     setShow(true);
   }
-  // const handleShow = () => setShow(true);
+  // const handleShow = (e) => setShow(true);
 
-  const adddelieryboy = async (id) => {
-    let result = await fetch(`/api/adddelivery/${id}`);
+  const adddelievboy = async () => {
+    // e.preventDefault()
+    let id = oid
+    // return alert(id)
+    let result = await fetch(`/api/adddelivery/${id}`, {
+      method: 'put',
+      body: JSON.stringify({ Drid: sdboy }),
+      headers: {
+        'Content-Type': "application/json"
+      }
+    });
     result = await result.json();
+    console.warn(result);
     if (result) {
-      setOrder(result.result);
-      console.log(result.result);
+      alert("add boy");
     }
   }
 
@@ -56,28 +72,37 @@ const ViewOrders = () => {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Orderid address</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
+                type="text"
+                placeholder={oid}
+
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Select DeliveryBoy</Form.Label>
+              <div className="form-group">
+                <select className="form-control" onChange={(e) => setsDeliverBoy(e.target.value)}>
+                  <option value={0}>----Select Delivery Boy----</option>
+                  {
+                    dboy.length > 0 ? dboy.map((item, index) => (
+                      <option key={item._id} value={item._id}>{item.Fname}</option>
+                    ))
+                      : <option value={0}>No Records Founds!</option>
+                  }
+                </select>
+              </div>
+
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleClose} style={{ backgroundColor: "blue" }}>
             Cancle
           </Button>
-          <Button variant="secondary" className='btn btn-primary px-8 py-3'  >
-            Add to cart
+          <Button variant="secondary" onClick={adddelievboy} className='btn btn-primary px-8 py-3' style={{ backgroundColor: "grey" }} >
+            Add
           </Button>
         </Modal.Footer>
       </Modal>
@@ -86,17 +111,17 @@ const ViewOrders = () => {
           <div className="form-container">
             {/* <div className="image-holder"></div> */}
             <form>
-              <h2 className="text-center"><strong>Product</strong> List.</h2>
+              <h2 className="text-center"><strong>Order List.</strong></h2>
               <div className="form-group">
                 <table className="styled-table">
                   <thead>
                     <tr>
                       <td>Sr.No.</td>
                       <td>Order Item</td>
-                      <td>Customer</td>
+                      {/* <td>Customer</td> */}
                       <td>Method</td>
                       <td>Status</td>
-                      <td>Pincode</td>
+                      {/* <td>Pincode</td> */}
                       <td>Action</td>
                       <td>Add D-boy</td>
                     </tr>
@@ -107,13 +132,13 @@ const ViewOrders = () => {
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td>{item._id}</td>
-                          <td>{item[0]["Rid"].Fname}</td>
+                          {/* <td>{item.Rid[0].Email}</td> */}
                           <td>{item.payment_type}</td>
                           <td>{item.ostatus}</td>
-                          <td>{item._Odate}</td>
+                          {/* <td>{item.ostatus}</td> */}
                           <td>View</td>
                           <td>
-                            <button className='btn ' onClick={(e) => { handleShow(e) }} style={{ backgroundColor: "lightgrey" }}>model</button>
+                            <button className='btn ' onClick={(e) => { handleShow(item._id, e) }} style={{ backgroundColor: "lightgrey" }}>Add</button>
                           </td>
                         </tr>
                       )) :

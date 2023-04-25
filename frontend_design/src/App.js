@@ -80,6 +80,7 @@ function App() {
             <Route path='/MyOrder' element={<CustOrderView />} />
             <Route path='/Feedback' element={<FeedbackForm />} />
             <Route path='/MyOrder/ViewOrder/:id' element={<OrderByid />} />
+
           </Route>
 
           {/* for admin */}
@@ -114,6 +115,7 @@ function App() {
           <Route element={<AllcComponent />}>
             <Route path="/CustHome" element={<CustHome></CustHome>} />
             <Route path="/Login" element={<Login></Login>} />
+            <Route path="/" element={<Login></Login>} />
             <Route path="/Signin" element={<Signin></Signin>} />
             <Route path='/ForgotPassword' element={<ForgotPassword />} />
             <Route path='/sendmail' element={<Sendmail />} />

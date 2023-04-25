@@ -14,6 +14,7 @@ const ViewProducts = () => {
 
   const params = useParams();
   const [product, setProduct] = useState([]);
+  const [qty, setQty] = useState('');
   const [loading, setLoading] = useState(false);
   const [subid, setSubid] = useState('');
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ const ViewProducts = () => {
       body: JSON.stringify({
         Rid,
         Pid,
+        qty,
         mname
       }),
       headers: {
@@ -130,7 +132,7 @@ const ViewProducts = () => {
                       Rs.{prod.price}
                     </h3>
                     <h5> Qty
-                      <input className="form-control" type="number" placeholder="1" />
+                      <input className="form-control" type="number" min={1} max={10} value={qty} onChange={(e) => { setQty(e.target.value); }} placeholder="1" />
                     </h5>
                   </div>
                 </div>

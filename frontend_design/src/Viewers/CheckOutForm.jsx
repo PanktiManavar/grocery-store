@@ -8,7 +8,6 @@ const CheckOutForm = () => {
   const [Email, setEmail] = React.useState("");
   const [Mobile, setMobileNO] = React.useState("");
   const [Address, setAddress] = React.useState("");
-  const [Pinid, setPincode] = React.useState("");
   // const [Totalprice, setTotalPrice] = React.useState("");
   // const [Finalprice, setFinalPrice] = React.useState("");
   const [loading, setLoading] = useState(false);
@@ -75,7 +74,7 @@ const CheckOutForm = () => {
   }
 
   const checkout = async () => {
-    // return alert(auth)
+    // return alert(`${auth} + 63d49dd764de40915d129891`)
     //if (!Address || !Totalprice || !Finalprice || !pcd) {
     if (!Address) {
       setError(true);

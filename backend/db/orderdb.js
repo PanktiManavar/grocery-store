@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const rgmodel = require('../db/registrationdb')
-const coupanmodel = require('../db/coupancodedb')
-const pincodemodel = require('../db/pincodedb');
+
 
 const feedbackSchema = new mongoose.Schema({
     Rid: {
@@ -25,7 +23,7 @@ const feedbackSchema = new mongoose.Schema({
         required: true
     },
     Pinid: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: pincodemodel }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tbl_pincode' }],
         required: [true, "Pincode is required"]
     },
     Odate: {
