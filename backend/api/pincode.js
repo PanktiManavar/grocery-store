@@ -123,4 +123,25 @@ module.exports = {
             console.log(err.message);
         }
     },
+
+    serchproduct: async (req, resp) => {
+        try {
+            var search = req.params.key;
+            var result = await pincodemodel.find(
+                {
+                    pcode: { $regex: search }
+                    , status: "Active"
+                })
+            if (result) {
+                resp.send({ result: result });
+
+            }
+            else {
+                resp.send("Not found");
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
 };

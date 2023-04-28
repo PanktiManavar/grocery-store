@@ -14,4 +14,6 @@ router.put('/api/productupdate/:id', productapi.updateproduct);
 router.get('/api/ProductSelectBySubdId/:id', productapi.selectProductsubCategoryID)
 router.get('/api/ProductBnameEmpty', productapi.selectBnameEmptyProduct)
 router.get('/api/ProductWithoutEmptyBname/:id', productapi.selectproductWithoutEmpty)
+router.get('/searchproduct/:key', productapi.serchproduct);
+
 module.exports = router;

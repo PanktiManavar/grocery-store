@@ -11,6 +11,6 @@ router.put('/api/subcategoryupdate/:id', subcategoryapi.updatesubcategory);
 router.get('/api/subcategoryByCategoryid/:id', subcategoryapi.selectSubcategoryByCategoryID);
 router.get('/api/subcategoryActiveselect', subcategoryapi.selectActivesubcategory);
 router.get('/api/subcategoryDeactiveselect', subcategoryapi.selectDeactivesubcategory);
-router.get('/searchsubcategory', subcategoryapi.serchproduct);
+router.get('/searchsubcategory/:key', subcategoryapi.serchproduct);
 
 module.exports = router;

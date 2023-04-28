@@ -23,7 +23,8 @@ const Cart = () => {
 
     }, []);
 
-    const Minusqty = async (id, Pid, qty) => {
+    const Minusqty = async (id, Pid, qty, event) => {
+        event.preventDefault();
 
         let result = await fetch(`/api/Minusqty/${id}`, {
             method: 'put',
@@ -41,7 +42,8 @@ const Cart = () => {
 
     }
 
-    const Addqty = async (id, Pid, qty) => {
+    const Addqty = async (id, Pid, qty, event) => {
+        event.preventDefault();
         // return alert(qty)
         let result = await fetch(`/api/Addqty/${id}`, {
             method: 'put',
@@ -122,9 +124,9 @@ const Cart = () => {
                                                 <div className="row" style={{ fontWeight: "bold", fontSize: "12px" }} >Rs. {item.qty * item.Pid[0].price}({item.qty} {item.mname})</div>
                                             </div>
                                             <div className="col-2" style={{ marginLeft: "24px", textAlign: "center" }}>
-                                                <button onClick={() => Minusqty(item._id, item.Pid, item.qty)} style={{ backgroundColor: "white" }}>  <FaRegMinusSquare style={{ padding: 0, fontSize: 16, marginRight: "10px" }} /></button>
+                                                <button onClick={(event) => Minusqty(item._id, item.Pid, item.qty, event)} style={{ backgroundColor: "white" }}>  <FaRegMinusSquare style={{ padding: 0, fontSize: 16, marginRight: "10px" }} /></button>
                                                 <span style={{ fontSize: "13px" }}>{item.qty}</span>
-                                                <button onClick={() => Addqty(item._id, item.Pid, item.qty)} style={{ backgroundColor: "white" }} >  <FaRegPlusSquare style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></button>
+                                                <button onClick={(event) => Addqty(item._id, item.Pid, item.qty, event)} style={{ backgroundColor: "white" }} >  <FaRegPlusSquare style={{ padding: 0, fontSize: 16, marginLeft: "10px" }} /></button>
 
                                             </div>
                                             <div className="col" style={{ marginLeft: "30px" }}>
@@ -172,7 +174,7 @@ const Cart = () => {
         <div>
             <div className="heading">
                 <h1>Cart</h1>
-                <p> <Link to="/Home" style={{ textDecoration: "none" }}>Home </Link> {"\u00BB"} Cart </p>
+                <p> <Link to="" style={{ textDecoration: "none" }}>Home </Link> {"\u00BB"} Cart </p>
             </div>
 
             <div className='row justify-content-center'>

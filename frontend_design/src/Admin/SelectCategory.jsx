@@ -23,6 +23,7 @@ const SelectCategory = () => {
     )
   }
 
+
   const getCategory = async () => {
     setLoading(true);
     let result = await fetch('api/categoryActiveselect');
@@ -71,6 +72,21 @@ const SelectCategory = () => {
     }
   }
 
+  const searchHandler = async (event) => {
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`searchcategory/${key}`);
+      result = await result.json();
+      console.log(result.result);
+      if (result) {
+        setCategory(result.result);
+      }
+    } else {
+      getCategory()
+    }
+  };
+
+
   return (
     <>
       <FormContainer>
@@ -84,9 +100,9 @@ const SelectCategory = () => {
                 </Link>
                 <div className="input-group" style={{ right: "-700px", position: "absolute", padding: "10px", }}>
                   <div className="form-outline" style={{ height: "30px" }} >
-                    <input type="search" id="form1" className="form-control" placeholder="Search" style={{ height: "30px", width: "150px" }} />
+                    <input type="search" onChange={searchHandler} className="form-control" placeholder="Search" style={{ height: "30px", width: "150px" }} />
                   </div>
-                  <button type="button" class="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white" }}>
+                  <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white" }}>
                     <FaSearch />
                   </button>
                 </div>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaSearch } from "react-icons/fa";
 import swal from 'sweetalert';
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 
 const SelectProduct = () => {
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState(data);
+  const [filter, setFilter] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -17,11 +17,12 @@ const SelectProduct = () => {
 
   const getProduct = async () => {
     setLoading(true);
-    const response = await fetch("api/productActiveselect");
-    // return console.warn(response);
-    setData(await response.clone().json());
-    setFilter(await response.json());
-    setLoading(false);
+    let response = await fetch("api/productActiveselect");
+    response = await response.json();
+    if (response) {
+      setFilter(response)
+      setLoading(false);
+    }
     // console.log(filter);
 
   };
@@ -64,17 +65,43 @@ const SelectProduct = () => {
       swal("Product record is safe!");
     }
   };
-
+  const searchHandler = async (event) => {
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`searchproduct/${key}`);
+      result = await result.json();
+      console.log(result.result);
+      if (result) {
+        setFilter(result.result);
+      }
+    } else {
+      getProduct()
+    }
+  };
   return (
     <>
       <FormContainer>
         <div className="register-photo">
           <div className="card form-container">
             <div className="card-body">
-              <Link to="/AddProduct">
+              <div style={{ display: "flex" }}>
+                <Link to="/AddProduct">
+                  <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white", padding: "10px", borderRadius: "10px", width: "100px", height: "40px" }} name="add">
+                    <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                </Link>
+                <div className="input-group" style={{ right: "-700px", position: "absolute", padding: "10px", }}>
+                  <div className="form-outline" style={{ height: "30px" }} >
+                    <input type="search" onChange={searchHandler} className="form-control" placeholder="Search" style={{ height: "30px", width: "150px" }} />
+                  </div>
+                  <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white" }}>
+                    <FaSearch />
+                  </button>
+                </div>
+              </div>
+              {/* <Link to="/AddProduct">
                 <button type="button" className="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
                   <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="form-container">
@@ -118,7 +145,7 @@ const SelectProduct = () => {
 
                         </tr>
                       )) :
-                        <tr> <td colspan="3" style={{ textAlign: "center" }}><strong>No Records
+                        <tr> <td colSpan="3" style={{ textAlign: "center" }}><strong>No Records
                           Founds!</strong></td></tr>
                     }
                   </tbody>

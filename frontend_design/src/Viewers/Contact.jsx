@@ -9,7 +9,7 @@ export default function Contact() {
             <div>
                 <div className="heading">
                     <h1>Contact Us</h1>
-                    <p> <a href="/Home">Home </a>{"\u00BB"} Contact </p>
+                    <p> <a href="" style={{ textDecoration: "None" }}>Home </a>{"\u00BB"} Contact </p>
                 </div>
 
                 <section className="contact">

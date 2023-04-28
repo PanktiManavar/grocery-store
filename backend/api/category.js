@@ -121,20 +121,18 @@ module.exports = {
     },
     serchproduct: async (req, resp) => {
         try {
-            var search = req.body.search;
-            var product_data = await categorymodel.find(
-                {
-                    "$or": [
-                        { cname: { $regex: search } }
-                    ]
-                }
-            )
-            //  var product_data = await categorymodel.find({ "cname": { $regex: ".*" + search + ".*", $options: "i" } })
-            if (product_data) {
-                resp.status(200).send({ success: true, msg: " Details", data: product_data });
+            var search = req.params.key;
+            var result = await categorymodel.find({
+                "$or": [
+                    { cname: { $regex: ".*" + search + ".*", $options: "i" } }
+                ], status: "Active"
+            })
+            if (result) {
+                resp.send({ result: result });
+
             }
             else {
-                resp.status(200).send({ success: true, msg: "Not found" });
+                resp.send("Not found");
             }
         }
         catch (err) {

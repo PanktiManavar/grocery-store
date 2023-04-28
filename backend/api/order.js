@@ -101,24 +101,26 @@ module.exports = {
     },
 
     viewallorder: async (req, resp) => {
-        // try {
-        //     const result = await ordermodel.find().populate("Rid").populate("Pinid", "pcode");
-        //     if (result) {
-        //         // const data = await orderitemmodel.find({ oid: result._id })
-        //         resp.send({ result: result })
-        //     }
-        //     else {
-        //         resp.send("Not found");
-        //         return;
-        //     }
-        // }
-        // catch (err) {
-        //     console.log(err.message);
-        // }
-
         try {
-            const result = await ordermodel.find().populate("Pinid", "pcode");
+            let result = await ordermodel.find().populate("Rid").populate("Pinid");
 
+            //   let result = await ordermodel.find().populate("Rid").populate("Pinid");
+            if (result) {
+                resp.send({ result: result });
+            }
+            else {
+                resp.send("Not found");
+                return;
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+        }
+    },
+    //without delivery boy display 
+    vieworderWithoutdelivetyboy: async (req, resp) => {
+        try {
+            let result = await ordermodel.find().populate("Rid").populate("Pinid");
             if (result) {
                 resp.send({ result: result });
             }
@@ -209,6 +211,27 @@ module.exports = {
         }
         catch (err) {
             console.log(err.message);
+        }
+    },
+
+    orderdatacount: async (req, resp) => {
+        try {
+            const count_data = [];
+            const totalorder = await ordermodel.find().count();
+            const penddingorder = await ordermodel.find({ ostatus: "pendding" }).count();
+            const processingorder = await ordermodel.find({ ostatus: "processing" }).count();
+            const completeorder = await ordermodel.find({ ostatus: "delivered" }).count();
+
+            count_data.push({
+                total: totalorder,
+                pedding: penddingorder,
+                processing: processingorder,
+                complete: completeorder
+            });
+            resp.send({ data: count_data });
+        }
+        catch (err) {
+            resp.send(err.message);
         }
     },
 };

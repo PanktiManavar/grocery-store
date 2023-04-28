@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaSearch } from "react-icons/fa";
 import swal from 'sweetalert'
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
@@ -71,17 +71,44 @@ const SelectSubCategory = () => {
       swal("Sub-Category record is safe!");
     }
   };
+  const searchHandler = async (event) => {
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`searchsubcategory/${key}`);
+      result = await result.json();
+      console.log(result.result);
+      if (result) {
+        setsubCategory(result.result);
+      }
+    } else {
+      getsubCategory()
+    }
+  };
 
   return (
     <>
       <FormContainer>
         <div className="register-photo">
-          <div class="card form-container">
-            <div class="card-body">
-              <Link to="/AddSubCategory">
-                <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
-                  <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
-              </Link>
+          <div className="card form-container">
+            <div className="card-body">
+              <div style={{ display: "flex" }}>
+                <Link to="/AddSubCategory">
+                  <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white", padding: "10px", borderRadius: "10px", width: "100px", height: "40px" }} name="add">
+                    <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                </Link>
+                <div className="input-group" style={{ right: "-700px", position: "absolute", padding: "10px", }}>
+                  <div className="form-outline" style={{ height: "30px" }} >
+                    <input type="search" onChange={searchHandler} className="form-control" placeholder="Search" style={{ height: "30px", width: "150px" }} />
+                  </div>
+                  <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white" }}>
+                    <FaSearch />
+                  </button>
+                </div>
+              </div>
+              {/* <Link to="/AddSubCategory">
+                <button type="button" className="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
+                  <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+              </Link> */}
             </div>
           </div>
           <div className="form-container">
@@ -106,11 +133,6 @@ const SelectSubCategory = () => {
                           <td>{index + 1}</td>
                           <td>{item.cid[0].cname}</td>
                           <td>{item.sname}</td>
-                          {/* <td>
-                            <button className="btn btn-primary btn-block" onClick={(e) => deletesubCategory(item._id, e)}>{item.status}</button>
-                          </td>
-                          <td>
-                            <button className="btn btn-primary btn-block"><Link className='link' to={"/UpdateSubCategory/" + item._id}>Update</Link></button></td> */}
                           <td>
                             <MdDelete className="" onClick={(e) => deletesubCategory(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
                             <Link to={"/UpdateSubCategory/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
@@ -118,7 +140,7 @@ const SelectSubCategory = () => {
 
                         </tr>
                       )) :
-                        <tr> <td colspan="4" style={{ textAlign: "center" }}><strong>No Records
+                        <tr> <td colSpan="4" style={{ textAlign: "center" }}><strong>No Records
                           Founds!</strong></td></tr>
                     }
                   </tbody>

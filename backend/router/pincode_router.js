@@ -9,5 +9,5 @@ router.get('/api/pincodeDeactiveselect', pincodeapi.selectDeactivepincode);
 router.get('/api/pincodeselectbyid/:id', pincodeapi.selectPincodeById);
 router.put('/api/pincodedelete/:id', pincodeapi.deletepincode);
 router.put('/api/pincodeupdate/:id', pincodeapi.updatepincode);
-
+router.get('/searchpincode/:key', pincodeapi.serchproduct);
 module.exports = router; 

@@ -9,7 +9,7 @@ export default function About() {
             <div>
                 <div className="heading">
                     <h1>About Us</h1>
-                    <p> <a href="/Home">Home </a>{"\u00BB"} About </p>
+                    <p> <a href="" style={{ textDecoration: "None" }}>Home </a>{"\u00BB"} About </p>
                 </div>
 
                 <section className="about">

@@ -10,5 +10,5 @@ router.get('/api/viewpersonorder/:id', orderapi.viewOneCustomerOrder);
 router.put('/api/updateorder/:id', orderapi.updateorder);
 router.get('/api/ViewOrderByid/:id', orderapi.vieworderByOId);
 router.put('/api/adddelivery/:id', orderapi.updateorder);
-
+router.get('/api/orderdatacount', orderapi.orderdatacount);
 module.exports = router;

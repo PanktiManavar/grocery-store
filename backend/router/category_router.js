@@ -10,6 +10,6 @@ router.get('/api/categoryActiveselect', categoryapi.selectActivecategory);
 router.get('/api/categoryDeactiveselect', categoryapi.selectDeactivecategory);
 router.put('/api/categorydelete/:id', categoryapi.deletecategory);
 router.put('/api/categoryupdate/:id', categoryapi.updatecategory);
-router.get('/searchcategory', categoryapi.serchproduct);
+router.get('/searchcategory/:key', categoryapi.serchproduct);
 
 module.exports = router;

@@ -74,7 +74,7 @@ const CheckOutForm = () => {
   }
 
   const checkout = async () => {
-    // return alert(`${auth} + 63d49dd764de40915d129891`)
+    // return alert(pcd)
     //if (!Address || !Totalprice || !Finalprice || !pcd) {
     if (!Address) {
       setError(true);
@@ -84,7 +84,7 @@ const CheckOutForm = () => {
     let result = await fetch('/api/orderinsert', {
       method: 'post',
       body: JSON.stringify({
-        Rid: auth, Address, Totalprice, Finalprice, pcd
+        Rid: auth, Address, Totalprice, Finalprice, Pinid: pcd
       }),
       headers: {
         "Content-Type": "application/json"
@@ -108,7 +108,7 @@ const CheckOutForm = () => {
     return (
       <>
         <FormContainer>
-          <div className="card " style={{ marginBlock: "15px", marginTop: "60px" }} >
+          <div className="card " style={{ marginBlock: "15px", marginTop: "20px" }} >
             <div className="row " >
               <div className="col-md-6 cart">
                 {/* //jj */}

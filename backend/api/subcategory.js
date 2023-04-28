@@ -141,13 +141,17 @@ module.exports = {
     },
     serchproduct: async (req, resp) => {
         try {
-            var search = req.body.search;
-            var product_data = await subcategorymodel.find({ "sname": { $regex: ".*" + search + ".*", $options: "i" } })
-            if (product_data) {
-                resp.status(200).send({ success: true, msg: " Details", data: product_data });
+            var search = req.params.key;
+            var result = await subcategorymodel.find({
+                "$or": [
+                    { sname: { $regex: ".*" + search + ".*", $options: "i" } },
+                ], status: "Active"
+            }).populate("cid", "cname")
+            if (result) {
+                resp.send({ result: result });
             }
             else {
-                resp.status(200).send({ success: true, msg: "Not found" });
+                resp.send({ msg: "Not found" })
             }
         }
         catch (err) {

@@ -69,9 +69,10 @@ const SelectDeliverBoy = () => {
           <div class="card form-container">
             <div class="card-body">
               <Link to="/AddDeliveryBoy">
-                <button type="button" class="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
-                  <span class="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
+                <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white", padding: "10px", borderRadius: "10px", width: "100px", height: "40px" }} name="add">
+                  <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
               </Link>
+
             </div>
           </div>
           <div className="form-container">
@@ -102,7 +103,7 @@ const SelectDeliverBoy = () => {
                           <td>{item.MobileNo}</td>
                           <td>
                             <MdDelete className="" onClick={(e) => deleteDeliverboy(item._id, e)} style={{ padding: 2, fontSize: 26 }} />
-                            <Link to={"/UpdateDeliverBoy/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link>
+                            {/* <Link to={"/UpdateDeliverBoy/" + item._id} style={{ color: "black" }}><FiEdit style={{ padding: 2, fontSize: 26, marginLeft: "15px" }} /></Link> */}
                           </td>
                         </tr>
                       )) :

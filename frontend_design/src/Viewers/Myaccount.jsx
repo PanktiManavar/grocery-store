@@ -9,10 +9,19 @@ const Myaccount = () => {
     const [order, setOrder] = useState([]);
     const auth = sessionStorage.getItem('userid')?.replace(/['"]+/g, '');
     const navigate = useNavigate()
-
+    const [data, setData] = useState([]);
     useEffect(() => {
         getorder();
+        getdata();
     }, [])
+
+    const getdata = async () => {
+        let result = await fetch('api/orderdatacount');
+        result = await result.json();
+        console.log(result.data[0]);
+        setData(result.data[0]);
+
+    }
 
     const getorder = async () => {
         let result = await fetch(`api/viewpersonorder/${auth}`);
@@ -73,7 +82,7 @@ const Myaccount = () => {
                                                     Total Order
                                                 </h5>
                                                 <p className="text-xl font-bold font-serif leading-none text-gray-800">
-                                                    350
+                                                    {data.total}
                                                 </p>
                                             </div>
                                         </div>
@@ -88,7 +97,7 @@ const Myaccount = () => {
                                                     Pending Order
                                                 </h5>
                                                 <p className="text-xl font-bold font-serif leading-none text-gray-800">
-                                                    350
+                                                    {data.pedding}
                                                 </p>
                                             </div>
                                         </div>
@@ -104,7 +113,7 @@ const Myaccount = () => {
                                                     Processing  Order
                                                 </h5>
                                                 <p className="text-xl font-bold font-serif leading-none text-gray-800">
-                                                    350
+                                                    {data.processing}
                                                 </p>
                                             </div>
                                         </div>
@@ -119,7 +128,7 @@ const Myaccount = () => {
                                                     Complete  Order
                                                 </h5>
                                                 <p className="text-xl font-bold font-serif leading-none text-gray-800">
-                                                    350
+                                                    {data.complete}
                                                 </p>
                                             </div>
                                         </div>

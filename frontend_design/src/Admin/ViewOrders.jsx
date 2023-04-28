@@ -48,7 +48,7 @@ const ViewOrders = () => {
   const adddelievboy = async () => {
     // e.preventDefault()
     let id = oid
-    // return alert(id)
+    // return alert(sdboy)
     let result = await fetch(`/api/adddelivery/${id}`, {
       method: 'put',
       body: JSON.stringify({ Drid: sdboy }),
@@ -118,10 +118,10 @@ const ViewOrders = () => {
                     <tr>
                       <td>Sr.No.</td>
                       <td>Order Item</td>
-                      {/* <td>Customer</td> */}
+                      <td>Customer</td>
                       <td>Method</td>
                       <td>Status</td>
-                      {/* <td>Pincode</td> */}
+                      <td>Pincode</td>
                       <td>Action</td>
                       <td>Add D-boy</td>
                     </tr>
@@ -132,10 +132,10 @@ const ViewOrders = () => {
                         <tr key={item._id}>
                           <td>{index + 1}</td>
                           <td>{item._id}</td>
-                          {/* <td>{item.Rid[0].Email}</td> */}
+                          <td>{item.Rid[0].Fname} {item.Rid[0].Lname}</td>
                           <td>{item.payment_type}</td>
                           <td>{item.ostatus}</td>
-                          {/* <td>{item.ostatus}</td> */}
+                          <td>{item.Pinid[0].pcode}</td>
                           <td>View</td>
                           <td>
                             <button className='btn ' onClick={(e) => { handleShow(item._id, e) }} style={{ backgroundColor: "lightgrey" }}>Add</button>

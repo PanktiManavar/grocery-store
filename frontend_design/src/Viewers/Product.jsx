@@ -28,6 +28,7 @@ const Product = () => {
 
   let componentMounted = true;
   useEffect(() => {
+
     getProducts();
   }, []);
 
@@ -81,38 +82,44 @@ const Product = () => {
     let Rid = auth;
     let Pid = prod._id;
     let mname = prod.mname;
-    console.log(Rid, "+", Pid, "+", mname, "+", qty);
-
-    let result = await fetch('/api/insertcart/', {
-      method: 'post',
-      body: JSON.stringify({
-        Rid,
-        Pid,
-        qty,
-        mname
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-    result = await result.json();
-    // return console.log(result);
-    if (result.error) {
-      alert(result.error)
-      setShow(false);
-    } else if (result) {
-      swal({
-        title: "Cart Added!",
-        text: "Your Product are add in cart!",
-        icon: "success",
-        button: "Okay!",
+    if (qty != "") {
+      let result = await fetch('/api/insertcart/', {
+        method: 'post',
+        body: JSON.stringify({
+          Rid,
+          Pid,
+          qty,
+          mname
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
       });
-      setShow(false);
-      navigate('/Productt');
+      result = await result.json();
+      // return console.log(result);
+      if (result.error) {
+        alert(result.error)
+        setShow(false);
+      } else if (result) {
+        swal({
+          title: "Cart Added!",
+          text: "Your Product are add in cart!",
+          icon: "success",
+          button: "Okay!",
+        });
+        setShow(false);
+        navigate('/Productt');
+      }
+      else {
+        alert("cart not added please try again");
+      }
     }
     else {
-      alert("cart not added please try again");
+      alert("Your cart is not added please select the quantity of Product ")
     }
+    console.log(Rid, "+", Pid, "+", mname, "+", qty);
+
+
     // console.warn(result);
   }
   const ShowProducts = () => {
@@ -138,7 +145,7 @@ const Product = () => {
                   </h3>
                   <h5> Qty
                     {/* <input className="form-control" type="number" name="quantity" min="1" max="10" defaultValue='1' placeholder='1' onChange={(e) => { setQty(e.target.value); }} /> */}
-                    <input id="quantity" className="form-control" type="number" min="1" max="10" value={qty} defaultValue='1' onChange={(e) => { setQty(e.target.value); }} />
+                    <input id="quantity" className="form-control" type="number" min="1" max="10" value={qty} defaultValue={1} onChange={(e) => { setQty(e.target.value); }} />
                     {/* <input className="form-control" type="number" placeholder="1" /> */}
                   </h5>
                 </div>
@@ -198,7 +205,7 @@ const Product = () => {
     <div>
       <div className="heading">
         <h1>Our Shop</h1>
-        <p> <Link to="/Home">Home </Link> {"\u00BB"} Product </p>
+        <p> <Link to="" style={{ textDecoration: "None" }}>Home </Link> {"\u00BB"} Product </p>
       </div>
 
       <div className='row justify-content-center'>

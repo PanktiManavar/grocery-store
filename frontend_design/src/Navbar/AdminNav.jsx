@@ -25,7 +25,7 @@ const AdminNav = () => {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "16px" }}>
                             <Nav className="me-auto" >
-                                {/* <Nav.Link href="/AdminHome" style={{ color: "#030303" }}>DashBord</Nav.Link> */}
+                                <Nav.Link href="/AdminHome" style={{ color: "#030303" }}>DashBord</Nav.Link>
                                 <Nav.Link href="/SelectCategory" style={{ color: "#030303" }}>Category</Nav.Link>
                                 <Nav.Link href="/SelectSubCategory" style={{ color: "#030303" }}>SubCategory</Nav.Link>
                                 <Nav.Link href="/SelectPincode" style={{ color: "#030303" }}>Pincode</Nav.Link>
@@ -44,7 +44,7 @@ const AdminNav = () => {
                                 {/* <Nav.Link href="/Notification" style={{ color: "#030303" }}>Notification</Nav.Link> */}
 
                                 <NavDropdown title="Account" id="collasible-nav-dropdown" style={{ color: "#030303" }}>
-                                    <NavDropdown.Item href="/ChangepasswordAdmin" style={{ fontSize: "14px", color: "#030303" }}>Change Password</NavDropdown.Item>
+                                    {/* <NavDropdown.Item href="/ChangepasswordAdmin" style={{ fontSize: "14px", color: "#030303" }}>Change Password</NavDropdown.Item> */}
                                     <NavDropdown.Item href="/Login" onClick={logout} style={{ fontSize: "14px", color: "#030303" }}>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>
