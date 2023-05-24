@@ -193,7 +193,7 @@ module.exports = {
                     { pname: { $regex: ".*" + search + ".*", $options: "i" } },
                     { descripation: { $regex: ".*" + search + ".*", $options: "i" } }
                 ], status: "Active"
-            })
+            }).populate("subid", "sname");
             if (result) {
                 resp.send({ result: result });
 

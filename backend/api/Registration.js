@@ -41,11 +41,12 @@ router.post('/', async (req, resp) => {
                 text: `Hello ${Fname} ${Lname} ,Grocery store welcomes you to start a great Employee , User id : ${Email}, Password : ${Password}`,
 
             }
+
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
                     user: 'krishnakpatel3121@gmail.com',
-                    pass: 'xtfpsdyhlcjmlzzb'
+                    pass: 'kqvuiytvqsoginzv'
                 },
                 port: 465,
                 host: 'smtp.gmail.com'
@@ -56,7 +57,7 @@ router.post('/', async (req, resp) => {
                     return console.log(e)
                 }
                 else {
-                    resp.send({ Email, Password })
+                    resp.send({ OTP, userid })
                 }
             })
         }

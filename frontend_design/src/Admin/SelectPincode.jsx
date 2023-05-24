@@ -99,14 +99,14 @@ const SelectPincode = () => {
                     <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white", padding: "10px", borderRadius: "10px", width: "100px", height: "40px" }} name="add">
                       <span className="btn-icon-left " style={{ textDecoration: "bold" }}><FaPlusCircle /> </span>Add</button>
                   </Link>
-                  <div className="input-group" style={{ right: "-700px", position: "absolute", padding: "10px", }}>
+                  {/* <div className="input-group" style={{ right: "-700px", position: "absolute", padding: "10px", }}>
                     <div className="form-outline" style={{ height: "30px" }} >
                       <input type="search" onChange={searchHandler} className="form-control" placeholder="Search" style={{ height: "30px", width: "150px" }} />
                     </div>
                     <button type="button" className="btn btn-rounded " style={{ backgroundColor: "#f4476b", color: "white" }}>
                       <FaSearch />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 {/* <Link to="/AddPincode">
                   <button type="button" className="btn btn-rounded " style={{ textSizeAdjust: "auto", backgroundColor: "#f4476b", color: "white", padding: "8px", borderRadius: "2.375rem" }} name="add">
